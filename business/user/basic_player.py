@@ -15,8 +15,18 @@ class BasicPlayer(Player):
                 del self.characters[i]
                 break
     
+    def load_char(self) -> None:
+        pass
+
+    def load_player_tables(self) -> None:
+        pass
+
+    def load_all_tables(self):
+        pass
+    
     @staticmethod
-    def load(username:str):
+    def load(username:str) -> BasicPlayer:
+        #test
         import dao.player_dao as d
         basic_player = d.PlayerDao().load_basic_player(username)
         if basic_player:

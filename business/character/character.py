@@ -2,7 +2,7 @@
 
 class Character:
     
-    def __init__(self, name:str, description:str, id:int = None) -> None:
+    def __init__(self, name:str, level:int, race:str, equipment: str, skill:str, id:int = None) -> None:
         
         self.id = id
         self.name = name
@@ -12,10 +12,10 @@ class Character:
         self.equipment = equipment
         self.skill = skill
         
-        self.skill_desc = skill_desc
-        self.equipment_desc = equipment_desc
-        self.race_desc = race_desc
+        self.skill_desc = None
+        self.equipment_desc = None
+        self.race_desc = None
 
     
-    def get_descriptions(sefl):
+    def get_descriptions(self) -> None:
         pass

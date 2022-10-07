@@ -7,3 +7,9 @@ class Player(User):
         self.username = username
         self.type_player = type_player
     
+    def load_all_tables(self):
+        pass
+    
+    @staticmethod
+    def load(username:str) -> Player:
+        pass

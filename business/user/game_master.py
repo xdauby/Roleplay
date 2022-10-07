@@ -15,3 +15,16 @@ class GameMaster(Player):
             if o.name == name:
                 del self.scenarios[i]
                 break
+
+    def load_scen(self) -> None:
+        pass
+
+    def load_player_tables(self) -> None:
+        pass
+
+    def load_all_tables(self):
+        pass
+    
+    @staticmethod
+    def load(username:str) -> GameMaster:
+        pass

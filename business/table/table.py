@@ -1,4 +1,5 @@
-from business.user.abstract_player import Player
+from business.user.game_master import GameMaster
+from business.user.basic_player import BasicPlayer
 
 class Table:
 
@@ -10,15 +11,14 @@ class Table:
         self.game_master = None
         self.basic_player = []
 
-    def add_player(self, player : Player) -> None:
-        
-        if player.type_player == 'game-master':
-            self.game_master = player
-            
-        if player.type_player == 'basic-player':
-            self.basic_player.append(player)
 
-    def rm_player(self, username:str):
+    def add_gamemaster(self,player: GameMaster, id_scen:int) -> None:
+        pass
+
+    def add_basicplayer(self,player: BasicPlayer, id_char:int)-> None:
+        pass
+
+    def rm_player(self, username:str) -> None:
 
         if self.game_master.username == username:
             self.game_master = None
@@ -27,7 +27,23 @@ class Table:
         for i, o in enumerate(self.basic_player):
             if o.username == username:
                 del self.basic_player[i]
-                break 
+                break
+
+        #data base actualisation
         
-        
+    
+    def load_players(self) -> None:
+        pass
+
+    def load_char_sce(self) -> None:
+        pass
+    
+    @staticmethod
+    def load(table_id : int) -> Table:
+        pass
+
+
+
+    
+    
         
