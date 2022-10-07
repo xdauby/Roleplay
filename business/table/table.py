@@ -12,11 +12,16 @@ class Table:
         self.basic_player = []
 
 
-    def add_gamemaster(self,player: GameMaster, id_scen:int) -> None:
-        pass
+    def add_gamemaster(self, player: GameMaster, id_scen:int) -> None:
+
+        if self.game_master:
+            self.game_master = player
 
     def add_basicplayer(self,player: BasicPlayer, id_char:int)-> None:
-        pass
+        
+        if len(self.basic_player) < 4:
+            self.basic_player.append(player)
+        
 
     def rm_player(self, username:str) -> None:
 

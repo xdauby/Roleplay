@@ -7,7 +7,9 @@ class BasicPlayer(Player):
         self.characters = []
     
     def add_character(self, character: Character) -> None:
-        self.characters.append(character)
+        
+        if len(self.characters) < 3:
+            self.characters.append(character)
 
     def rm_character(self, name : str) -> None:
         for i, o in enumerate(self.characters):

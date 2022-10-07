@@ -8,7 +8,9 @@ class GameMaster(Player):
         self.scenarios = []
     
     def add_scenario(self, scenario: Scenario) -> None:
-        self.scenarios.append(scenario)
+        
+        if len(self.scenarios)<2:
+            self.scenarios.append(scenario)
 
     def rm_scenario(self, name : str) -> None:
         for i, o in enumerate(self.scenarios):
