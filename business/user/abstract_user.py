@@ -13,5 +13,5 @@ class User(ABC):
         pass
 
     @staticmethod
-    def load(username:str)->User:
+    def load(username:str):
         pass

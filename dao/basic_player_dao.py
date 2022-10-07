@@ -1,18 +1,14 @@
 from typing import List, Optional
 from utils_.singleton import Singleton
+from business.user.basic_player import BasicPlayer
 from dao.db_connection import DBConnection
 
-from business.user.basic_player import BasicPlayer
-from dao.abstract_dao import Dao
+class PlayerDao(metaclass = Singleton):
 
-class PlayerDao(Dao,Singleton):
-
-    
-
-    def add(self):
+    def add(self) -> bool:
         pass
 
-    def rm(self):
+    def rm(self) -> bool:
         pass
 
     def load(self, username:str):

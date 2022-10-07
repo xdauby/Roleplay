@@ -1,6 +1,5 @@
 from typing import List, Optional
 from dao.db_connection import DBConnection
-
 from abc import ABC, abstractmethod
 
 class Dao(ABC):
@@ -18,6 +17,6 @@ class Dao(ABC):
         pass
 
     @abstractmethod
-    def load_all(self) -> List:
+    def load_all(self):
         pass
     

@@ -10,6 +10,6 @@ class Organiser(User):
         pass
     
     @staticmethod
-    def load(username:str) -> Organiser:
+    def load(username:str):
         pass
     

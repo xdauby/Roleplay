@@ -35,7 +35,8 @@ class OrganiserMenuView(AbstractView):
             from view.user_view.add_to_table_view import AddToTableView
             return AddToTableView()
         elif reponse['choice'] == 'remove player table':
-            return
+            from view.user_view.leave_from_table_view import LeaveFromTableView
+            return LeaveFromTableView()
         elif reponse['choice'] == 'ban player':
             from view.organiser_view.ban_view import BanView
             return BanView()

@@ -40,7 +40,7 @@ class Table:
     def load_players(self) -> None:
         pass
 
-    def load_char_sce(self) -> None:
+    def load_char_scen(self) -> None:
         pass
     
     @staticmethod

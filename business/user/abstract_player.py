@@ -11,5 +11,5 @@ class Player(User):
         pass
     
     @staticmethod
-    def load(username:str) -> Player:
+    def load(username:str):
         pass

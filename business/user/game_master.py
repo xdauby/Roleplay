@@ -28,5 +28,5 @@ class GameMaster(Player):
         pass
     
     @staticmethod
-    def load(username:str) -> GameMaster:
+    def load(username:str):
         pass

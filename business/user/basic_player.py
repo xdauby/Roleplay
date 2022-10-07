@@ -1,5 +1,6 @@
 from business.user.abstract_player import Player
 from business.character.character import Character
+
 class BasicPlayer(Player):
 
     def __init__(self, fisrtname:str, lastname:str, username:str, age:int = None) -> None:
@@ -27,9 +28,9 @@ class BasicPlayer(Player):
         pass
     
     @staticmethod
-    def load(username:str) -> BasicPlayer:
+    def load(username:str):
         #test
-        import dao.player_dao as d
-        basic_player = d.PlayerDao().load_basic_player(username)
+        from dao.basic_player_dao import PlayerDao
+        basic_player = PlayerDao().load(username)
         if basic_player:
             return basic_player
