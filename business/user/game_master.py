@@ -10,7 +10,13 @@ class GameMaster(Player):
     def add_scenario(self, scenario: Scenario) -> None:
         
         if len(self.scenarios)<2:
-            self.scenarios.append(scenario)
+            from dao.scenario_dao import ScenarioDao
+            created = ScenarioDao().add(scenario)
+            if created:
+                self.scenarios.append(scenario)
+                return True
+            else:
+                return False
 
     def rm_scenario(self, name : str) -> None:
         for i, o in enumerate(self.scenarios):
@@ -29,4 +35,8 @@ class GameMaster(Player):
     
     @staticmethod
     def load(username:str):
-        pass
+        from dao.game_master_dao import GameMasterDao
+        game_master = GameMasterDao().load(username)
+        if game_master:
+            return game_master
+        

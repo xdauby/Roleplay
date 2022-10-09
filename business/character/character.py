@@ -2,9 +2,11 @@
 
 class Character:
     
-    def __init__(self, name:str, level:int, race:str, equipment: str, skill:str, id:int = None) -> None:
+    def __init__(self, name:str, level:int, race:str, equipment: str, skill:str, id:int = None, username:str = None) -> None:
         
         self.id = id
+        self.belong_to = username
+
         self.name = name
         self.level = level
         
@@ -19,3 +21,6 @@ class Character:
     
     def get_descriptions(self) -> None:
         pass
+    
+    def __str__(self):
+        return f'Character \n Id : {self.id} \n Name : {self.name}'

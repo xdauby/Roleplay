@@ -1,21 +1,22 @@
 from typing import List, Optional
-from utils_.singleton import Singleton
 from dao.db_connection import DBConnection
+from dao.abstract_dao import Dao
+from dao.scenario_dao import ScenarioDao
 
 from business.user.game_master import GameMaster
-from dao.abstract_dao import Dao
 
-class GameMasterDao(Dao,Singleton):
+
+
+class GameMasterDao(Dao):
 
     
-    def add(self):
+    def add(self) -> bool:
         pass
 
-    def rm(self):
+    def rm(self) -> bool:
         pass
 
     def load(self, username:str):
-
 
         #ceci est un test
         game_master = None
@@ -29,7 +30,9 @@ class GameMasterDao(Dao,Singleton):
                 res = cursor.fetchone()
 
         if res:        
-            game_master = GameMaster('game-master', res['first_name'], res['last_name'], res['username'])
+            game_master = GameMaster(res['firstname'], res['lastname'], res['username'])
+            game_master_scenarios = ScenarioDao().load_user_scenarios(username)
+            game_master.scenarios = game_master_scenarios
         
         return game_master
 

@@ -4,6 +4,7 @@ from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
 
+from business.scenario.scenario import Scenario
 
 class AddScenarioView(AbstractView):
     def __init__(self) -> None:
@@ -25,6 +26,12 @@ class AddScenarioView(AbstractView):
     def make_choice(self):
         answers = prompt(self.__questions)
         pprint(answers)
-        if True:
-            from view.player_view.menu_view import PlayerMenuView
-            return PlayerMenuView()
+
+        scenario_to_add = Scenario(name = answers['scenario_name'], description=answers['scenario_description'], username=Session().username)
+        if Session().game_master.add_scenario(scenario_to_add):
+            print('All is ok')
+        else:
+            print('pb somewhere')
+        
+        from view.player_view.menu_view import PlayerMenuView
+        return PlayerMenuView()

@@ -29,8 +29,7 @@ class BasicPlayer(Player):
     
     @staticmethod
     def load(username:str):
-        #test
-        from dao.basic_player_dao import PlayerDao
-        basic_player = PlayerDao().load(username)
+        from dao.basic_player_dao import BasicPlayerDao
+        basic_player = BasicPlayerDao().load(username)
         if basic_player:
             return basic_player

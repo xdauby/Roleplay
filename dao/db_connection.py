@@ -15,7 +15,7 @@ class DBConnection(metaclass=Singleton):
     def __init__(self):
         dotenv.load_dotenv(override=True)
         # Open the connection. 
-        self.__connection =psycopg2.connect(host="/var/run/postgresql", port="5432", dbname="role", user="postgres", password="r", cursor_factory = RealDictCursor)
+        self.__connection =psycopg2.connect(host="/var/run/postgresql", port="5432", dbname="roleplay", user="postgres", password="r", cursor_factory = RealDictCursor)
 
     @property
     def connection(self):

@@ -8,7 +8,13 @@ from view.session import Session
 class ScenCharView(AbstractView):
    
     def display_info(self):
-        print("Hello")
+        scenario = Session().game_master.scenarios
+        character = Session().basic_player.characters
+        for scen in scenario:
+            print(scen)
+        for char in character:
+            print(char)
+
 
     def make_choice(self):
         from view.player_view.menu_view import PlayerMenuView

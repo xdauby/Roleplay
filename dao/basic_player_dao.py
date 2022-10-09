@@ -1,9 +1,10 @@
 from typing import List, Optional
-from utils_.singleton import Singleton
 from business.user.basic_player import BasicPlayer
 from dao.db_connection import DBConnection
+from dao.abstract_dao import Dao
+from dao.character_dao import CharacterDao
 
-class PlayerDao(metaclass = Singleton):
+class BasicPlayerDao(Dao):
 
     def add(self) -> bool:
         pass
@@ -26,7 +27,9 @@ class PlayerDao(metaclass = Singleton):
                 res = cursor.fetchone()
 
         if res:        
-            basic_player = BasicPlayer(res['first_name'], res['last_name'], res['username'])
+            basic_player = BasicPlayer(res['firstname'], res['lastname'], res['username'])
+            basic_player_characters = CharacterDao().load_user_char(username)
+            basic_player.characters = basic_player_characters
         
         return basic_player
 
