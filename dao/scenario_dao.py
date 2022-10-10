@@ -28,8 +28,22 @@ class ScenarioDao(Dao):
 
         return created
 
-    def rm(self) -> bool:
-        pass
+    def rm(self, id:int ) -> bool:
+        removed = False
+        request = "DELETE FROM scenario WHERE id_scenario = %(id)s;"\
+                  "SELECT COUNT(*) FROM scenario WHERE id_scenario = %(id)s;"
+        
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor :
+                cursor.execute(
+                    request
+                , {"id" : id})
+                res = cursor.fetchone()
+        if not res['count']:
+            removed = True
+
+        return removed
+        
 
     def load(self, id:int):
 
@@ -68,3 +82,4 @@ class ScenarioDao(Dao):
 
     def load_all(self):
         pass
+

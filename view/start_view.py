@@ -25,9 +25,12 @@ class StartView(AbstractView):
 
     def display_info(self):
         print('')
+        
 
     def make_choice(self):
+        
         reponse = prompt(self.__questions)
+        
         if reponse['choice'] == 'Register as Player':
             from view.register_view import RegisterView
             return RegisterView()
@@ -39,4 +42,6 @@ class StartView(AbstractView):
             return SignInView()
         elif reponse['choice'] == 'Leave':
             return None
+
+        
         

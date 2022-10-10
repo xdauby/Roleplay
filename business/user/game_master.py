@@ -7,7 +7,7 @@ class GameMaster(Player):
         super().__init__(fisrtname, lastname, age, username, 'game-master')
         self.scenarios = []
     
-    def add_scenario(self, scenario: Scenario) -> None:
+    def add_scenario(self, scenario: Scenario) -> bool:
         
         if len(self.scenarios)<2:
             from dao.scenario_dao import ScenarioDao
@@ -18,11 +18,15 @@ class GameMaster(Player):
             else:
                 return False
 
-    def rm_scenario(self, name : str) -> None:
+    def rm_scenario(self, id : int) -> bool:
+
         for i, o in enumerate(self.scenarios):
-            if o.name == name:
-                del self.scenarios[i]
-                break
+            if o.id == id:
+                from dao.scenario_dao import ScenarioDao
+                if ScenarioDao().rm(id):
+                    del self.scenarios[i]
+                    return True
+        return False
 
     def load_scen(self) -> None:
         pass

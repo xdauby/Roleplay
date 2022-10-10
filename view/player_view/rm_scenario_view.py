@@ -10,8 +10,8 @@ class RmScenarioView(AbstractView):
         self.__questions = [
             {
                 'type': 'input',
-                'name': 'scenario_name',
-                'message': 'What\'s the name of the Scenario to remove?',
+                'name': 'scenario_id',
+                'message': 'What\'s the id of the Scenario to remove?',
             }
         ]
 
@@ -21,6 +21,12 @@ class RmScenarioView(AbstractView):
     def make_choice(self):
         answers = prompt(self.__questions)
         pprint(answers)
-        if True:
-            from view.player_view.menu_view import PlayerMenuView
-            return PlayerMenuView()
+        scenario_id_to_del = int(answers['scenario_id'])
+
+        if Session().game_master.rm_scenario(scenario_id_to_del):
+            print(f'Scenario {scenario_id_to_del} succesfully deleted.')
+        else:
+            print('pb somwhere')
+        
+        from view.player_view.menu_view import PlayerMenuView
+        return PlayerMenuView()
