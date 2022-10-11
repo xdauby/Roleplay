@@ -32,6 +32,8 @@ description TEXT
 CREATE SEQUENCE seq_id_game
 MAXVALUE 80;
 
+SELECT current_value FROM sys.sequences WHERE name = 'seq_id_game' ;
+
 CREATE TABLE game (
 id_game INT PRIMARY KEY DEFAULT nextval('seq_id_game'),
 id_scenario INT REFERENCES scenario(id_scenario) DEFAULT NULL,
@@ -87,6 +89,70 @@ INSERT INTO character(username, name, level, equipment, race, skill) VALUES
 
 INSERT INTO game(id_scenario, halfday, active) VALUES
 (2,1,TRUE);
+
+INSERT INTO game(halfday, active) VALUES
+(1,TRUE),
+(1,TRUE),
+(1,TRUE),
+(1,TRUE),
+(1,TRUE),
+(1,TRUE),
+(1,TRUE),
+(1,TRUE),
+(1,TRUE),
+(1,TRUE),
+(1,FALSE),
+(1,FALSE),
+(1,FALSE),
+(1,FALSE),
+(1,FALSE),
+(1,FALSE),
+(1,FALSE),
+(1,FALSE),
+(1,FALSE),
+(1,FALSE);
+
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE);
+
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE);
 
 INSERT INTO char_sub_game VALUES
 (3,5),

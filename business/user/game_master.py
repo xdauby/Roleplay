@@ -15,8 +15,7 @@ class GameMaster(Player):
             if created:
                 self.scenarios.append(scenario)
                 return True
-            else:
-                return False
+        return False
 
     def rm_scenario(self, id : int) -> bool:
 

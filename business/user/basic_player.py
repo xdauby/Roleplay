@@ -7,16 +7,26 @@ class BasicPlayer(Player):
         super().__init__(fisrtname, lastname, age, username, 'basic-player')
         self.characters = []
     
-    def add_character(self, character: Character) -> None:
+    def add_character(self, character: Character) -> bool:
         
         if len(self.characters) < 3:
-            self.characters.append(character)
+            from dao.character_dao import CharacterDao
+            created = CharacterDao().add(character)
+            if created:
+                self.characters.append(character)
+                return True
+        return False
 
-    def rm_character(self, name : str) -> None:
+
+    def rm_character(self, id:int) -> bool:
+        
         for i, o in enumerate(self.characters):
-            if o.name == name:
-                del self.characters[i]
-                break
+            if o.id == id:
+                from dao.character_dao import CharacterDao
+                if CharacterDao().rm(id):
+                    del self.characters[i]
+                    return True
+        return False
     
     def load_char(self) -> None:
         pass

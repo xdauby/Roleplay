@@ -10,10 +10,12 @@ class ScenCharView(AbstractView):
     def display_info(self):
         scenario = Session().game_master.scenarios
         character = Session().basic_player.characters
-        for scen in scenario:
-            print(scen)
-        for char in character:
-            print(char)
+        if scenario:
+            for scen in scenario:
+                print(scen)
+        if character:
+            for char in character:
+                print(char)
 
 
     def make_choice(self):

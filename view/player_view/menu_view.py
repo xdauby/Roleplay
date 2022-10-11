@@ -46,10 +46,12 @@ class PlayerMenuView(AbstractView):
             return ScenCharView()
 
         elif reponse['choice'] == 'add character':
-            return
+            from view.player_view.add_character_view import AddCharacterView
+            return AddCharacterView()
 
         elif reponse['choice'] == 'remove character':
-            return
+            from view.player_view.rm_character_view import RmCharacterView
+            return RmCharacterView()
 
         elif reponse['choice'] == 'add scenario':
             from view.player_view.add_scenario_view import AddScenarioView
