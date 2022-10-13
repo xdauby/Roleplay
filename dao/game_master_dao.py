@@ -1,13 +1,12 @@
 from typing import List, Optional
 from dao.db_connection import DBConnection
-from dao.abstract_dao import Dao
-from dao.scenario_dao import ScenarioDao
 
+from business.scenario.scenario import Scenario
 from business.user.game_master import GameMaster
 
 
 
-class GameMasterDao(Dao):
+class GameMasterDao:
 
     
     def add(self) -> bool:
@@ -18,27 +17,43 @@ class GameMasterDao(Dao):
 
     def load(self, username:str):
 
-        #ceci est un test
         game_master = None
-        request = "SELECT * FROM PLAYER WHERE username=%(username)s"
         
+        scen_request = "SELECT * FROM player "\
+                    "LEFT JOIN scenario on player.username = scenario.username "\
+                    "WHERE player.username = %(username)s;"
+        
+        table_id_request = "SELECT DISTINCT game.id_game FROM scenario "\
+                            "LEFT JOIN game on game.id_scenario = scenario.id_scenario "\
+                            "WHERE scenario.username = %(username)s; "
+     
+        requests = [scen_request,table_id_request]
+        res = []
+
         with DBConnection().connection as connection:
             with connection.cursor() as cursor :
-                cursor.execute(
-                    request
-                , {"username" : username})
-                res = cursor.fetchone()
-
-        if res:        
-            game_master = GameMaster(res['firstname'], res['lastname'], res['username'])
-            game_master_scenarios = ScenarioDao().load_user_scenarios(username)
-            game_master.scenarios = game_master_scenarios
+                for reqs in requests:
+                    cursor.execute(
+                        reqs
+                        , {"username" : username})
+                    res.append(cursor.fetchall())
         
+        if res: 
+            if res[0][0]['id_scenario']: #no id set to 0, so we can do that
+                game_master = GameMaster(res[0][0]['firstname'], res[0][0]['lastname'], res[0][0]['username'])
+                for rows in res[0]:
+                    scenario = Scenario(rows['name'], rows['description'], id = rows['id_scenario'])
+                    game_master.scenarios.append(scenario)
+                for table_id in res[1]:
+                    if table_id['id_game']:
+                        game_master.tables_id.append(table_id['id_game'])
+            else:
+                game_master = GameMaster(res[0][0]['firstname'], res[0][0]['lastname'], res[0][0]['username'])
         return game_master
-
+        
+    
+        
 
     def load_all(self):
         pass
-
-
 

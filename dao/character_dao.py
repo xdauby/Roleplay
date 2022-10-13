@@ -53,7 +53,7 @@ class CharacterDao(Dao):
 
     def load(self, id:int):
 
-        character = None
+        character = []
         request = "SELECT * FROM Character WHERE id_char=%(id)s"
         
         with DBConnection().connection as connection:
@@ -74,7 +74,7 @@ class CharacterDao(Dao):
 
     def load_user_char(self, username:str):
 
-        characters = None
+        characters = []
         request = "SELECT * FROM character WHERE username=%(username)s"
         
         with DBConnection().connection as connection:
@@ -85,7 +85,6 @@ class CharacterDao(Dao):
                 res = cursor.fetchall()
 
         if res:
-            characters = []
             for row in res:
                 curr_char = Character(name=row['name']
                                       , level=row['level']

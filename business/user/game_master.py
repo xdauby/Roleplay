@@ -6,6 +6,8 @@ class GameMaster(Player):
     def __init__(self, fisrtname:str, lastname:str, username:str, age:int = None) -> None:
         super().__init__(fisrtname, lastname, age, username, 'game-master')
         self.scenarios = []
+        self.tables_id = []
+        self.tables = []
     
     def add_scenario(self, scenario: Scenario) -> bool:
         
@@ -27,14 +29,6 @@ class GameMaster(Player):
                     return True
         return False
 
-    def load_scen(self) -> None:
-        pass
-
-    def load_player_tables(self) -> None:
-        pass
-
-    def load_all_tables(self):
-        pass
     
     @staticmethod
     def load(username:str):

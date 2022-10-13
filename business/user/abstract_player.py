@@ -8,8 +8,9 @@ class Player(User):
         self.type_player = type_player
     
     def load_all_tables(self):
-        pass
-    
+        from dao.table_dao import TableDao
+        return TableDao().load_all()
+
     @staticmethod
     def load(username:str):
         pass

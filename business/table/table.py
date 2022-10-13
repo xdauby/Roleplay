@@ -7,10 +7,8 @@ class Table:
         
         self.id = id
         self.half_day = half_day
-        self.id_chosen_char = []
         self.game_master = None
         self.basic_player = []
-
 
     def add_gamemaster(self, player: GameMaster, id_scen:int) -> None:
 
@@ -44,10 +42,18 @@ class Table:
         pass
     
     @staticmethod
-    def load(table_id : int) -> Table:
+    def load(table_id : int):
         pass
 
+    def __str__(self) -> str:
 
+        player_str = ''
+
+        for player in self.basic_player:
+            player_str += f'{player.username} with Character {player.characters[0].name} \n'
+
+        view = f'Table id : {self.id} \n Game Master : {self.game_master.username} with Scenario {self.game_master.scenarios[0].name}\n' + player_str
+        return view
 
     
     

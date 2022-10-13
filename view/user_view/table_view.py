@@ -10,6 +10,10 @@ class TableView(AbstractView):
     
     def display_info(self):
         print("Voici toutes les tables")
+        if Session().user_type == 'player':
+            tables = Session().game_master.load_all_tables()
+            for tables in tables:
+                print(tables)
 
     def make_choice(self):
 

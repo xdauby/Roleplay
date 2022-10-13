@@ -6,7 +6,9 @@ class BasicPlayer(Player):
     def __init__(self, fisrtname:str, lastname:str, username:str, age:int = None) -> None:
         super().__init__(fisrtname, lastname, age, username, 'basic-player')
         self.characters = []
-    
+        self.tables_id = []
+        self.tables = []
+        
     def add_character(self, character: Character) -> bool:
         
         if len(self.characters) < 3:
@@ -27,15 +29,12 @@ class BasicPlayer(Player):
                     del self.characters[i]
                     return True
         return False
-    
-    def load_char(self) -> None:
-        pass
+
 
     def load_player_tables(self) -> None:
-        pass
-
-    def load_all_tables(self):
-        pass
+        if self.tables_id:
+            from dao.table_dao import TableDao
+            self.tables = TableDao().load_user_tables(self.tables_id)
     
     @staticmethod
     def load(username:str):

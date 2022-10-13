@@ -47,7 +47,7 @@ class ScenarioDao(Dao):
 
     def load(self, id:int):
 
-        scenario = None
+        scenario = []
         request = "SELECT * FROM scenario WHERE id_scenario=%(id)s"
         
         with DBConnection().connection as connection:
@@ -63,7 +63,7 @@ class ScenarioDao(Dao):
 
     def load_user_scenarios(self, username:str):
 
-        scenarios = None
+        scenarios = []
         request = "SELECT * FROM scenario WHERE username=%(username)s"
         
         with DBConnection().connection as connection:
@@ -74,7 +74,6 @@ class ScenarioDao(Dao):
                 res = cursor.fetchall()
 
         if res:
-            scenarios = []
             for row in res:
                 curr_scenario = Scenario(name=row['name'], description=row['description'], id = row['id_scenario'])
                 scenarios.append(curr_scenario)
