@@ -128,6 +128,15 @@ INSERT INTO char_reg_game VALUES
 (4,5),
 (4,6);
 
+
+
+
+
+
+
+
+
+
 SELECT game.id_game FROM game
 Left JOIN char_reg_game ON game.id_game=char_reg_game.id_game
 right JOIN character ON character.id_char = char_reg_game.id_char

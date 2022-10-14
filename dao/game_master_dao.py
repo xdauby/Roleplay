@@ -38,17 +38,21 @@ class GameMasterDao:
                         , {"username" : username})
                     res.append(cursor.fetchall())
         
-        if res: 
-            if res[0][0]['id_scenario']: #no id set to 0, so we can do that
-                game_master = GameMaster(res[0][0]['firstname'], res[0][0]['lastname'], res[0][0]['username'])
-                for rows in res[0]:
+        gm_res = res[0]
+        table_id_res = res[1]        
+
+
+        if gm_res: 
+            if gm_res[0]['id_scenario']: #no id set to 0, so we can do that
+                game_master = GameMaster(gm_res[0]['firstname'], gm_res[0]['lastname'], gm_res[0]['username'])
+                for rows in gm_res:
                     scenario = Scenario(rows['name'], rows['description'], id = rows['id_scenario'])
                     game_master.scenarios.append(scenario)
-                for table_id in res[1]:
+                for table_id in table_id_res:
                     if table_id['id_game']:
                         game_master.tables_id.append(table_id['id_game'])
             else:
-                game_master = GameMaster(res[0][0]['firstname'], res[0][0]['lastname'], res[0][0]['username'])
+                game_master = GameMaster(gm_res[0]['firstname'], gm_res[0]['lastname'], gm_res[0]['username'])
         return game_master
         
     

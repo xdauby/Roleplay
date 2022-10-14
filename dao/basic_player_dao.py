@@ -37,11 +37,13 @@ class BasicPlayerDao:
                         , {"username" : username})
                     res.append(cursor.fetchall())
         
+        bp_res = res[0]
+        table_id_res = res[1]        
 
-        if res: 
-            if res[0][0]['id_char']: #no id set to 0, test if is not None 
-                basic_player = BasicPlayer(res[0][0]['firstname'], res[0][0]['lastname'], res[0][0]['username'])
-                for rows in res[0]:
+        if bp_res: 
+            if bp_res[0]['id_char']: #no id set to 0, test if is not None 
+                basic_player = BasicPlayer(bp_res[0]['firstname'], bp_res[0]['lastname'], bp_res[0]['username'])
+                for rows in bp_res:
                     character = Character(name=rows['name']
                                       , level=rows['level']
                                       , id = rows['id_char']
@@ -50,11 +52,11 @@ class BasicPlayerDao:
                                       , skill = rows['skill'])
                     
                     basic_player.characters.append(character)
-                for table_id in res[1]:
+                for table_id in table_id_res:
                     if table_id['id_game']:
                         basic_player.tables_id.append(table_id['id_game'])
             else:
-                basic_player = BasicPlayer(res[0][0]['firstname'], res[0][0]['lastname'], res[0][0]['username'])
+                basic_player = BasicPlayer(bp_res[0]['firstname'], bp_res[0]['lastname'], bp_res[0]['username'])
         return basic_player
         
 
