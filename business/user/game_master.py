@@ -29,6 +29,11 @@ class GameMaster(Player):
                     return True
         return False
 
+    def load_player_tables(self) -> None:
+        if self.tables_id:
+            from dao.table_dao import TableDao
+            self.tables = TableDao().load_user_tables(self.tables_id)
+    
     
     @staticmethod
     def load(username:str):

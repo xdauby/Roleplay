@@ -7,16 +7,13 @@ from business.user.game_master import GameMaster
 from business.user.basic_player import BasicPlayer
 from business.table.table import Table
 
-
 class TableDao:
 
-    
     def add(self, table:Table) -> bool:
         pass
 
     def rm(self, id:int ) -> bool:
         pass
-        
 
     def load(self, id:int):
         pass
