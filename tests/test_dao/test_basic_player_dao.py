@@ -9,12 +9,14 @@ class TestBasicPlayerDao(TestCase):
     def test_add_character_dao(self):
         #GIVEN
         basic_player=BasicPlayer.load('ziak')
-        character= Character((name='ziakorak', 
-                              level=15, race='bard', 
+        character= Character(name='ziakorak', 
+                              level=15, 
+                              race='bard', 
                               equipment='amulet', 
                               skill='battleaxes', 
-                              username='ziak'))
+                              username='ziak')
         #WHEN
         added = basic_player_dao.add_character(character)
         #THEN
         self.assertTrue(added)
+
