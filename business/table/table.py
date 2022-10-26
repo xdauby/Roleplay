@@ -28,6 +28,7 @@ class Table:
 
     def add_gamemaster(self, player: Player, id_scenario:int) -> bool:
         
+        from dao.table_dao import TableDao
         #check if there is no game master and the table is ative
         if not(self.scenario) and self.active:
         
@@ -36,6 +37,7 @@ class Table:
                 return False
             
             #check if the game master really have the scenario he try to register with
+        
             elif TableDao().add_gm_to_table(id_scenario=id_scenario, id_game=self.id):
                 for scenario in game_master.scenarios:
                     if scenario.id == id_scenario:
@@ -60,6 +62,7 @@ class Table:
                     return False
 
                 #check if the player really have the character he try to register with
+                from dao.table_dao import TableDao
                 if TableDao().add_bp_to_table(id_character=id_character, id_game=self.id):
                     for character in basic_player.characters:
                         if character.id == id_character:
@@ -79,6 +82,7 @@ class Table:
         #if a gamemaster is removed, all the players arround the the table are removed
         if self.scenario.username == username:
             #remove from db
+            from dao.table_dao import TableDao
             TableDao().rm_gm_from_table(self.id)
             #remove from itself
             self.scenario = None
@@ -94,6 +98,7 @@ class Table:
             for character in self.characters:
                 if character.username == username:
                     #delete the character from the table
+                    from dao.table_dao import TableDao
                     TableDao().rm_bp_from_table(self.id, character.id)
                     self.characters.remove(character)
                     #delete the player from the table
