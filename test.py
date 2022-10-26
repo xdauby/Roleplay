@@ -23,9 +23,3 @@ f.g(h)
 print(f.t)
 
 """
-
-
-
-x = None
-y = not(x)
-print(y)

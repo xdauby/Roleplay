@@ -3,6 +3,7 @@ from unittest import TestCase
 from business.user.basic_player import BasicPlayer
 from business.character.character import Character
 from business.table.table import Table
+from business.user.abstract_player import Player
 
 
 
@@ -65,7 +66,8 @@ class TestBasicPlayer(TestCase):
         #method relative to Table are verified (test in TestTable)
         #GIVEN
         #Artificially add a character and connect him to a table
-        basic_player = BasicPlayer.load('Jo89')
+        player = Player.load('Jo89')
+        basic_player = player.basic_player
         character = Character(name='bibi', 
                               level=5, race='bard', 
                               equipment='amulet', 
@@ -75,7 +77,7 @@ class TestBasicPlayer(TestCase):
         id_character = character.id
         #add the basic player with the character
         table = Table.load(22)
-        table.add_basicplayer(basic_player, id_character)
+        table.add_basicplayer(player, id_character)
         
         #WHEN
         removed = basic_player.rm_character(id_character)
@@ -98,5 +100,4 @@ if __name__ == '__main__':
     unittest.TestLoader.sortTestMethodsUsing = None
     unittest.main()
     
-
-
+    

@@ -51,7 +51,7 @@ class TestGameMaster(TestCase):
         removed = game_master.rm_scenario(id_scenario)
         #THEN  
         self.assertTrue(removed)
-
+    """
     def test_rm_scenario_case3(self):
         #case3 : the player can remove his scenario, and leave the tables where he is registered with
         #method relative to Table are verified (test in TestTable)
@@ -74,7 +74,7 @@ class TestGameMaster(TestCase):
         #THEN  
         self.assertTrue(removed)
         self.assertEqual(table_str, 'Table id : 23, half day : 2, acivate : True, table empty.')
-
+    
     def test_load_player_tables(self):
         #GIVEN
         game_master = GameMaster.load('Jo89')
@@ -87,7 +87,7 @@ class TestGameMaster(TestCase):
         self.assertEqual(table_str, '\nTable id : 42, half day : 3, acivate : True \n' \
                                     ' Game Master : Jo89 with Scenario A bad trip\n'\
                                     'kkj3 with Character cafe \n')
-
+    """
     
 
 

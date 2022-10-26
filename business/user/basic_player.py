@@ -45,3 +45,15 @@ class BasicPlayer:
     def load(username:str):
         from dao.basic_player_dao import BasicPlayerDao
         return BasicPlayerDao().load(username)
+
+    def __str__(self):
+        
+        string = ''
+        for character in self.characters:
+            string += character.__str__() + " "
+        
+        overall = f' Username associated : {self.username},\n {string}' 
+        return overall
+
+
+    

@@ -39,6 +39,7 @@ class GameMaster:
 
         for scenario in self.scenarios:
             if scenario.id == id:
+                from dao.game_master_dao import GameMasterDao
                 if GameMasterDao().rm_scenario(id):
                     self.scenarios.remove(scenario)
                     return True
