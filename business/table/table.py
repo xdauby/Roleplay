@@ -28,6 +28,7 @@ class Table:
 
     def add_gamemaster(self, player: Player, id_scenario:int) -> bool:
         
+        from dao.table_dao import TableDao
         #check if there is no game master and the table is ative
         if not(self.scenario) and self.active:
         
@@ -36,6 +37,7 @@ class Table:
                 return False
             
             #check if the game master really have the scenario he try to register with
+        
             elif TableDao().add_gm_to_table(id_scenario=id_scenario, id_game=self.id):
                 for scenario in game_master.scenarios:
                     if scenario.id == id_scenario:
@@ -60,6 +62,7 @@ class Table:
                     return False
 
                 #check if the player really have the character he try to register with
+                from dao.table_dao import TableDao
                 if TableDao().add_bp_to_table(id_character=id_character, id_game=self.id):
                     for character in basic_player.characters:
                         if character.id == id_character:
@@ -76,39 +79,35 @@ class Table:
     def rm_player(self, username:str) -> bool:
         
         removed = False
-        """dont wokr"""
         #if a gamemaster is removed, all the players arround the the table are removed
         if self.scenario.username == username:
             #remove from db
+            from dao.table_dao import TableDao
             TableDao().rm_gm_from_table(self.id)
-            for id_character in self.id_chosen_character:
-                TableDao().rm_bp_from_table(self.id, id_character)
             #remove from itself
             self.scenario = None
             self.characters = []
             self.players = []         
-            """ MAYBE DELETE ON PLAYER, TO THINK"""
             removed = True
+            #maybe delete from player ...
             return removed
 
-        #get the basic player
-        player = None
-        for bp in self.basic_players:
-            if bp.username == username:
-                player = bp
-        
-        if player:
+        #if we delete a basic_player
+        if self.characters:
             #get his character
-            for character in player.characters:
-                if character.id == id_character:
-                    TableDao().rm_bp_from_table(self.id, id_character)
-                    self.id_chosen_character.remove(id_character)
-                    self.basic_players.remove(player)
-                    removed = True
-                    break
-                if removed:
-                    break
-
+            for character in self.characters:
+                if character.username == username:
+                    #delete the character from the table
+                    from dao.table_dao import TableDao
+                    TableDao().rm_bp_from_table(self.id, character.id)
+                    self.characters.remove(character)
+                    #delete the player from the table
+                    for player in self.players:
+                        if player.username == username:
+                            self.players.remove(player)
+                            removed = True
+                            return removed
+    
         return removed
     
     @staticmethod

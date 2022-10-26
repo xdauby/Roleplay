@@ -1,6 +1,7 @@
 from business.user.abstract_user import User
 from business.user.game_master import GameMaster
 from business.user.basic_player import BasicPlayer
+from business.user.abstract_player import Player
 from business.table.table import Table
 
 class Organiser(User):
@@ -17,8 +18,9 @@ class Organiser(User):
 
     def ban(self, username:str):
 
-        gm = GameMaster.load(username)
-        bp = BasicPlayer.load(username)
+        player = Player.load(username)
+        gm = player.game_master.load(username)
+        bp = player.basic_player.load(username)
         
         if gm.scenarios:
             for scenerio in gm.scenarios:

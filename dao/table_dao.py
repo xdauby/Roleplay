@@ -216,7 +216,8 @@ class TableDao:
 
         removed = False
 
-        request = 'UPDATE game SET id_scenario=NULL '\
+        request = 'DELETE FROM char_reg_game WHERE id_game = 41;'\
+                  'UPDATE game SET id_scenario=NULL '\
                   'WHERE id_game = %(id_game)s;'
 
         with DBConnection().connection as connection:
