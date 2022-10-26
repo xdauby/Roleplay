@@ -83,11 +83,7 @@ class PlayerDao:
         return created
 
     def load_notif(self,username):
-<<<<<<< HEAD
-        request = "SELECT TOP 1 notif FROM notif WHERE player.username  = "(%(username)s)" ORDER BY DESC id"
-=======
-        request = "SELECT TOP 1 notif FROM notif WHERE player.username  = %(username)s ORDER BY DESC id";
->>>>>>> 7b99a8d98387855fb346b78e068d85f8a17aa326
+        request = "SELECT TOP 1 notif FROM notif WHERE player.username  = %(username)s ORDER BY DESC id;"
 
         with DBConnection().connection as connection:
             with connection.cursor() as cursor :
