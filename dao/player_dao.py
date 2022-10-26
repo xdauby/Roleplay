@@ -1,4 +1,5 @@
 from typing import List, Optional
+from Roleplay.business.notification.notification import Notification
 
 from dao.db_connection import DBConnection
 from business.user.abstract_player import Player
@@ -82,16 +83,14 @@ class PlayerDao:
         return created
 
     def load_notif(self,username):
-        request = "SELECT TOP 1 notif FROM notif WHERE player.username  = "(%self.username)s" ORDER BY DESC id
+        request = "SELECT TOP 1 notif FROM notif WHERE player.username  = "(%(username)s)" ORDER BY DESC id"
 
         with DBConnection().connection as connection:
             with connection.cursor() as cursor :
                 cursor.execute(
                     request
-                , {"username" : player.username
-                  ,"firstname" : player.firstname
-                  ,"lastname" : player.lastname 
-                  ,"age": player.age})
+                , {"username" : username
+                  })
                 res = cursor.fetchone()
         if res:
             return res
