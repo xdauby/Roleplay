@@ -12,7 +12,7 @@ class TestBasicPlayer(TestCase):
     #add BasicPlayer.load(user) test
 
     def test_add_character_case1(self):
-        #case1 : player have already 3 character
+        #case1 : player has already 3 characters
         #GIVEN
         basic_player = BasicPlayer.load('ghostminer')
         character = Character(name='bibi', 
