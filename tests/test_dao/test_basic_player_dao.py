@@ -6,7 +6,7 @@ from business.character.character import Character
 from business.table.table import Table
 
 class TestBasicPlayerDao(TestCase):
-    def test_add_character_dao(self):
+    def test_add_character_dao(self)    :
         #GIVEN
         basic_player_1=BasicPlayer.load('ziak')
         character= Character(name='ziakorak', 
@@ -25,3 +25,5 @@ class TestBasicPlayerDao(TestCase):
         #THEN
         self.assertEqual(basic_player_str,basic_player_1_str)
 
+if __name__ == '__main__':
+    unittest.main()
