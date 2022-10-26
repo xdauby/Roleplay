@@ -17,7 +17,7 @@ class BasicPlayerDao:
             with connection.cursor() as cursor :
                 cursor.execute(
                     request
-                , {"username" : character.belong_to
+                , {"username" : character.username
                   ,"name" : character.name
                   ,"level" : character.level
                   ,"equipment" : character.equipment

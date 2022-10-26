@@ -19,7 +19,7 @@ class GameMasterDao:
             with connection.cursor() as cursor :
                 cursor.execute(
                     request
-                , {"username" : scenario.belong_to
+                , {"username" : scenario.username
                   ,"name" : scenario.name
                   ,"description" : scenario.description })
                 res = cursor.fetchone()
