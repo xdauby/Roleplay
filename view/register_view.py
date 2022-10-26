@@ -3,26 +3,33 @@ from pprint import pprint
 from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
-
+from business.user.abstract_player import Player
 
 class RegisterView(AbstractView):
     def __init__(self) -> None:
         self.__questions = [
             {
                 'type': 'input',
-                'name': 'first_name',
+                'name': 'username',
+                'message': 'What\'s your username',
+            },
+            {
+                'type': 'input',
+                'name': 'firstname',
                 'message': 'What\'s your first name',
             },
             {
                 'type': 'input',
-                'name': 'last_name',
+                'name': 'lastname',
                 'message': 'What\'s your last name',
             },
             {
                 'type': 'input',
-                'name': 'username',
-                'message': 'What\'s your username',
+                'name': 'age',
+                'message': 'What\'s your age',
             }
+
+            
         ]
 
     def display_info(self):
@@ -30,6 +37,18 @@ class RegisterView(AbstractView):
 
     def make_choice(self):
         answers = prompt(self.__questions)
-        pprint(answers)
-        from view.start_view import StartView
-        return StartView()
+
+        player = Player.load(answers['username'])
+        if player:
+            print('Player already registered with this username, please try another')
+            from view.start_view import StartView
+            return StartView()
+        else:
+            player = Player( answers['firstname'], answers['lastname'], answers['username'], answers['age'])
+            player.save()
+            Session().player = Player.load(player.username)
+            from view.player_view.menu_view import PlayerMenuView
+            return PlayerMenuView()
+        
+        
+        

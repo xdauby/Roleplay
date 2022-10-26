@@ -60,6 +60,29 @@ class PlayerDao:
       
         return halfday
 
+    def save(self, player:Player):
+         
+        created = False
+        request = "INSERT INTO scenario(username, firstname, lastname, age) VALUES "\
+                  "(%(username)s,%(firstname)s,%(lastname)s, %(age)s)"\
+                  "RETURNING username;"
+        
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor :
+                cursor.execute(
+                    request
+                , {"username" : player.username
+                  ,"firstname" : player.firstname
+                  ,"lastname" : player.lastname 
+                  ,"age": player.age})
+                res = cursor.fetchone()
+        if res:
+            created = True
+
+        return created
+        
+
+
 
 
 
