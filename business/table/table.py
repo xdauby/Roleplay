@@ -39,7 +39,7 @@ class Table:
             #check if the game master really have the scenario he try to register with
         
             elif TableDao().add_gm_to_table(id_scenario=id_scenario, id_game=self.id):
-                for scenario in game_master.scenarios:
+                for scenario in player.game_master.scenarios:
                     if scenario.id == id_scenario:
                         player.game_master.tables_id.append(self.id)
                         player.tables.append(self.id)
@@ -64,8 +64,12 @@ class Table:
                 #check if the player really have the character he try to register with
                 from dao.table_dao import TableDao
                 if TableDao().add_bp_to_table(id_character=id_character, id_game=self.id):
-                    for character in basic_player.characters:
+                    print('flag1')
+                    for character in player.basic_player.characters:
+                        print('flag2')
+
                         if character.id == id_character:
+                            print('flag3')
                             player.basic_player.tables_id.append(self.id)
                             player.tables.append(self.id)
                             player.halfday.append(self.half_day)

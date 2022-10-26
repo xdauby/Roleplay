@@ -4,11 +4,11 @@ from business.user.basic_player import BasicPlayer
 
 class Player(User):
     
-    def __init__(self, firstname: str, lastname: str, username: str, age: int, game_master: GameMaster=None, basic_player: BasicPlayer=None, tables = None, halfday = None):
+    def __init__(self, firstname: str, lastname: str, username: str, age: int, game_master: GameMaster=None, basic_player: BasicPlayer=None):
         super().__init__(firstname, lastname, username, age)
         
-        self.tables = tables
-        self.halfday = halfday
+        self.tables = []
+        self.halfday = []
         self.basic_player = basic_player
         self.game_master = game_master
 
