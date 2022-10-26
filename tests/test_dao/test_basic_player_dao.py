@@ -8,15 +8,20 @@ from business.table.table import Table
 class TestBasicPlayerDao(TestCase):
     def test_add_character_dao(self):
         #GIVEN
-        basic_player=BasicPlayer.load('ziak')
+        basic_player_1=BasicPlayer.load('ziak')
         character= Character(name='ziakorak', 
-                              level=15, 
-                              race='bard', 
+                              level=15, race='bard', 
                               equipment='amulet', 
                               skill='battleaxes', 
                               username='ziak')
+        
         #WHEN
-        added = basic_player_dao.add_character(character)
+        basic_player_1.add_character(character)
+
+        basic_player=BasicPlayer.load('ziak')
+
+        basic_player_str=basic_player.__str__()
+        basic_player_1_str=basic_player_1.__str__()
         #THEN
-        self.assertTrue(added)
+        self.assertEqual(basic_player_str,basic_player_1_str)
 
