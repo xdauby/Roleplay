@@ -4,8 +4,6 @@ from dao.db_connection import DBConnection
 from business.character.character import Character
 from business.user.basic_player import BasicPlayer
 
-
-
 class BasicPlayerDao:
     
     def add_character(self, character: Character) -> bool:

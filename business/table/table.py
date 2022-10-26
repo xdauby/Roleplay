@@ -64,12 +64,8 @@ class Table:
                 #check if the player really have the character he try to register with
                 from dao.table_dao import TableDao
                 if TableDao().add_bp_to_table(id_character=id_character, id_game=self.id):
-                    print('flag1')
                     for character in player.basic_player.characters:
-                        print('flag2')
-
                         if character.id == id_character:
-                            print('flag3')
                             player.basic_player.tables_id.append(self.id)
                             player.tables.append(self.id)
                             player.halfday.append(self.half_day)
