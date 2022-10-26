@@ -16,7 +16,6 @@ class DBConnection(metaclass=Singleton):
         dotenv.load_dotenv(override=True)
         # Open the connection. 
         self.__connection =psycopg2.connect(
-            host=os.environ["HOST"],
             port=os.environ["PORT"],
             database=os.environ["DATABASE"],
             user=os.environ["USER"],

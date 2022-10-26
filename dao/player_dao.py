@@ -63,7 +63,7 @@ class PlayerDao:
     def save(self, player:Player):
          
         created = False
-        request = "INSERT INTO scenario(username, firstname, lastname, age) VALUES "\
+        request = "INSERT INTO player(username, firstname, lastname, age) VALUES "\
                   "(%(username)s,%(firstname)s,%(lastname)s, %(age)s)"\
                   "RETURNING username;"
         
@@ -80,7 +80,7 @@ class PlayerDao:
             created = True
 
         return created
-        
+
 
 
 

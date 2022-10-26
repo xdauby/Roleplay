@@ -21,9 +21,8 @@ class Player(User):
         from dao.player_dao import PlayerDao
         return PlayerDao().load(username)
         
-    @staticmethod
-    def save():
+    def save(self):
         from dao.player_dao import PlayerDao
-        pass
+        return PlayerDao().save(self)
 
     
