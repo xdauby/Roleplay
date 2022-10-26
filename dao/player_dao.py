@@ -1,5 +1,5 @@
 from typing import List, Optional
-from Roleplay.business.notification.notification import Notification
+from business.notification.notification import Notification
 
 from dao.db_connection import DBConnection
 from business.user.abstract_player import Player

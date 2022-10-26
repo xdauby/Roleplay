@@ -50,7 +50,7 @@ class Table:
         return False
 
     def add_basicplayer(self, player: Player, id_character:int)-> bool:
-
+        from dao.table_dao import TableDao
         #check if there is a game master and the table is ative
         if self.scenario and self.active:
 
@@ -62,7 +62,6 @@ class Table:
                     return False
 
                 #check if the player really have the character he try to register with
-                from dao.table_dao import TableDao
                 if TableDao().add_bp_to_table(id_character=id_character, id_game=self.id):
                     for character in player.basic_player.characters:
                         if character.id == id_character:
