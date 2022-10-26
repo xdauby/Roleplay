@@ -3,18 +3,18 @@ from unittest import TestCase
 from business.table.table import Table
 from business.user.game_master import GameMaster
 from business.user.basic_player import BasicPlayer
-
+from business.user.abstract_player import Player
 
 class TestTable(TestCase):
 
     def test_add_gamemaster_case1(self):
         #case1 : empty table
         #GIVEN
-        game_master = GameMaster.load('batman77')
+        player = Player.load('batman77')
         id_scenario = 4
         table = Table.load(62)
         #WHEN
-        added = table.add_gamemaster(game_master, id_scenario)
+        added = table.add_gamemaster(player, id_scenario)
         #THEN  
         self.assertTrue(added)
 
@@ -33,11 +33,11 @@ class TestTable(TestCase):
         #case3 : player is registered the same halfday
         #GIVEN
         #spiderman is registered on table 2 (halfday : 1) with a character
-        game_master = GameMaster.load('spiderman')
+        player = Player.load('spiderman')
         id_scenario = 3
         table = Table.load(3)
         #WHEN
-        added = table.add_gamemaster(game_master, id_scenario)
+        added = table.add_gamemaster(player, id_scenario)
         #THEN  
         self.assertFalse(added)
 
@@ -45,22 +45,22 @@ class TestTable(TestCase):
         #case1 : empty table
         #must be false because a player can join a table only if there is a game master
         #GIVEN
-        basic_player = BasicPlayer.load('coximor')
+        player = Player.load('coximor')
         id_character = 1
         table = Table.load(78)
         #WHEN
-        added = table.add_basicplayer(basic_player, id_character)
+        added = table.add_basicplayer(player, id_character)
         #THEN  
         self.assertFalse(added)
 
     def test_add_basic_player_case2(self):
         #case2 : player registered the same halfday
         #GIVEN
-        basic_player = BasicPlayer.load('sephix')
+        player = Player.load('sephix')
         id_character = 2
         table = Table.load(2)
         #WHEN
-        added = table.add_basicplayer(basic_player, id_character)
+        added = table.add_basicplayer(player, id_character)
         #THEN  
         self.assertFalse(added)
 
@@ -68,11 +68,11 @@ class TestTable(TestCase):
     def test_add_basic_player_case3(self):
         #case 3: the number of basic player is 4
         #GIVEN
-        basic_player = BasicPlayer.load('coximor')
+        player = Player.load('coximor')
         id_character = 1
         table = Table.load(1)
         #WHEN
-        added = table.add_basicplayer(basic_player, id_character)
+        added = table.add_basicplayer(player, id_character)
         #THEN  
         self.assertFalse(added)
         pass
@@ -80,11 +80,11 @@ class TestTable(TestCase):
     def test_add_basic_player_case4(self):
         #case 4: the player can be added
         #GIVEN
-        basic_player = BasicPlayer.load('coximor')
+        player = Player.load('coximor')
         id_character = 1
         table = Table.load(2)
         #WHEN
-        added = table.add_basicplayer(basic_player, id_character)
+        added = table.add_basicplayer(player, id_character)
         #THEN  
         self.assertTrue(added)
 
