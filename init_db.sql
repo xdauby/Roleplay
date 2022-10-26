@@ -67,6 +67,11 @@ id_char INT REFERENCES character(id_char),
 CONSTRAINT pk_char_reg_table PRIMARY KEY(id_game, id_char)
 );
 
+/*Création de la table notif*/
+CREATE TABLE notif (
+username TEXT REFERENCES player(username),
+notif TEXT
+);
 
 /*Remplissage des valeurs (fictives ici)*/
 
