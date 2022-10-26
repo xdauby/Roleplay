@@ -4,7 +4,6 @@ from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
 
-
 class LeaveFromTableView(AbstractView):
     def __init__(self) -> None:
 
@@ -16,7 +15,7 @@ class LeaveFromTableView(AbstractView):
                     'message': 'What table you wanna leave?',
                 }
             ]
-        elif Session().user_type == 'oragniser':
+        elif Session().user_type == 'organiser':
             self.__questions = [
                 {
                     'type': 'input',
@@ -26,26 +25,45 @@ class LeaveFromTableView(AbstractView):
                 {
                     'type': 'input',
                     'name': 'table_id',
-                    'message': 'What table you wanna leave?',
+                    'message': 'What table you wanna leave him from?',
                 }
             ]
 
 
     def display_info(self):
-        print("You will leave a table.")
+        print("Leave Table Menu")
 
     def make_choice(self):
         answers = prompt(self.__questions)
-        pprint(answers)
-
-
+        from business.table.table import Table
+        
         if Session().user_type == 'player':
-            #dao req
+
+            table_to_leave = Table.load(int(answers['table_id']))
+            
+            if table_to_leave:
+                if table_to_leave.rm_player(Session().username):
+                    print('You\'ve been successfully removed from the table')
+                else:
+                    print('Something went wrong, may be you don\'t belong to this table')
+            else:
+                print("Unrocognised id table")
+
             from view.player_view.menu_view import PlayerMenuView
             return PlayerMenuView()
 
         elif Session().user_type == 'organiser':
-            #dao req
+
+            table_to_leave = Table.load(int(answers['table_id']))
+            
+            if table_to_leave:
+                if table_to_leave.rm_player(answers['username']):
+                    print('Player have been successfully removed from the table')
+                else:
+                    print('Something went wrong, may be you made a mistake on the username or the player don\'t belong to the table')
+            else:
+                print("Unrocognised id table")
+
             from view.organiser_view.menu_view import OrganiserMenuView
             return OrganiserMenuView()
 

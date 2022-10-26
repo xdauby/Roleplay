@@ -1,19 +1,35 @@
-from business.user.abstract_player import Player
 from business.scenario.scenario import Scenario
 
-class GameMaster(Player):
+class GameMaster:
 
-    def __init__(self, fisrtname:str, lastname:str, username:str, age:int = None) -> None:
-        super().__init__(fisrtname, lastname, age, username, 'game-master')
+    def __init__(self, firstname:str, lastname:str, username:str, age:int = None) -> None:
+        '''initiates a game master
+        
+        Parameters : 
+        firstname : str
+        lastname : str
+        username : str
+        age : int
+        '''
+        self.firstname = firstname
+        self.lastname = lastname
+        self.username = username
+        self.age = age
+
         self.scenarios = []
         self.tables_id = []
-        self.tables = []
+        self.scenario_table = []
     
     def add_scenario(self, scenario: Scenario) -> bool:
+        ''' adds a scenario
         
+        Parameters : 
+        scenario : Scenario
+        
+        Returns : bool '''
         if len(self.scenarios)<2:
-            from dao.scenario_dao import ScenarioDao
-            created = ScenarioDao().add(scenario)
+            from dao.game_master_dao import GameMasterDao
+            created = GameMasterDao().add_scenario(scenario)
             if created:
                 self.scenarios.append(scenario)
                 return True
@@ -21,24 +37,21 @@ class GameMaster(Player):
 
     def rm_scenario(self, id : int) -> bool:
 
-        for i, o in enumerate(self.scenarios):
-            if o.id == id:
-                from dao.scenario_dao import ScenarioDao
-                if ScenarioDao().rm(id):
-                    del self.scenarios[i]
+        for scenario in self.scenarios:
+            if scenario.id == id:
+                if GameMasterDao().rm_scenario(id):
+                    self.scenarios.remove(scenario)
                     return True
         return False
 
-    def load_player_tables(self) -> None:
+    def load_player_tables(self):
         if self.tables_id:
             from dao.table_dao import TableDao
-            self.tables = TableDao().load_user_tables(self.tables_id)
+            return TableDao().load_user_tables(self.tables_id)
     
     
     @staticmethod
     def load(username:str):
         from dao.game_master_dao import GameMasterDao
-        game_master = GameMasterDao().load(username)
-        if game_master:
-            return game_master
+        return GameMasterDao().load(username)
         

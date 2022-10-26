@@ -23,7 +23,7 @@ class RmScenarioView(AbstractView):
         pprint(answers)
         scenario_id_to_del = int(answers['scenario_id'])
 
-        if Session().game_master.rm_scenario(scenario_id_to_del):
+        if Session().player.game_master.rm_scenario(scenario_id_to_del):
             print(f'Scenario {scenario_id_to_del} succesfully deleted.')
         else:
             print('pb somwhere')

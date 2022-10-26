@@ -5,7 +5,7 @@ class Scenario:
     def __init__(self, name:str, description:str, id:int = None, username:str = None) -> None:
         
         self.id = id
-        self.belong_to = username
+        self.username = username
         self.name = name
         self.description = description
 

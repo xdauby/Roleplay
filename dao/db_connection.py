@@ -15,7 +15,14 @@ class DBConnection(metaclass=Singleton):
     def __init__(self):
         dotenv.load_dotenv(override=True)
         # Open the connection. 
-        self.__connection =psycopg2.connect(port="5432", dbname="roleplay", user="antoinedepaepe", password="r", cursor_factory = RealDictCursor)
+        self.__connection =psycopg2.connect(
+            host=os.environ["HOST"],
+            port=os.environ["PORT"],
+            database=os.environ["DATABASE"],
+            user=os.environ["USER"],
+            password=os.environ["PASSWORD"],
+            cursor_factory=RealDictCursor)
+        
 
     @property
     def connection(self):

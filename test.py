@@ -1,5 +1,5 @@
 #id none pour tester si deja save ou non
-
+"""
 class prf:
     def __init__(self, x) -> None:
         self.x = x
@@ -21,3 +21,11 @@ h.te(555)
 f.g(h)
 
 print(f.t)
+
+"""
+
+
+
+x = None
+y = not(x)
+print(y)

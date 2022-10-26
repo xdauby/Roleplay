@@ -4,7 +4,7 @@ class Character:
     def __init__(self, name:str, level:int, race:str, equipment: str, skill:str, id:int = None, username:str = None) -> None:
         
         self.id = id
-        self.belong_to = username
+        self.username = username
 
         self.name = name
         self.level = level

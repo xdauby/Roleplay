@@ -74,15 +74,26 @@ INSERT INTO player VALUES
 ('coximor', 'Rémy', 'Dupont', 21),
 ('sephix','Jean','Dupuis',33),
 ('paya6','Jeanne','Durand',19),
-('Jo89','antoine','de paepe',19),
-('kkj3','antoine','caid',19);
+('Jo89','Antoine','De Paepe',19),
+('kkj3','Jean','Valjean',19),
+('ghostminer','amine','ru',19),
+('killer7','Jaques','Mesrine',15),
+('lebloc','Denis','Motin',23),
+('spiderman','Tim','Mossuz',19),
+('batman77','Cedric','Chevaux',19),
+('zoro','Cedric','Legrand',19),
+('ziak','Moussa','Grand',19);
 
 INSERT INTO organiser VALUES
-('orga2','Natasha','Duchar',39),
-('orga6','Jérémy','Deschamps',28);
+('admin_orga2','Natasha','Duchar',39),
+('admin_orga6','Jérémy','Deschamps',28);
 
 INSERT INTO scenario(username, name, description) VALUES
 ('sephix','A scary cave','Come with us explore a scary cave'),
+('spiderman','The scary movie','Come with us play on a movie'),
+('spiderman','Mister robot','Come with us hack computers'),
+('batman77','Box fighting','Virtual box fights'),
+('kkj3','No imagination','Virtual world using your imagination'),
 ('Jo89','A bad trip','Come get ayahuasca');
 
 
@@ -92,13 +103,24 @@ INSERT INTO character(username, name, level, equipment, race, skill) VALUES
 ('coximor','cawa',3,'pony','rogue','longswords'),
 ('kkj3','cafe',3,'pony','rogue','longswords'),
 ('kkj3','rocketluri',5,'pony','rogue','longswords'),
-('paya6','pinguin',5,'lyre','sorcerer','leather-armor');
+('spiderman','spider',10,'pony','rogue','longswords'),
+('ghostminer','miner1',12,'pony','rogue','longswords'),
+('ghostminer','miner2',13,'pony','rogue','longswords'),
+('ghostminer','miner3',14,'pony','rogue','longswords'),
+('paya6','pinguin',5,'lyre','sorcerer','leather-armor'),
+('zoro','bilibili',4,'lyre','sorcerer','leather-armor'),
+('ziak','lacite',16,'lyre','sorcerer','leather-armor');
 
 INSERT INTO game(id_scenario, halfday, active) VALUES
 (1,1,TRUE),
-(2,1,TRUE),
-(1,2,TRUE),
-(2,2,TRUE);
+(2,1,TRUE);
+
+INSERT INTO char_reg_game(id_game, id_char) VALUES
+(1,7),
+(1,10),
+(1,11),
+(1,12),
+(2,4);
 
 INSERT INTO game(halfday, active) VALUES
 (1,TRUE),
@@ -121,78 +143,84 @@ INSERT INTO game(halfday, active) VALUES
 (1,FALSE);
 
 
-INSERT INTO char_reg_game VALUES
-(1,5),
-(1,6),
-(4,2),
-(4,5),
-(4,6);
+INSERT INTO game(id_scenario, halfday, active) VALUES
+(1,2,TRUE),
+(2,2,TRUE);
 
 
+INSERT INTO char_reg_game(id_game, id_char) VALUES
+(22,10);
 
+INSERT INTO game(halfday, active) VALUES
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,TRUE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE),
+(2,FALSE);
 
+INSERT INTO game(id_scenario, halfday, active) VALUES
+(2,3,TRUE),
+(6,3,TRUE);
 
+INSERT INTO char_reg_game(id_game, id_char) VALUES
+(41,1),
+(41,9),
+(41,10),
+(42,4);
 
+INSERT INTO game(halfday, active) VALUES
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,TRUE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE),
+(3,FALSE);
 
+INSERT INTO game(halfday, active) VALUES
+(4,TRUE),
+(4,TRUE),
+(4,TRUE),
+(4,TRUE),
+(4,TRUE),
+(4,TRUE),
+(4,TRUE),
+(4,TRUE),
+(4,TRUE),
+(4,TRUE),
+(4,FALSE),
+(4,FALSE),
+(4,FALSE),
+(4,FALSE),
+(4,FALSE),
+(4,FALSE),
+(4,FALSE),
+(4,FALSE),
+(4,FALSE),
+(4,FALSE);
 
-
-
-SELECT game.id_game FROM game
-Left JOIN char_reg_game ON game.id_game=char_reg_game.id_game
-right JOIN character ON character.id_char = char_reg_game.id_char
-WHERE character.username = 'sephix';
-
-#pour recup les id
-
-SELECT * FROM player
-LEFT JOIN character on character.username =  player.username
-LEFT JOIN char_reg_game on char_reg_game.id_char =  character.id_char
-LEFT JOIN game on game.id_game=char_reg_game.id_game
-WHERE player.username = 'coximor';
-
-
-
-SELECT DISTINCT game.id_game FROM character
-LEFT JOIN char_reg_game on character.id_char =  char_reg_game.id_char
-LEFT JOIN game on game.id_game = char_reg_game.id_game
-WHERE character.username = 'coximor';
-
-
-#pour les perso
-SELECT * FROM game
-inner JOIN char_reg_game on game.id_game = char_reg_game.id_game
-inner JOIN character on character.id_char = char_reg_game.id_char
-inner JOIN player on character.username = player.username
-where game.id_game = 4 ;
-
-#pour les games master 
-
-SELECT * FROM game
-inner JOIN scenario on game.id_scenario =  scenario.id_scenario
-inner JOIN player on scenario.username = player.username
-where game.id_game = 4 ;
-
-
-
-
-
-recupere les id de talbles dans le joueur,
-puis charger les tables avec la methode associer
-
-simple car on aura 2 CAs : 1 pour le gamermaster, un pour le basicplayer
-
-
-for 
-
-SELECT * FROM game
-LEFT JOIN char_reg_game on game.id_game = char_reg_game.id_game
-inner JOIN character on character.id_char = char_reg_game.id_char
-inner JOIN player on character.username = player.username
-where game.id_game in (1,2,3,4) ;
-
-
-SELECT * FROM game
-inner JOIN scenario on scenario.id_scenario = game.id_scenario
-inner JOIN player on scenario.username = player.username
-where game.id_game in ;
 

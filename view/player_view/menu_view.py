@@ -4,6 +4,10 @@ from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
 
+from business.user.basic_player import BasicPlayer
+from business.user.game_master import GameMaster
+from business.user.abstract_player import Player
+
 class PlayerMenuView(AbstractView):
     
     def __init__(self) -> None:
@@ -33,6 +37,9 @@ class PlayerMenuView(AbstractView):
     def make_choice(self):
         reponse = prompt(self.__questions)
         
+        #actualisation
+        Session().player = Player.load(Session().username)
+
         if reponse['choice'] == 'Join table':
             from view.user_view.add_to_table_view import AddToTableView
             return AddToTableView()

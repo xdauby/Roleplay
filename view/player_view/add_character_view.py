@@ -39,9 +39,9 @@ class AddCharacterView(AbstractView):
         answers = prompt(self.__questions)
         pprint(answers)
 
-        character_to_add = Character(name=answers['name'], level=answers['level'], race=answers['race'], equipment=answers['equipment'], skill=answers['skill'],username=Session().basic_player.username) 
+        character_to_add = Character(name=answers['name'], level=answers['level'], race=answers['race'], equipment=answers['equipment'], skill=answers['skill'],username=Session().username) 
         
-        if Session().basic_player.add_character(character_to_add):
+        if Session().player.basic_player.add_character(character_to_add):
             print('All is ok')
         else:
             print('pb somewhere')

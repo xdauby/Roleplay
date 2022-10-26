@@ -3,9 +3,10 @@ from abc import ABC, abstractmethod
 class User(ABC):
 
     def __init__(self, fisrtname: str,
-                 lastname: str, age:int = None):
+                 lastname: str, username:int, age:int = None):
         self.firstname = fisrtname
         self.lastname = lastname
+        self.username = username
         self.age = age
 
     @abstractmethod

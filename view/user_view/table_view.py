@@ -9,9 +9,14 @@ from view.session import Session
 class TableView(AbstractView):
     
     def display_info(self):
-        print("Voici toutes les tables")
+        print("Yours' tables : ")
         if Session().user_type == 'player':
-            tables = Session().game_master.load_all_tables()
+            tables = Session().player.load_all_tables()
+            for tables in tables:
+                print(tables)
+
+        if Session().user_type == 'organiser':
+            tables = Session().organiser.load_all_tables()
             for tables in tables:
                 print(tables)
 

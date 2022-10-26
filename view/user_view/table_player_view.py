@@ -6,31 +6,61 @@ from view.session import Session
 
 class TablePlayerView(AbstractView):
     
+    def __init__(self) -> None:
+
+        if Session().user_type == 'organiser':
+            self.__questions = [
+                {
+                    'type': 'input',
+                    'name': 'username',
+                    'message': 'Who\'s the player you want to look tables?',
+                }
+            ]
+    
     def display_info(self):
-
-        print("Your tables")
+        print("Tables : ")
         
-        if Session().user_type == 'player':
-            Session().game_master.load_player_tables()
-            Session().basic_player.load_player_tables()
-
-        if Session().game_master.tables:
-            for tables in Session().game_master.tables:
-                print(tables)
-
-        if Session().basic_player.tables:
-            for tables in Session().basic_player.tables:
-                print(tables)
-
-
-
         
     def make_choice(self):
 
         if Session().user_type == 'player':
+            
+            tables_gm = Session().player.game_master.load_player_tables()
+            tables_bp = Session().player.basic_player.load_player_tables()
+
+            if tables_gm:
+                for tables in tables_gm:
+                    print(tables)
+
+            if tables_bp:
+                for tables in tables_bp:
+                    print(tables)
             from view.player_view.menu_view import PlayerMenuView
             return PlayerMenuView()
 
-        elif Session().user_type == 'organiser':
+        if Session().user_type == 'organiser':
+            answers = prompt(self.__questions)
+
+            from business.user.abstract_player import Player
+
+            player = Player.load(answers['username'])
+            
+            if player:
+
+                tables_gm = player.game_master.load_player_tables()
+                tables_bp = player.basic_player.load_player_tables()
+
+                if tables_gm:
+                    for tables in tables_gm:
+                        print(tables)
+
+                if tables_bp:
+                    for tables in tables_bp:
+                        print(tables)
+            else:
+                print('The player does\'t exist')
+
             from view.organiser_view.menu_view import OrganiserMenuView
             return OrganiserMenuView()
+
+        

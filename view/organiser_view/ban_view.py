@@ -20,9 +20,8 @@ class BanView(AbstractView):
 
     def make_choice(self):
         
-        reponse = prompt(self.__questions)
-
-        #code to ban
+        answers = prompt(self.__questions)
+        Session().organiser.ban(answers['username'])
 
         from view.organiser_view.menu_view import OrganiserMenuView
         return OrganiserMenuView()

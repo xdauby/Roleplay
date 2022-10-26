@@ -23,7 +23,7 @@ class RmCharacterView(AbstractView):
         pprint(answers)
         character_id_to_del = int(answers['character_id'])
 
-        if Session().basic_player.rm_character(character_id_to_del):
+        if Session().player.basic_player.rm_character(character_id_to_del):
             print(f'Character {character_id_to_del} succesfully deleted.')
         else:
             print('pb somwhere')
