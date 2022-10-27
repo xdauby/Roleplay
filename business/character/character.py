@@ -22,4 +22,4 @@ class Character:
         pass
     
     def __str__(self):
-        return f'Character \n Id : {self.id} \n Name : {self.name}'
+        return f'Character \n Id : {self.id} \n Name : {self.name} \n  race : {self.race} \n  equipment : {self.equipment} \n  skill : {self.skill}'

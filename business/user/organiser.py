@@ -19,17 +19,19 @@ class Organiser(User):
     def ban(self, username:str):
 
         player = Player.load(username)
-        gm = player.game_master.load(username)
-        bp = player.basic_player.load(username)
-        
-        if gm.scenarios:
-            for scenerio in gm.scenarios:
-                gm.rm_scenario(scenerio.id)
+        if player:
+            gm = player.game_master.load(username)
+            bp = player.basic_player.load(username)
+            
+            if gm.scenarios:
+                for scenerio in gm.scenarios:
+                    gm.rm_scenario(scenerio.id)
 
-        if bp.characters:
-            for character in bp.characters:
-                bp.rm_character(character.id)
-        
+            if bp.characters:
+                for character in bp.characters:
+                    bp.rm_character(character.id)
+            return True
+        return False
 
     @staticmethod
     def load(username:str):

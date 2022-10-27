@@ -21,6 +21,7 @@ class RmScenarioView(AbstractView):
     def make_choice(self):
         answers = prompt(self.__questions)
         pprint(answers)
+
         scenario_id_to_del = int(answers['scenario_id'])
 
         if Session().player.game_master.rm_scenario(scenario_id_to_del):

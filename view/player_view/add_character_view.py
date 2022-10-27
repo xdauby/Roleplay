@@ -39,6 +39,9 @@ class AddCharacterView(AbstractView):
         answers = prompt(self.__questions)
         pprint(answers)
 
+        if not str.isdigit(answers['level']):
+            print('Error : enter a number for level.')
+
         character_to_add = Character(name=answers['name'], level=answers['level'], race=answers['race'], equipment=answers['equipment'], skill=answers['skill'],username=Session().username) 
         
         if Session().player.basic_player.add_character(character_to_add):

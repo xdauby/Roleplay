@@ -38,6 +38,12 @@ class RegisterView(AbstractView):
     def make_choice(self):
         answers = prompt(self.__questions)
 
+
+        if not str.isdigit(answers['age']):
+            print('Error : Your age is not a number.')
+            from view.start_view import StartView
+            return StartView()
+
         player = Player.load(answers['username'])
         if player:
             print('Player already registered with this username, please try another')
@@ -46,7 +52,8 @@ class RegisterView(AbstractView):
         else:
             player = Player( answers['firstname'], answers['lastname'], answers['username'], answers['age'])
             player.save()
-            Session().player = Player.load(player.username)
+            Session().user_type = 'player'
+            Session().username = answers['username']
             from view.player_view.menu_view import PlayerMenuView
             return PlayerMenuView()
         

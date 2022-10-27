@@ -78,6 +78,9 @@ class Table:
     def rm_player(self, username:str) -> bool:
         
         removed = False
+        if not self.scenario:
+            return removed
+
         #if a gamemaster is removed, all the players arround the the table are removed
         if self.scenario.username == username:
             #remove from db

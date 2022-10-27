@@ -23,3 +23,7 @@ f.g(h)
 print(f.t)
 
 """
+import time
+time.sleep(0.5)
+x = '1'
+print(str.isdigit(x))

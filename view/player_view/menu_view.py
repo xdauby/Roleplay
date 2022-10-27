@@ -39,7 +39,7 @@ class PlayerMenuView(AbstractView):
         
         #actualisation
         Session().player = Player.load(Session().username)
-
+  
         if reponse['choice'] == 'Join table':
             from view.user_view.add_to_table_view import AddToTableView
             return AddToTableView()
