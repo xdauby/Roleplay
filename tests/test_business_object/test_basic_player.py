@@ -4,6 +4,7 @@ from business.user.basic_player import BasicPlayer
 from business.character.character import Character
 from business.table.table import Table
 from business.user.abstract_player import Player
+from business.user.game_master import GameMaster
 
 
 
@@ -15,28 +16,73 @@ class TestBasicPlayer(TestCase):
     def test_add_character_case1(self):
         #case1 : player has already 3 characters
         #GIVEN
-        basic_player = BasicPlayer.load('ghostminer')
-        character = Character(name='bibi', 
+        player = Player(firstname='Jean', lastname='Hill', username='ninho', age=9)
+        player.save()
+        player.game_master = GameMaster(firstname='Jean', lastname='Hill', username='ninho')
+        player.basic_player = BasicPlayer(firstname='Jean', lastname='Hill', username='ninho')
+
+        character1 = Character(name='bibi', 
                               level=5, race='bard', 
                               equipment='amulet', 
                               skill='battleaxes', 
-                              username='ghostminer')
+                              username='ninho')
+        
+        character2 = Character(name='bobo', 
+                              level=4, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho')
+        
+        character3 = Character(name='baba', 
+                              level=3, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho')
+
+        character4 = Character(name='bolobo', 
+                              level=8, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho')
+
+        player.basic_player.add_character(character1)
+        player.basic_player.add_character(character2)
+        player.basic_player.add_character(character3)
         #WHEN
-        added = basic_player.add_character(character)
+        added = player.basic_player.add_character(character4)
         #THEN  
         self.assertFalse(added)
     
     def test_add_character_case2(self):
         #case2 : player can add the character
         #GIVEN
-        basic_player = BasicPlayer.load('Jo89')
-        character = Character(name='bibi', 
+        player = Player(firstname='Jean', lastname='Hill', username='ninho', age=9)
+        player.save()
+        player.game_master = GameMaster(firstname='Jean', lastname='Hill', username='ninho')
+        player.basic_player = BasicPlayer(firstname='Jean', lastname='Hill', username='ninho')
+
+        character1 = Character(name='bibi', 
                               level=5, race='bard', 
                               equipment='amulet', 
                               skill='battleaxes', 
-                              username='Jo89')
+                              username='ninho')
+        
+        character2 = Character(name='bobo', 
+                              level=4, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho')
+        
+        character3 = Character(name='baba', 
+                              level=3, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho')
+
+        player.basic_player.add_character(character1)
+        player.basic_player.add_character(character2)
         #WHEN
-        added = basic_player.add_character(character)
+        added = player.basic_player.add_character(character3)
         #THEN  
         self.assertTrue(added)
     
@@ -97,7 +143,7 @@ class TestBasicPlayer(TestCase):
 
 if __name__ == '__main__':
     #please, reinitialize the database before the test
-    unittest.TestLoader.sortTestMethodsUsing = None
-    unittest.main()
-    
+    #unittest.TestLoader.sortTestMethodsUsing = None
+    #unittest.main()
+    TestBasicPlayer().test_add_character_case1()
     

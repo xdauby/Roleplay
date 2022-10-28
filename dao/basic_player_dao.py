@@ -37,9 +37,9 @@ class BasicPlayerDao:
     def rm_character(self, id:int) -> bool:
         
         removed = False
-        request = "DELETE FROM character WHERE id_char = %(id)s;"\
-                  "DELETE FROM char_reg_game WHERE id_char = %(id)s;"\
-                  "SELECT COUNT(*) FROM char_reg_game WHERE id_char = %(id)s;"\
+        request = "DELETE FROM char_reg_game WHERE id_char = %(id)s;"\
+                  "DELETE FROM character WHERE id_char = %(id)s;"\
+                  "SELECT COUNT(*) FROM char_reg_game WHERE id_char = %(id)s;"
         
         with DBConnection().connection as connection:
             with connection.cursor() as cursor :
