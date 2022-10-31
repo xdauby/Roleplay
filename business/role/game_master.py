@@ -2,23 +2,17 @@ from business.scenario.scenario import Scenario
 
 class GameMaster:
 
-    def __init__(self, firstname:str, lastname:str, username:str, age:int = None) -> None:
+    def __init__(self, username:str) -> None:
         '''initiates a game master
         
         Parameters : 
-        firstname : str
-        lastname : str
         username : str
-        age : int
         '''
-        self.firstname = firstname
-        self.lastname = lastname
+    
         self.username = username
-        self.age = age
 
         self.scenarios = []
         self.tables_id = []
-        self.scenario_table = []
     
     def add_scenario(self, scenario: Scenario) -> bool:
         ''' adds a scenario
@@ -56,3 +50,12 @@ class GameMaster:
         from dao.game_master_dao import GameMasterDao
         return GameMasterDao().load(username)
         
+
+    def __eq__(self, obj):
+        if isinstance(obj,GameMaster):
+            if self.username == obj.username and self.scenarios == obj.scenarios and self.tables_id == obj.tables_id:
+                return True
+        return False
+
+
+

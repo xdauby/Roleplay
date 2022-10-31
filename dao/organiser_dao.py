@@ -19,24 +19,28 @@ class OrganiserDao:
                 res = cursor.fetchone()
         
         if res:
-            organiser = Organiser(res['firstname'], res['lastname'], res['username'], res['age'])
+            organiser = Organiser(fisrtname=res['firstname']
+                                    , lastname=res['lastname']
+                                    , username=res['username']
+                                    , age=res['age']
+                                    , password=res['password'])
         return organiser
 
     def save_notif(self, notif: Notification):
 
-        request = "INSERT INTO notif(notif, username) VALUES "\
-        "(%(username)s, %(notif)s)"\
-        "RETURNING id_notif;"
+        request = "INSERT INTO notification(username, notif) VALUES "\
+                    "(%(username)s, %(notif)s)"\
+                    "RETURNING id_notif;"
 
         with DBConnection().connection as connection:
             with connection.cursor() as cursor :
                 cursor.execute(
                     request 
-                ,{"username" : notification.belong_to
-                 ,"notif" : notification.notif })
+                ,{"username" : notif.username
+                 ,"notif" : notif.notification })
                 res = cursor.fetchone()
         if res:
-            notification.id = res['id_notif']
+            notif.id = res['id_notif']
             created = True
 
         return created   

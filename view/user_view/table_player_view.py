@@ -41,7 +41,7 @@ class TablePlayerView(AbstractView):
         if Session().user_type == 'organiser':
             answers = prompt(self.__questions)
 
-            from business.user.abstract_player import Player
+            from business.user.player import Player
 
             player = Player.load(answers['username'])
             

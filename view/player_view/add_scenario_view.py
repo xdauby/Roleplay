@@ -27,7 +27,9 @@ class AddScenarioView(AbstractView):
         answers = prompt(self.__questions)
         pprint(answers)
 
-        scenario_to_add = Scenario(name = answers['scenario_name'], description=answers['scenario_description'], username=Session().username)
+        scenario_to_add = Scenario(name = answers['scenario_name']
+                                    , description=answers['scenario_description']
+                                    , username=Session().username)
         if Session().player.game_master.add_scenario(scenario_to_add):
             print('All is ok')
         else:

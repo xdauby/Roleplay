@@ -4,11 +4,9 @@ from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
 
-from business.user.basic_player import BasicPlayer
-from business.user.game_master import GameMaster
-from business.user.abstract_player import Player
+from business.user.player import Player
 from business.user.organiser import Organiser
-
+from utils_.hash import hash_password
 
 
 class SignInView(AbstractView):
@@ -18,6 +16,10 @@ class SignInView(AbstractView):
                 'type': 'input',
                 'name': 'username',
                 'message': 'What\'s your username',
+            },{
+                'type': 'input',
+                'name': 'pw',
+                'message': 'What\'s your password',
             }
         ]
 
@@ -34,17 +36,19 @@ class SignInView(AbstractView):
 
 
         if Session().player:
-            Session().user_type = 'player'
-            Session().username = answers['username']
-            from view.player_view.menu_view import PlayerMenuView
-            return PlayerMenuView()
+            if Session().player.password == hash_password(answers['pw']):
+                Session().user_type = 'player'
+                Session().username = answers['username']
+                from view.player_view.menu_view import PlayerMenuView
+                return PlayerMenuView()
         
         if Session().organiser:
-            Session().user_type = 'organiser'
-            Session().username = answers['username']
-            from view.organiser_view.menu_view import OrganiserMenuView
-            return OrganiserMenuView()
+            if Session().organiser.password == hash_password(answers['pw']):
+                Session().user_type = 'organiser'
+                Session().username = answers['username']
+                from view.organiser_view.menu_view import OrganiserMenuView
+                return OrganiserMenuView()
         else:
-            print('User unrecognised')
+            print('User unrecognised or wrong password')
             from view.start_view import StartView
             return StartView()

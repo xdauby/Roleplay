@@ -2,17 +2,12 @@ from business.character.character import Character
 
 class BasicPlayer:
 
-    def __init__(self, firstname:str, lastname:str, username:str, age:int = None) -> None:
+    def __init__(self, username:str ) -> None:
 
-
-        self.firstname = firstname
-        self.lastname = lastname
         self.username = username
-        self.age = age
 
         self.characters = []
         self.tables_id = []
-        self.character_table = []
         
     def add_character(self, character: Character) -> bool:
         
@@ -56,4 +51,8 @@ class BasicPlayer:
         return overall
 
 
-    
+    def __eq__(self, obj):
+        if isinstance(obj,BasicPlayer):
+            if self.username == obj.username and self.characters == obj.characters and self.tables_id == obj.tables_id:
+                return True
+        return False

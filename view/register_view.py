@@ -3,7 +3,8 @@ from pprint import pprint
 from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
-from business.user.abstract_player import Player
+from business.user.player import Player
+from utils_.hash import hash_password
 
 class RegisterView(AbstractView):
     def __init__(self) -> None:
@@ -27,8 +28,12 @@ class RegisterView(AbstractView):
                 'type': 'input',
                 'name': 'age',
                 'message': 'What\'s your age',
+            },
+            {
+                'type': 'input',
+                'name': 'pw',
+                'message': 'What\'s your password',
             }
-
             
         ]
 
@@ -45,12 +50,18 @@ class RegisterView(AbstractView):
             return StartView()
 
         player = Player.load(answers['username'])
+        
         if player:
             print('Player already registered with this username, please try another')
             from view.start_view import StartView
             return StartView()
         else:
-            player = Player( answers['firstname'], answers['lastname'], answers['username'], answers['age'])
+            password = hash_password(answers['pw'])
+            player = Player(firstname=answers['firstname']
+                            , lastname=answers['lastname']
+                            , username=answers['username']
+                            , age=answers['age']
+                            , password=password)
             player.save()
             Session().user_type = 'player'
             Session().username = answers['username']

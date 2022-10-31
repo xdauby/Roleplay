@@ -26,6 +26,10 @@ class RmTableView(AbstractView):
         table = Table.load(answers['table_id'])
         if table:
             if table.desactive_table():
+                message = 'You\'ve been moved, check your tables !'
+                for player in table.players:
+                    Session().organiser.notify_player(notif=message, username=player.username)
+
                 print('Table successfully desactivated')
             else:
                 print('Something went wrong when you tried to desactivate the table.')

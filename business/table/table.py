@@ -2,11 +2,11 @@
 from typing import List, Optional
 
 
-from business.user.game_master import GameMaster
-from business.user.basic_player import BasicPlayer
+from business.role.game_master import GameMaster
+from business.role.basic_player import BasicPlayer
 from business.scenario.scenario import Scenario
 from business.character.character import Character
-from business.user.abstract_player import Player
+from business.user.player import Player
 
 class Table:
 
@@ -51,7 +51,7 @@ class Table:
 
     def add_basicplayer(self, player: Player, id_character:int)-> bool:
         from dao.table_dao import TableDao
-        #check if there is a game master and the table is ative
+        #check if there is a game master and the table is active
         if self.scenario and self.active:
 
             #check if the basic player can join the table
@@ -86,12 +86,21 @@ class Table:
             #remove from db
             from dao.table_dao import TableDao
             TableDao().rm_gm_from_table(self.id)
+    
+            #delete table from player
+            for player in self.players:
+                if player.username == username:
+                    player.halfday.remove(self.half_day)
+                    player.tables.remove(self.id)
+                    player.game_master.tables_id.remove(self.id)
+
             #remove from itself
             self.scenario = None
             self.characters = []
             self.players = []         
             removed = True
-            #maybe delete from player ...
+            
+
             return removed
 
         #if we delete a basic_player
@@ -99,10 +108,19 @@ class Table:
             #get his character
             for character in self.characters:
                 if character.username == username:
+                    
                     #delete the character from the table
                     from dao.table_dao import TableDao
                     TableDao().rm_bp_from_table(self.id, character.id)
                     self.characters.remove(character)
+                    
+                    #delete table from player
+                    for player in self.players:
+                        if player.username == username:
+                            player.halfday.remove(self.half_day)
+                            player.tables.remove(self.id)
+                            player.basic_player.tables_id.remove(self.id)
+                    
                     #delete the player from the table
                     for player in self.players:
                         if player.username == username:
@@ -112,11 +130,8 @@ class Table:
     
         return removed
     
-    @staticmethod
-    def load(table_id : int):
-        from dao.table_dao import TableDao
-        return TableDao().load(table_id)
-    
+
+
     def active_table(self) -> bool:
 
         from dao.table_dao import TableDao
@@ -137,9 +152,12 @@ class Table:
         return False
 
 
+    @staticmethod
+    def load(table_id : int):
+        from dao.table_dao import TableDao
+        return TableDao().load(table_id)
+    
     def __str__(self) -> str:
-
-        
 
         bp_str = ''
 
@@ -152,5 +170,11 @@ class Table:
             view = f'Table id : {self.id}, half day : {self.half_day}, acivate : {self.active}, table empty.'
         
         return view
+
+    def __eq__(self, obj):
+        if isinstance(obj,Table):
+            if self.id == obj.id and self.characters == obj.characters and self.scenario == obj.scenario and self.half_day == obj.half_day and self.active == obj.active and self.players==obj.players:
+                return True
+        return False
         
 

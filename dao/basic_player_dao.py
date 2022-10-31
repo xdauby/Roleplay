@@ -2,7 +2,7 @@ from typing import List, Optional
 from dao.db_connection import DBConnection
 
 from business.character.character import Character
-from business.user.basic_player import BasicPlayer
+from business.role.basic_player import BasicPlayer
 
 class BasicPlayerDao:
     
@@ -47,7 +47,6 @@ class BasicPlayerDao:
                     request
                 , {"id" : id})
                 res = cursor.fetchone()
-                print(res)
         if not res['count']:
             removed = True
 
@@ -80,7 +79,7 @@ class BasicPlayerDao:
         table_id_res = res[1]        
 
         if bp_res:
-            basic_player = BasicPlayer(bp_res[0]['firstname'], bp_res[0]['lastname'], bp_res[0]['username'])     
+            basic_player = BasicPlayer(bp_res[0]['username'])     
             for rows in bp_res:
                 
                 if rows['id_char']: #no id set to 0, test if is not None 

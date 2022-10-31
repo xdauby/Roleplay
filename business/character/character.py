@@ -23,3 +23,9 @@ class Character:
     
     def __str__(self):
         return f'Character \n Id : {self.id} \n Name : {self.name} \n  race : {self.race} \n  equipment : {self.equipment} \n  skill : {self.skill}'
+    
+    def __eq__(self, obj):
+        if isinstance(obj,Character):
+            if self.id == obj.id and self.username == obj.username and self.name == obj.name and self.level == obj.level and self.race == obj.race and self.skill == obj.skill and self.equipment == obj.equipment:
+                return True
+        return False

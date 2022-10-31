@@ -68,7 +68,7 @@ class AddToTableView(AbstractView):
     def get_scenario_or_character(self, answer):
         
         if Session().user_type == 'organiser':
-            from business.user.abstract_player import Player
+            from business.user.player import Player
         
             player = Player.load(answer['username'])
 
@@ -152,6 +152,9 @@ class AddToTableView(AbstractView):
                 if table:
                     if table.add_gamemaster(self.player, id_scenario):
                         print('Successfully added to the table.')
+                        message = 'You\'ve been moved, check your tables !'
+                        Session().organiser.notify_player(notif=message, username=self.player.username)
+
                     else:
                         print('Something went wrong when you tried to add the player to the table')
                 else:
@@ -163,6 +166,9 @@ class AddToTableView(AbstractView):
                 if table:
                     if table.add_basicplayer(self.player, id_character):
                         print('Successfully added to the table.')
+                        message = 'You\'ve been moved, check your tables !'
+                        Session().organiser.notify_player(notif=message, username=self.player.username)
+
                     else:
                         print('Something went wrong when you tried to add the player to the table.')
                 else:

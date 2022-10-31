@@ -21,8 +21,9 @@ class BanView(AbstractView):
     def make_choice(self):
         
         answers = prompt(self.__questions)
-        if Session().organiser.ban(answers['username']):
-            username =answers['username']
+        from business.user.player import Player
+        if Player.delete(answers['username']):
+            username = answers['username']
             print(f'Player {username} banned.')
         else:
             print('The player does\'t seem to exist.')

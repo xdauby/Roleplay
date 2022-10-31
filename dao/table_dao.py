@@ -1,14 +1,13 @@
-from curses import halfdelay
 from typing import List, Optional
 from dao.basic_player_dao import BasicPlayerDao
 from dao.db_connection import DBConnection
 
 from business.scenario.scenario import Scenario
 from business.character.character import Character
-from business.user.game_master import GameMaster
-from business.user.basic_player import BasicPlayer
+from business.role.game_master import GameMaster
+from business.role.basic_player import BasicPlayer
 from business.table.table import Table
-from business.user.abstract_player import Player
+from business.user.player import Player
 
 class TableDao:
 
@@ -46,7 +45,9 @@ class TableDao:
             
             #if the table is empty
             if not res_gamemaster[0]['id_scenario']:
-                table = Table(half_day=res_gamemaster[0]['halfday'],active=res_gamemaster[0]['active'],id=res_gamemaster[0]['id_game'])
+                table = Table(half_day=res_gamemaster[0]['halfday']
+                                , active=res_gamemaster[0]['active']
+                                , id=res_gamemaster[0]['id_game'])
                 return table
             
             else:
@@ -56,9 +57,7 @@ class TableDao:
                                         id = rows['id_scenario'], 
                                         username=rows['username'])
                     
-                    game_master = GameMaster(rows['firstname']
-                                            , rows['lastname']
-                                            , rows['username'])
+                    game_master = GameMaster(username = rows['username'])
                     game_master.scenarios.append(scenario)
 
                     player = Player(firstname=rows['firstname'], 
@@ -83,7 +82,7 @@ class TableDao:
                                         , skill = rows['skill']
                                         , username=rows['username'])
                     
-                    basic_player = BasicPlayer(rows['firstname'], rows['lastname'], rows['username'])
+                    basic_player = BasicPlayer(username=rows['username'])
                     basic_player.characters.append(character)
                     
                     player = Player(firstname=rows['firstname'], 
@@ -130,9 +129,7 @@ class TableDao:
                                         id = rows['id_scenario'], 
                                         username=rows['username'])
                     
-                game_master = GameMaster(rows['firstname']
-                                            , rows['lastname']
-                                            , rows['username'])
+                game_master = GameMaster(username=rows['username'])
                 game_master.scenarios.append(scenario)
 
                 player = Player(firstname=rows['firstname'], 
@@ -161,7 +158,7 @@ class TableDao:
                                         , skill = rows['skill']
                                         , username=rows['username'])
                     
-                        basic_player = BasicPlayer(rows['firstname'], rows['lastname'], rows['username'])
+                        basic_player = BasicPlayer(username=rows['username'])
                         basic_player.characters.append(character)
                     
                         player = Player(firstname=rows['firstname'], 
@@ -326,9 +323,7 @@ class TableDao:
                                             id = rows['id_scenario'], 
                                             username=rows['username'])
                         
-                    game_master = GameMaster(rows['firstname']
-                                                , rows['lastname']
-                                                , rows['username'])
+                    game_master = GameMaster(username=rows['username'])
                     game_master.scenarios.append(scenario)
 
                     player = Player(firstname=rows['firstname'], 
@@ -346,7 +341,10 @@ class TableDao:
                     tables.append(table)
                     
                 else:
-                    table = Table(half_day=rows['halfday'],active=rows['active'],id=rows['id_game'])
+                    table = Table(half_day=rows['halfday']
+                                , active=rows['active']
+                                , id=rows['id_game'])
+
                     tables.append(table)
 
     
@@ -363,7 +361,7 @@ class TableDao:
                                         , skill = rows['skill']
                                         , username=rows['username'])
                     
-                        basic_player = BasicPlayer(rows['firstname'], rows['lastname'], rows['username'])
+                        basic_player = BasicPlayer(username=rows['username'])
                         basic_player.characters.append(character)
                     
                         player = Player(firstname=rows['firstname'], 

@@ -1,10 +1,10 @@
 import unittest
 from unittest import TestCase
-from business.user.basic_player import BasicPlayer
+from business.role.basic_player import BasicPlayer
 from business.character.character import Character
 from business.table.table import Table
-from business.user.abstract_player import Player
-from business.user.game_master import GameMaster
+from business.user.player import Player
+from business.role.game_master import GameMaster
 
 
 
@@ -16,11 +16,14 @@ class TestBasicPlayer(TestCase):
     def test_add_character_case1(self):
         #case1 : player has already 3 characters
         #GIVEN
-        player = Player(firstname='Jean', lastname='Hill', username='ninho', age=9)
+        player = Player(firstname='Jean'
+                        , lastname='Hill'
+                        , username='ninho'
+                        , age=9
+                        , game_master=GameMaster(username='ninho')
+                        , basic_player=BasicPlayer(username='ninho'))
         player.save()
-        player.game_master = GameMaster(firstname='Jean', lastname='Hill', username='ninho')
-        player.basic_player = BasicPlayer(firstname='Jean', lastname='Hill', username='ninho')
-
+    
         character1 = Character(name='bibi', 
                               level=5, race='bard', 
                               equipment='amulet', 
@@ -52,32 +55,36 @@ class TestBasicPlayer(TestCase):
         added = player.basic_player.add_character(character4)
         #THEN  
         self.assertFalse(added)
+
     
     def test_add_character_case2(self):
         #case2 : player can add the character
         #GIVEN
-        player = Player(firstname='Jean', lastname='Hill', username='ninho', age=9)
+        player = Player(firstname='Jean'
+                        , lastname='Hill'
+                        , username='ninho2'
+                        , age=9
+                        , game_master=GameMaster(username='ninho2')
+                        , basic_player=BasicPlayer(username='ninho2'))        
         player.save()
-        player.game_master = GameMaster(firstname='Jean', lastname='Hill', username='ninho')
-        player.basic_player = BasicPlayer(firstname='Jean', lastname='Hill', username='ninho')
-
-        character1 = Character(name='bibi', 
+    
+        character1 = Character(name='bibi2', 
                               level=5, race='bard', 
                               equipment='amulet', 
                               skill='battleaxes', 
-                              username='ninho')
+                              username='ninho2')
         
-        character2 = Character(name='bobo', 
+        character2 = Character(name='bobo2', 
                               level=4, race='bard', 
                               equipment='amulet', 
                               skill='battleaxes', 
-                              username='ninho')
+                              username='ninho2')
         
-        character3 = Character(name='baba', 
+        character3 = Character(name='baba2', 
                               level=3, race='bard', 
                               equipment='amulet', 
                               skill='battleaxes', 
-                              username='ninho')
+                              username='ninho2')
 
         player.basic_player.add_character(character1)
         player.basic_player.add_character(character2)
@@ -85,23 +92,69 @@ class TestBasicPlayer(TestCase):
         added = player.basic_player.add_character(character3)
         #THEN  
         self.assertTrue(added)
+
     
     def test_rm_character_case1(self):
         #case1 : wrong id
         #GIVEN
-        basic_player = BasicPlayer.load('ghostminer')
+
+        player = Player(firstname='Jean'
+                        , lastname='Hill'
+                        , username='ninho3'
+                        , age=9
+                        , game_master=GameMaster(username='ninho3')
+                        , basic_player=BasicPlayer(username='ninho3'))
+        player.save()
+
+        character1 = Character(name='bibi3', 
+                              level=5, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho3')
+        
+        character2 = Character(name='bobo3', 
+                              level=4, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho3')
+
+        player.basic_player.add_character(character1)
+        player.basic_player.add_character(character2)
+
         id_character = -1
         #WHEN
-        removed = basic_player.rm_character(id_character)
+        removed = player.basic_player.rm_character(id_character)
         #THEN  
         self.assertFalse(removed)
     
     def test_rm_character_case2(self):
         #case2 : the player can remove his character
         #GIVEN
-        basic_player = BasicPlayer.load('Jo89')
-        #Jo89 has only one basic player, the one created before 
-        id_character = basic_player.characters[0].id
+
+        player = Player(firstname='Jean'
+                        , lastname='Hill'
+                        , username='ninho4'
+                        , age=9
+                        , game_master=GameMaster(username='ninho4')
+                        , basic_player=BasicPlayer(username='ninho4'))        
+        player.save()
+
+        character1 = Character(name='bibi4', 
+                              level=5, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho4')
+        
+        character2 = Character(name='bobo4', 
+                              level=4, race='bard', 
+                              equipment='amulet', 
+                              skill='battleaxes', 
+                              username='ninho4')
+
+        player.basic_player.add_character(character1)
+        player.basic_player.add_character(character2)
+
+        id_character = character2.id
         #WHEN
         removed = basic_player.rm_character(id_character)
         #THEN  
@@ -144,6 +197,6 @@ class TestBasicPlayer(TestCase):
 if __name__ == '__main__':
     #please, reinitialize the database before the test
     #unittest.TestLoader.sortTestMethodsUsing = None
-    #unittest.main()
-    TestBasicPlayer().test_add_character_case1()
+    unittest.main()
+
     

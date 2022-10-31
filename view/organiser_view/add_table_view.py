@@ -26,7 +26,7 @@ class AddTableView(AbstractView):
         table = Table.load(answers['table_id'])
         if table:
             if table.active_table():
-                print('Table successfully desactivated')
+                print('Table successfully activated')
             else:
                 print('Something went wrong when you tried to desactivate the table.')
         else:
