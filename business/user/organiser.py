@@ -7,21 +7,33 @@ from business.notification.notification import Notification
 
 class Organiser(User):
     
-    def __init__(self, fisrtname: str, lastname: str, username:str, age:int, id : int = None, password:str='') -> None:
-        super().__init__(fisrtname, lastname, username, password, age)
+    def __init__(self, fisrtname: str
+                        , lastname: str
+                        , username:str
+                        , age:int
+                        , id : int = None
+                        , password:str='') -> None:
+
+        super().__init__(fisrtname=fisrtname
+                        , lastname=lastname
+                        , username=username
+                        , password=password
+                        , age=age)
 
     def load_all_tables(self):
+        
         from dao.table_dao import TableDao
         return TableDao().load_all(show_desactive=True)
         
     def notify_player(self, notif: str, username: str) -> bool:
-        
+
         notif_player = Notification(notification=notif, username=username)
         from dao.organiser_dao import OrganiserDao
         return OrganiserDao().save_notif(notif_player)
          
     @staticmethod
     def load(username:str):
+        
         from dao.organiser_dao import OrganiserDao
         organiser = OrganiserDao().load(username)
         return organiser

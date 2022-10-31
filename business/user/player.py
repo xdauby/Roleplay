@@ -5,8 +5,20 @@ from business.notification.notification import Notification
 
 class Player(User):
     
-    def __init__(self, firstname: str, lastname: str, username: str, age: int, game_master: GameMaster=None, basic_player: BasicPlayer=None, notification: Notification=None, password:str=''):
-        super().__init__(firstname, lastname, username, password, age)
+    def __init__(self, firstname: str
+                        , lastname: str
+                        , username: str
+                        , age: int
+                        , game_master: GameMaster=None
+                        , basic_player: BasicPlayer=None
+                        , notification: Notification=None
+                        , password:str=''):
+
+        super().__init__(firstname=firstname
+                        , lastname=lastname
+                        , username=username
+                        , password=password
+                        , age=age)
    
         self.tables = []
         self.halfday = []
@@ -31,6 +43,12 @@ class Player(User):
         from dao.player_dao import PlayerDao
         return PlayerDao().save(self)
 
+    def __eq__(self, obj):
+            if isinstance(obj,Player):
+                if self.tables == obj.tables and self.halfday == obj.halfday and self.basic_player == obj.basic_player and self.game_master == obj.game_master and self.firstname == obj.firstname and self.lastname == obj.lastname and self.username == obj.username and self.age == obj.age:
+                    return True
+            return False
+
     @staticmethod
     def load(username:str):
         from dao.player_dao import PlayerDao
@@ -41,8 +59,4 @@ class Player(User):
         from dao.player_dao import PlayerDao
         return PlayerDao().delete(username)
     
-    def __eq__(self, obj):
-            if isinstance(obj,Player):
-                if self.tables == obj.tables and self.halfday == obj.halfday and self.basic_player == obj.basic_player and self.game_master == obj.game_master and self.firstname == obj.firstname and self.lastname == obj.lastname and self.username == obj.username and self.age == obj.age:
-                    return True
-            return False
+    
