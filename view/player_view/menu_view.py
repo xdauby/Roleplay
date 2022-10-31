@@ -31,8 +31,6 @@ class PlayerMenuView(AbstractView):
 
     def display_info(self):
         
-        Session().player = Player.load(Session().username)
-        Session().player.load_notif()
         notif = Session().player.notification
         if notif:
             print(notif)
@@ -44,6 +42,8 @@ class PlayerMenuView(AbstractView):
         reponse = prompt(self.__questions)
         
         #actualisation
+        Session().player = Player.load(Session().username)
+
   
         if reponse['choice'] == 'Join table':
             from view.user_view.add_to_table_view import AddToTableView

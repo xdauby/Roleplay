@@ -30,10 +30,6 @@ class Player(User):
         from dao.table_dao import TableDao
         return TableDao().load_all(show_desactive=False)
         
-    def load_notif(self) -> None:
-        from dao.player_dao import PlayerDao
-        self.notification = PlayerDao().load_notif(self.username)
-
     def delete_notif(self) -> None:
         from dao.player_dao import PlayerDao
         if PlayerDao().delete_notif(self.username):

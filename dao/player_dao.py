@@ -22,11 +22,13 @@ class PlayerDao:
                 res = cursor.fetchone()
         
         if res:
+            notif = self.load_notif(username)
             player = Player(firstname=res['firstname']
                             , lastname=res['lastname']
                             , username=res['username']
                             , age=res['age']
-                            , password=res['password'])
+                            , password=res['password']
+                            , notification=notif)
             
             game_master = GameMasterDao().load(username)
             basic_player = BasicPlayerDao().load(username)
