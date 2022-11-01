@@ -91,7 +91,8 @@ INSERT INTO player VALUES
 ('spiderman','Tim','Mossuz',19,'5cc55633769b725e714f9cdfc6c611e11e95bcb0f4f642ac922a373f0c91d055'),
 ('batman77','Cedric','Chevaux',19,'5cc55633769b725e714f9cdfc6c611e11e95bcb0f4f642ac922a373f0c91d055'),
 ('zoro','Cedric','Legrand',19,'5cc55633769b725e714f9cdfc6c611e11e95bcb0f4f642ac922a373f0c91d055'),
-('ziak','Moussa','Grand',19,'5cc55633769b725e714f9cdfc6c611e11e95bcb0f4f642ac922a373f0c91d055');
+('ziak','Moussa','Grand',19,'5cc55633769b725e714f9cdfc6c611e11e95bcb0f4f642ac922a373f0c91d055'),
+('ziakbis','George','Grand',19,'5cc55633769b725e714f9cdfc6c611e11e95bcb0f4f642ac922a373f0c91d055');
 
 INSERT INTO organiser VALUES
 ('admin_orga2','Natasha','Duchar',39,'8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'),
@@ -121,7 +122,7 @@ INSERT INTO character(username, name, level, equipment, race, skill) VALUES
 ('ziak','lacite',16,'lyre','sorcerer','leather-armor');
 
 INSERT INTO notification(notif, username) VALUES
-('Ceci est un test de notification','coximor');
+('You have been moved, check your tables !','coximor');
 
 INSERT INTO game(id_scenario, halfday, active) VALUES
 (1,1,TRUE),

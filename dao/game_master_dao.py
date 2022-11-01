@@ -77,9 +77,7 @@ class GameMasterDao:
         table_id_res = res[1]        
 
         if gm_res: 
-            
-            game_master = GameMaster(gm_res[0]['username'])
-            
+            game_master = GameMaster(username=username)            
             for rows in gm_res:
                 if rows['id_scenario']:
                     scenario = Scenario(name = rows['name']

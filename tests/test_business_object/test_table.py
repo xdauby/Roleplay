@@ -481,7 +481,7 @@ class TestTable(TestCase):
     def test_activate_table(self):
         #GIVEN
         #tables 33 must be empty and desactivated in the db for the test : by default, it is.
-        table = Table(halfday = 2, active = False, id = 33)
+        table = Table(half_day = 2, active = False, id = 33)
         #WHEN
         table.active_table()
         #then

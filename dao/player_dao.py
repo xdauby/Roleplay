@@ -35,7 +35,7 @@ class PlayerDao:
             
             player.game_master = game_master
             player.basic_player = basic_player
-            player_tables = basic_player.tables_id + game_master.tables_id
+            player.tables = basic_player.tables_id + game_master.tables_id
             player.halfday = self.player_halfday(username)
 
         return player

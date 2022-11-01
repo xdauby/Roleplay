@@ -156,7 +156,7 @@ class TestBasicPlayer(TestCase):
 
         id_character = character2.id
         #WHEN
-        removed = basic_player.rm_character(id_character)
+        removed = player.basic_player.rm_character(id_character)
         #THEN  
         self.assertTrue(removed)
 

@@ -79,9 +79,8 @@ class BasicPlayerDao:
         table_id_res = res[1]        
 
         if bp_res:
-            basic_player = BasicPlayer(bp_res[0]['username'])     
+            basic_player = BasicPlayer(username=username)     
             for rows in bp_res:
-                
                 if rows['id_char']: #no id set to 0, test if is not None 
                     character = Character(name=rows['name']
                                       , level=rows['level']
@@ -92,10 +91,9 @@ class BasicPlayerDao:
                                       , username = rows['username'])   
                     basic_player.characters.append(character)
                 
-                for table_id in table_id_res:
-      
-                    if table_id['id_game']:
-                        basic_player.tables_id.append(table_id['id_game'])
+            for table_id in table_id_res:      
+                if table_id['id_game']:
+                    basic_player.tables_id.append(table_id['id_game'])
                 
         return basic_player
         
