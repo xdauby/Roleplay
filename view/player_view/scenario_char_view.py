@@ -8,6 +8,7 @@ from view.session import Session
 class ScenCharView(AbstractView):
    
     def display_info(self):
+        
         scenario = Session().player.game_master.scenarios
         character = Session().player.basic_player.characters
         if scenario:

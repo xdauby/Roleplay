@@ -26,6 +26,11 @@ class Player(User):
         self.game_master = game_master
         self.notification = notification
 
+    def load_player_tables(self) -> None:
+        if self.tables:
+            from dao.table_dao import TableDao
+            return TableDao().load_user_tables(self.tables)
+
     def load_all_tables(self):
         from dao.table_dao import TableDao
         return TableDao().load_all(show_desactive=False)

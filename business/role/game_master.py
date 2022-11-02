@@ -12,7 +12,6 @@ class GameMaster:
         self.username = username
 
         self.scenarios = []
-        self.tables_id = []
     
     def add_scenario(self, scenario: Scenario) -> bool:
         ''' adds a scenario
@@ -38,11 +37,6 @@ class GameMaster:
                     self.scenarios.remove(scenario)
                     return True
         return False
-
-    def load_player_tables(self):
-        if self.tables_id:
-            from dao.table_dao import TableDao
-            return TableDao().load_user_tables(self.tables_id)
     
     
     @staticmethod

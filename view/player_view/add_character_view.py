@@ -37,7 +37,6 @@ class AddCharacterView(AbstractView):
 
     def make_choice(self):
         answers = prompt(self.__questions)
-        pprint(answers)
 
         if not str.isdigit(answers['level']):
             print('Error : enter a number for level.')

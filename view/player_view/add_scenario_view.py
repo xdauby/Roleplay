@@ -25,7 +25,6 @@ class AddScenarioView(AbstractView):
 
     def make_choice(self):
         answers = prompt(self.__questions)
-        pprint(answers)
 
         scenario_to_add = Scenario(name = answers['scenario_name']
                                     , description=answers['scenario_description']

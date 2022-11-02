@@ -54,41 +54,26 @@ class GameMasterDao:
 
         game_master = None
         
-        scen_request = "SELECT * FROM player "\
+        requests = "SELECT * FROM player "\
                     "LEFT JOIN scenario on player.username = scenario.username "\
                     "WHERE player.username = %(username)s;"
-        
-        table_id_request = "SELECT DISTINCT game.id_game, game.id_scenario FROM scenario "\
-                            "LEFT JOIN game on game.id_scenario = scenario.id_scenario "\
-                            "WHERE scenario.username = %(username)s; "
-     
-        requests = [scen_request,table_id_request]
-        res = []
-
+    
         with DBConnection().connection as connection:
             with connection.cursor() as cursor :
-                for reqs in requests:
-                    cursor.execute(
-                        reqs
-                        , {"username" : username})
-                    res.append(cursor.fetchall())
-        
-        gm_res = res[0]
-        table_id_res = res[1]        
+                cursor.execute(
+                    requests
+                    , {"username" : username})
+                res = cursor.fetchall()
 
-        if gm_res: 
+        if res: 
             game_master = GameMaster(username=username)            
-            for rows in gm_res:
+            for rows in res:
                 if rows['id_scenario']:
                     scenario = Scenario(name = rows['name']
                                         , description=rows['description']
                                         , id = rows['id_scenario']
                                         , username=rows['username'])
                     game_master.scenarios.append(scenario)
-            
-            for table_id in table_id_res:
-                if table_id['id_game']:
-                    game_master.tables_id.append(table_id['id_game'])
       
         return game_master
         

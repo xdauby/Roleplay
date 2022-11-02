@@ -35,8 +35,11 @@ class PlayerDao:
             
             player.game_master = game_master
             player.basic_player = basic_player
-            player.tables = basic_player.tables_id + game_master.tables_id
-            player.halfday = self.player_halfday(username)
+
+            halfday_tables_id = self.player_halfday_and_tables_id(username)
+
+            player.halfday = halfday_tables_id['halfday']
+            player.tables = halfday_tables_id['tables_id']
 
         return player
 
@@ -64,32 +67,6 @@ class PlayerDao:
             deleted = True
 
         return deleted
-        
-    def player_halfday(self,username: str):
-
-        halfday = []
-
-        request = 'SELECT game.halfday FROM game '\
-                        'LEFT JOIN char_reg_game on game.id_game = char_reg_game.id_game '\
-                        'INNER JOIN character on character.id_char = char_reg_game.id_char '\
-                        'WHERE character.username = %(username)s '\
-                        'UNION '\
-                        'SELECT game.halfday FROM game '\
-                        'LEFT JOIN scenario on scenario.id_scenario = game.id_scenario '\
-                        'WHERE scenario.username = %(username)s;'            
-
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor :
-                    cursor.execute(
-                        request, 
-                        {'username': username})
-                    res = cursor.fetchall()
-
-        halfday = []
-        for rows in res:
-            halfday.append(rows['halfday']) 
-      
-        return halfday
 
     def save(self, player:Player):
          
@@ -149,7 +126,32 @@ class PlayerDao:
             deleted = True
         return deleted
 
+    def player_halfday_and_tables_id(self,username: str):
 
+        halfday = []
+        tables_id = []
 
+        request = 'SELECT game.halfday, game.id_game FROM game '\
+                        'LEFT JOIN char_reg_game on game.id_game = char_reg_game.id_game '\
+                        'INNER JOIN character on character.id_char = char_reg_game.id_char '\
+                        'WHERE character.username = %(username)s '\
+                        'UNION '\
+                        'SELECT game.halfday, game.id_game FROM game '\
+                        'LEFT JOIN scenario on scenario.id_scenario = game.id_scenario '\
+                        'WHERE scenario.username = %(username)s;'            
+
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor :
+                    cursor.execute(
+                        request, 
+                        {'username': username})
+                    res = cursor.fetchall()
+
+        halfday = []
+        for rows in res:
+            halfday.append(rows['halfday']) 
+            tables_id.append(rows['id_game'])
+      
+        return {'halfday' : halfday, 'tables_id': tables_id}
 
 

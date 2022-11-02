@@ -7,7 +7,6 @@ class BasicPlayer:
         self.username = username
 
         self.characters = []
-        self.tables_id = []
         
     def add_character(self, character: Character) -> bool:
         
@@ -29,12 +28,6 @@ class BasicPlayer:
                     self.characters.remove(character)
                     return True
         return False
-
-
-    def load_player_tables(self) -> None:
-        if self.tables_id:
-            from dao.table_dao import TableDao
-            return TableDao().load_user_tables(self.tables_id)
     
     @staticmethod
     def load(username:str):

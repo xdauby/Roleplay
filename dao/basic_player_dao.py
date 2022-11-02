@@ -56,31 +56,20 @@ class BasicPlayerDao:
         
         basic_player = None
 
-        char_request = "SELECT * FROM player  "\
+        requests = "SELECT * FROM player  "\
                         "LEFT JOIN character ON character.username =  player.username "\
                         "WHERE player.username =  %(username)s;"          
-        table_id_request = "SELECT DISTINCT game.id_game, character.id_char FROM character "\
-                            "LEFT JOIN char_reg_game on char_reg_game.id_char = character.id_char "\
-                            "LEFT JOIN game on game.id_game = char_reg_game.id_game "\
-                            "WHERE character.username = %(username)s; "
-
-        requests = [char_request,table_id_request]
-        res = []
-     
+       
         with DBConnection().connection as connection:
             with connection.cursor() as cursor :
-                for reqs in requests:
-                    cursor.execute(
-                        reqs
-                        , {"username" : username})
-                    res.append(cursor.fetchall())
-        
-        bp_res = res[0]
-        table_id_res = res[1]        
-
-        if bp_res:
+                cursor.execute(
+                    requests
+                    , {"username" : username})
+                res = cursor.fetchall()
+            
+        if res:
             basic_player = BasicPlayer(username=username)     
-            for rows in bp_res:
+            for rows in res:
                 if rows['id_char']: #no id set to 0, test if is not None 
                     character = Character(name=rows['name']
                                       , level=rows['level']
@@ -90,10 +79,6 @@ class BasicPlayerDao:
                                       , skill = rows['skill']
                                       , username = rows['username'])   
                     basic_player.characters.append(character)
-                
-            for table_id in table_id_res:      
-                if table_id['id_game']:
-                    basic_player.tables_id.append(table_id['id_game'])
                 
         return basic_player
         

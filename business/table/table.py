@@ -42,7 +42,6 @@ class Table:
             elif TableDao().add_gm_to_table(id_scenario=id_scenario, id_game=self.id):
                 for scenario in player.game_master.scenarios:
                     if scenario.id == id_scenario:
-                        player.game_master.tables_id.append(self.id)
                         player.tables.append(self.id)
                         player.halfday.append(self.half_day)
                         self.scenario = scenario
@@ -66,7 +65,6 @@ class Table:
                 if TableDao().add_bp_to_table(id_character=id_character, id_game=self.id):
                     for character in player.basic_player.characters:
                         if character.id == id_character:
-                            player.basic_player.tables_id.append(self.id)
                             player.tables.append(self.id)
                             player.halfday.append(self.half_day)
                             self.characters.append(character)
@@ -93,7 +91,6 @@ class Table:
                 if player.username == username:
                     player.halfday.remove(self.half_day)
                     player.tables.remove(self.id)
-                    player.game_master.tables_id.remove(self.id)
 
             #remove from itself
             self.scenario = None
@@ -120,7 +117,6 @@ class Table:
                         if player.username == username:
                             player.halfday.remove(self.half_day)
                             player.tables.remove(self.id)
-                            player.basic_player.tables_id.remove(self.id)
 
                     #delete the player from the table
                     for player in self.players:

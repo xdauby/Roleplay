@@ -25,16 +25,13 @@ class TablePlayerView(AbstractView):
 
         if Session().user_type == 'player':
             
-            tables_gm = Session().player.game_master.load_player_tables()
-            tables_bp = Session().player.basic_player.load_player_tables()
+            tables = Session().player.load_player_tables()
 
-            if tables_gm:
-                for tables in tables_gm:
-                    print(tables)
+            if tables:
+                for table in tables:
+                    print(table)
 
-            if tables_bp:
-                for tables in tables_bp:
-                    print(tables)
+
             from view.player_view.menu_view import PlayerMenuView
             return PlayerMenuView()
 
@@ -46,17 +43,10 @@ class TablePlayerView(AbstractView):
             player = Player.load(answers['username'])
             
             if player:
-
-                tables_gm = player.game_master.load_player_tables()
-                tables_bp = player.basic_player.load_player_tables()
-
-                if tables_gm:
-                    for tables in tables_gm:
-                        print(tables)
-
-                if tables_bp:
-                    for tables in tables_bp:
-                        print(tables)
+                tables = player.load_player_tables()
+                if tables:
+                    for table in tables:
+                        print(table)
             else:
                 print('The player does\'t exist')
 
