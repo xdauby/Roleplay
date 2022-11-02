@@ -22,8 +22,9 @@ class Table:
         self.active = active
         
         self.scenario = scenario
+        #pointer problem, so we must do it like that
         self.characters = []
-        self.players = players
+        self.players = []
         
 
     def add_gamemaster(self, player: Player, id_scenario:int) -> bool:
@@ -120,7 +121,7 @@ class Table:
                             player.halfday.remove(self.half_day)
                             player.tables.remove(self.id)
                             player.basic_player.tables_id.remove(self.id)
-                    
+
                     #delete the player from the table
                     for player in self.players:
                         if player.username == username:

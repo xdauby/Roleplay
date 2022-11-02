@@ -8,6 +8,7 @@ from business.role.game_master import GameMaster
 from business.role.basic_player import BasicPlayer
 from business.table.table import Table
 from business.user.player import Player
+from dao.player_dao import PlayerDao
 
 class TableDao:
 
@@ -41,6 +42,7 @@ class TableDao:
         res_gamemaster = res[0]
         res_basicplayer = res[1]
 
+
         if res_gamemaster or res_basicplayer:
             
             #if the table is empty
@@ -52,11 +54,13 @@ class TableDao:
             
             else:
                 for rows in res_gamemaster:
+
+                    
                     scenario = Scenario(name=rows['name'], 
                                         description=rows['description'], 
                                         id = rows['id_scenario'], 
                                         username=rows['username'])
-                    
+                    """
                     game_master = GameMaster(username = rows['username'])
                     game_master.scenarios.append(scenario)
 
@@ -65,6 +69,8 @@ class TableDao:
                                     username=rows['username'], 
                                     age=rows['age'], 
                                     game_master=game_master)
+                    """
+                    player = PlayerDao().load(rows['username'])
 
                     table = Table(half_day=rows['halfday']
                                 , active=rows['active']
@@ -74,6 +80,8 @@ class TableDao:
                     table.scenario = scenario
         
                 for rows in res_basicplayer:
+
+                    
                     character = Character(name=rows['name']
                                         , level=rows['level']
                                         , id = rows['id_char']
@@ -81,7 +89,7 @@ class TableDao:
                                         , race = rows['race']
                                         , skill = rows['skill']
                                         , username=rows['username'])
-                    
+                    """
                     basic_player = BasicPlayer(username=rows['username'])
                     basic_player.characters.append(character)
                     
@@ -90,7 +98,8 @@ class TableDao:
                                     username=rows['username'], 
                                     age=rows['age'], 
                                     basic_player=basic_player)
-                    
+                    """
+                    player = PlayerDao().load(rows['username'])
                     table.players.append(player)
                     table.characters.append(character)
                     
@@ -375,5 +384,3 @@ class TableDao:
 
         
         return tables
-
-

@@ -37,6 +37,7 @@ class LeaveFromTableView(AbstractView):
         answers = prompt(self.__questions)
         from business.table.table import Table
         
+
         if Session().user_type == 'player':
 
             table_to_leave = Table.load(int(answers['table_id']))
@@ -46,6 +47,7 @@ class LeaveFromTableView(AbstractView):
                     print('You\'ve been successfully removed from the table')
                 else:
                     print('Something went wrong, may be you don\'t belong to this table')
+            
             else:
                 print("Unrocognised id table")
 

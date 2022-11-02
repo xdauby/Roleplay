@@ -7,14 +7,14 @@ from business.notification.notification import Notification
 
 class Organiser(User):
     
-    def __init__(self, fisrtname: str
+    def __init__(self, firstname: str
                         , lastname: str
                         , username:str
                         , age:int
                         , id : int = None
                         , password:str='') -> None:
 
-        super().__init__(fisrtname=fisrtname
+        super().__init__(firstname=firstname
                         , lastname=lastname
                         , username=username
                         , password=password

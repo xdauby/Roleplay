@@ -19,7 +19,7 @@ class OrganiserDao:
                 res = cursor.fetchone()
         
         if res:
-            organiser = Organiser(fisrtname=res['firstname']
+            organiser = Organiser(firstname=res['firstname']
                                     , lastname=res['lastname']
                                     , username=res['username']
                                     , age=res['age']

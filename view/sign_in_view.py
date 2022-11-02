@@ -41,14 +41,22 @@ class SignInView(AbstractView):
                 Session().username = answers['username']
                 from view.player_view.menu_view import PlayerMenuView
                 return PlayerMenuView()
-        
+            else:
+                print('Wrong password')
+                from view.start_view import StartView
+                return StartView()
+                
         if Session().organiser:
             if Session().organiser.password == hash_password(answers['pw']):
                 Session().user_type = 'organiser'
                 Session().username = answers['username']
                 from view.organiser_view.menu_view import OrganiserMenuView
                 return OrganiserMenuView()
+            else:
+                print('Wrong password')
+                from view.start_view import StartView
+                return StartView()
         else:
-            print('User unrecognised or wrong password')
+            print('User unrecognised')
             from view.start_view import StartView
             return StartView()
