@@ -5,7 +5,6 @@ class BasicPlayer:
     def __init__(self, username:str ) -> None:
 
         self.username = username
-
         self.characters = []
         
     def add_character(self, character: Character) -> bool:

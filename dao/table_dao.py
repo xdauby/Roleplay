@@ -60,16 +60,7 @@ class TableDao:
                                         description=rows['description'], 
                                         id = rows['id_scenario'], 
                                         username=rows['username'])
-                    """
-                    game_master = GameMaster(username = rows['username'])
-                    game_master.scenarios.append(scenario)
-
-                    player = Player(firstname=rows['firstname'], 
-                                    lastname=rows['lastname'], 
-                                    username=rows['username'], 
-                                    age=rows['age'], 
-                                    game_master=game_master)
-                    """
+                
                     player = PlayerDao().load(rows['username'])
 
                     table = Table(half_day=rows['halfday']
@@ -89,16 +80,7 @@ class TableDao:
                                         , race = rows['race']
                                         , skill = rows['skill']
                                         , username=rows['username'])
-                    """
-                    basic_player = BasicPlayer(username=rows['username'])
-                    basic_player.characters.append(character)
                     
-                    player = Player(firstname=rows['firstname'], 
-                                    lastname=rows['lastname'], 
-                                    username=rows['username'], 
-                                    age=rows['age'], 
-                                    basic_player=basic_player)
-                    """
                     player = PlayerDao().load(rows['username'])
                     table.players.append(player)
                     table.characters.append(character)

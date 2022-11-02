@@ -10,7 +10,6 @@ class GameMaster:
         '''
     
         self.username = username
-
         self.scenarios = []
     
     def add_scenario(self, scenario: Scenario) -> bool:
