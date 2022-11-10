@@ -46,7 +46,7 @@ class GameMaster:
 
     def __eq__(self, obj):
         if isinstance(obj,GameMaster):
-            if self.username == obj.username and self.scenarios == obj.scenarios and self.tables_id == obj.tables_id:
+            if self.username == obj.username and self.scenarios == obj.scenarios:
                 return True
         return False
 

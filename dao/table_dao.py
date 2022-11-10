@@ -87,83 +87,6 @@ class TableDao:
                     
         return table
 
-    def load_user_tables(self, table_id):
-        tables = []
-        request_gamemaster = "SELECT * FROM game "\
-                            "inner JOIN scenario on scenario.id_scenario = game.id_scenario "\
-                            "inner JOIN player on scenario.username = player.username "\
-                            "where game.id_game IN %s;"
-        
-        request_basicplayer = "SELECT * FROM game "\
-                                "LEFT JOIN char_reg_game on game.id_game = char_reg_game.id_game "\
-                                "inner JOIN character on character.id_char = char_reg_game.id_char "\
-                                "inner JOIN player on character.username = player.username "\
-                                "where game.id_game IN %s;"
-
-        requests = [request_gamemaster,request_basicplayer]
-        res = []
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor :
-                for reqs in requests:
-                    cursor.execute(
-                        reqs
-                    , (tuple(table_id),))
-                    res.append(cursor.fetchall())
-
-        res_gamemaster = res[0]
-        res_basicplayer = res[1]
-
-        if res_gamemaster:
-            for rows in res_gamemaster:
-                scenario = Scenario(name=rows['name'], 
-                                        description=rows['description'], 
-                                        id = rows['id_scenario'], 
-                                        username=rows['username'])
-                    
-                game_master = GameMaster(username=rows['username'])
-                game_master.scenarios.append(scenario)
-
-                player = Player(firstname=rows['firstname'], 
-                                    lastname=rows['lastname'], 
-                                    username=rows['username'], 
-                                    age=rows['age'], 
-                                    game_master=game_master)
-
-                table = Table(half_day=rows['halfday']
-                                , active=rows['active']
-                                , id=rows['id_game'])
-                    
-                table.players.append(player)
-                table.scenario = scenario
-                tables.append(table)
-    
-        if res_basicplayer:
-            for table in tables:
-                for rows in res_basicplayer:
-                    if rows['id_game'] == table.id:
-                        character = Character(name=rows['name']
-                                        , level=rows['level']
-                                        , id = rows['id_char']
-                                        , equipment = rows['equipment']
-                                        , race = rows['race']
-                                        , skill = rows['skill']
-                                        , username=rows['username'])
-                    
-                        basic_player = BasicPlayer(username=rows['username'])
-                        basic_player.characters.append(character)
-                    
-                        player = Player(firstname=rows['firstname'], 
-                                    lastname=rows['lastname'], 
-                                    username=rows['username'], 
-                                    age=rows['age'], 
-                                    basic_player=basic_player)
-                    
-                        table.players.append(player)
-                        table.characters.append(character)
-                
-        return tables
-
-
     def add_gm_to_table(self, id_scenario: int, id_game: int) -> bool:
 
         updated = False
@@ -268,6 +191,83 @@ class TableDao:
                     desactive = True
 
         return desactive
+
+    def load_user_tables(self, table_id):
+        tables = []
+        request_gamemaster = "SELECT * FROM game "\
+                            "inner JOIN scenario on scenario.id_scenario = game.id_scenario "\
+                            "inner JOIN player on scenario.username = player.username "\
+                            "where game.id_game IN %s;"
+        
+        request_basicplayer = "SELECT * FROM game "\
+                                "LEFT JOIN char_reg_game on game.id_game = char_reg_game.id_game "\
+                                "inner JOIN character on character.id_char = char_reg_game.id_char "\
+                                "inner JOIN player on character.username = player.username "\
+                                "where game.id_game IN %s;"
+
+        requests = [request_gamemaster,request_basicplayer]
+        res = []
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor :
+                for reqs in requests:
+                    cursor.execute(
+                        reqs
+                    , (tuple(table_id),))
+                    res.append(cursor.fetchall())
+
+        res_gamemaster = res[0]
+        res_basicplayer = res[1]
+
+        if res_gamemaster:
+            for rows in res_gamemaster:
+                scenario = Scenario(name=rows['name'], 
+                                        description=rows['description'], 
+                                        id = rows['id_scenario'], 
+                                        username=rows['username'])
+                    
+                game_master = GameMaster(username=rows['username'])
+                game_master.scenarios.append(scenario)
+
+                player = Player(firstname=rows['firstname'], 
+                                    lastname=rows['lastname'], 
+                                    username=rows['username'], 
+                                    age=rows['age'], 
+                                    game_master=game_master)
+
+                table = Table(half_day=rows['halfday']
+                                , active=rows['active']
+                                , id=rows['id_game'])
+                    
+                table.players.append(player)
+                table.scenario = scenario
+                tables.append(table)
+    
+        if res_basicplayer:
+            for table in tables:
+                for rows in res_basicplayer:
+                    if rows['id_game'] == table.id:
+                        character = Character(name=rows['name']
+                                        , level=rows['level']
+                                        , id = rows['id_char']
+                                        , equipment = rows['equipment']
+                                        , race = rows['race']
+                                        , skill = rows['skill']
+                                        , username=rows['username'])
+                    
+                        basic_player = BasicPlayer(username=rows['username'])
+                        basic_player.characters.append(character)
+                    
+                        player = Player(firstname=rows['firstname'], 
+                                    lastname=rows['lastname'], 
+                                    username=rows['username'], 
+                                    age=rows['age'], 
+                                    basic_player=basic_player)
+                    
+                        table.players.append(player)
+                        table.characters.append(character)
+                
+        return tables
+
 
 
     def load_all(self, show_desactive:bool):

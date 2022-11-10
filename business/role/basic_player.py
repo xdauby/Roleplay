@@ -45,6 +45,6 @@ class BasicPlayer:
 
     def __eq__(self, obj):
         if isinstance(obj,BasicPlayer):
-            if self.username == obj.username and self.characters == obj.characters and self.tables_id == obj.tables_id:
+            if self.username == obj.username and self.characters == obj.characters:
                 return True
         return False
