@@ -9,8 +9,7 @@ from business.role.game_master import GameMaster
 
 
 class TestBasicPlayerDao(TestCase):
-    def test_add_character_case1(self)    :
-        #case 1 : player has character, and he his registered with at some tables
+    def test_load1(self)    :
         #GIVEN
         basic_player_expected = BasicPlayer(username='ghostminer')
         
@@ -40,8 +39,7 @@ class TestBasicPlayerDao(TestCase):
         basic_player_expected.characters.append(character1)
         basic_player_expected.characters.append(character2)
         basic_player_expected.characters.append(character3)
-        basic_player_expected.tables_id.append(1)
-        basic_player_expected.tables_id.append(41)
+
     
         #WHEN
         #ghostminer is in the database
@@ -49,8 +47,7 @@ class TestBasicPlayerDao(TestCase):
         #THEN
         self.assertEqual(basic_player_loaded, basic_player_expected)
 
-    def test_add_character_case2(self)    :
-        #case 2 : player has character, and he his not registered with at some tables
+    def test_load2(self)    :
         #GIVEN
         basic_player_expected = BasicPlayer(username='sephix')
         
@@ -71,8 +68,7 @@ class TestBasicPlayerDao(TestCase):
         
         self.assertEqual(basic_player_loaded, basic_player_expected)
 
-    def test_add_character_case3(self)    :
-        #case 2 : player has no character
+    def test_load3(self)    :
         #GIVEN
         basic_player_expected = BasicPlayer(username='Jo89')
         #WHEN
@@ -105,6 +101,8 @@ class TestBasicPlayerDao(TestCase):
         #THEN
         self.assertTrue(added)
         self.assertEqual(character_loaded, character_expected)
+        #free db
+        Player.delete('jacky1')
     
     def test_rm_character(self):
         #GIVEN
@@ -132,6 +130,8 @@ class TestBasicPlayerDao(TestCase):
         #THEN
         self.assertTrue(removed)
         self.assertEqual(basic_player_loaded, basic_player_expected)
+        #free db
+        Player.delete('jacky2')
 
 if __name__ == '__main__':
     unittest.main()

@@ -41,6 +41,8 @@ class TestGameMaster(TestCase):
         added = player.game_master.add_scenario(scenario3)
         #THEN  
         self.assertFalse(added)
+        #free db
+        Player.delete('ninho')
     
     def test_add_scenario_case2(self):
         #case1 : player can add the scenario
@@ -65,6 +67,8 @@ class TestGameMaster(TestCase):
         added = player.game_master.add_scenario(scenario2)
         #THEN  
         self.assertTrue(added)
+        #free db
+        Player.delete('ninho2')
     
     def test_rm_scenario_case1(self):
         #case1 : wrong id
@@ -87,6 +91,8 @@ class TestGameMaster(TestCase):
         removed = player.game_master.rm_scenario(id_scenario)
         #THEN  
         self.assertFalse(removed)
+        #free db
+        Player.delete('ninho3')
     
     def test_rm_scenario_case2(self):
         #case2 : the player can remove his scenario
@@ -109,6 +115,8 @@ class TestGameMaster(TestCase):
         removed = player.game_master.rm_scenario(id_scenario)
         #THEN  
         self.assertTrue(removed)
+        #free db
+        Player.delete('ninho4')
     """
     def test_rm_scenario_case3(self):
         #case3 : the player can remove his scenario, and leave the tables where he is registered with

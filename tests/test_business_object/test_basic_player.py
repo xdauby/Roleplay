@@ -55,7 +55,8 @@ class TestBasicPlayer(TestCase):
         added = player.basic_player.add_character(character4)
         #THEN  
         self.assertFalse(added)
-
+        #free db
+        Player.delete('ninho')
     
     def test_add_character_case2(self):
         #case2 : player can add the character
@@ -92,6 +93,8 @@ class TestBasicPlayer(TestCase):
         added = player.basic_player.add_character(character3)
         #THEN  
         self.assertTrue(added)
+        #free db
+        Player.delete('ninho2')
 
     
     def test_rm_character_case1(self):
@@ -126,6 +129,8 @@ class TestBasicPlayer(TestCase):
         removed = player.basic_player.rm_character(id_character)
         #THEN  
         self.assertFalse(removed)
+        #free db
+        Player.delete('ninho3')
     
     def test_rm_character_case2(self):
         #case2 : the player can remove his character
@@ -159,6 +164,8 @@ class TestBasicPlayer(TestCase):
         removed = player.basic_player.rm_character(id_character)
         #THEN  
         self.assertTrue(removed)
+        #free db
+        Player.delete('ninho4')
 
     def test_rm_character_case3(self):
         #case3 : the player can remove his character, and leave the tables where he is registered with

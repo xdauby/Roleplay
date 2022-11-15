@@ -11,7 +11,6 @@ from business.table.table import Table
 
 class TestGameMasterDao(TestCase):
     def test_load_case1(self):
-        #case 1 : player has scenario, and he his registered with at some tables
         #GIVEN
         game_master_expected = GameMaster('spiderman')
         
@@ -26,9 +25,6 @@ class TestGameMasterDao(TestCase):
 
         game_master_expected.scenarios.append(scenario1)
         game_master_expected.scenarios.append(scenario2)
-        game_master_expected.tables_id.append(2)
-        game_master_expected.tables_id.append(22)
-        game_master_expected.tables_id.append(41)
         #WHEN
         #spiderman is in the database
         game_master_loaded = GameMasterDao().load('spiderman')
@@ -36,7 +32,6 @@ class TestGameMasterDao(TestCase):
         self.assertEqual(game_master_loaded, game_master_expected)
 
     def test_load_case2(self):
-        #case 1 : player has scenario, and he his not registered with at some tables
         #GIVEN
         game_master_expected = GameMaster('kkj3')
             
@@ -53,7 +48,6 @@ class TestGameMasterDao(TestCase):
         self.assertEqual(game_master_loaded, game_master_expected)
 
     def test_load_case3(self):
-    #case 1 : player has no scenario
         game_master_expected = GameMaster('ghostminer')
         #WHEN
         #ghostminer is in the database
@@ -63,7 +57,6 @@ class TestGameMasterDao(TestCase):
     
     def test_add_scenario(self):
         #GIVEN
-        # 
         player = Player(firstname='Jean'
                     , lastname='Hill'
                     , username='jacky1'
@@ -84,6 +77,8 @@ class TestGameMasterDao(TestCase):
         #THEN
         self.assertTrue(added)
         self.assertEqual(scenario_loaded, scenario_expected)
+        #free db
+        Player.delete('jacky1')
 
     def test_rm_scenario(self):
         #GIVEN
@@ -112,6 +107,8 @@ class TestGameMasterDao(TestCase):
         #THEN
         self.assertTrue(removed)
         self.assertEqual(game_master_loaded, game_master_expected)
+        #free db
+        Player.delete('jacky2')
 
         
 

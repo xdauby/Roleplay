@@ -127,8 +127,6 @@ class Table:
     
         return removed
     
-
-
     def active_table(self) -> bool:
 
         from dao.table_dao import TableDao

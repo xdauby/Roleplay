@@ -34,9 +34,6 @@ class TestPlayerDao(TestCase):
                 
         game_master.scenarios.append(scenario1)
         game_master.scenarios.append(scenario2)
-        game_master.tables_id.append(2)
-        game_master.tables_id.append(22)
-        game_master.tables_id.append(41)
         basic_player.characters.append(character1)
 
         player_expected = Player(firstname='Tim'
@@ -92,8 +89,6 @@ class TestPlayerDao(TestCase):
         basic_player.characters.append(character1)
         basic_player.characters.append(character2)
         basic_player.characters.append(character3)
-        basic_player.tables_id.append(1)
-        basic_player.tables_id.append(41)
 
         player_expected = Player(firstname='amine'
                                 , lastname='ru'
@@ -126,7 +121,6 @@ class TestPlayerDao(TestCase):
                                 , id = 6)
 
         game_master.scenarios.append(scenario1)
-        game_master.tables_id.append(42)
     
         player_expected = Player(firstname='Antoine'
                                 , lastname='De Paepe'
