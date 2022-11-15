@@ -22,19 +22,23 @@ class RmTableView(AbstractView):
         
         answers = prompt(self.__questions)
 
-        from business.table.table import Table
-        table = Table.load(answers['table_id'])
-        if table:
-            if table.desactive_table():
-                message = 'You\'ve been moved, check your tables !'
-                for player in table.players:
-                    Session().organiser.notify_player(notif=message, username=player.username)
 
-                print('Table successfully desactivated')
-            else:
-                print('Something went wrong when you tried to desactivate the table.')
+        if not str.isdigit(answers['table_id']):
+            print('Error : table id must be a number.')
         else:
-            print('Table id unrocognised.')
+            from business.table.table import Table
+            table = Table.load(answers['table_id'])
+            if table:
+                if table.desactive_table():
+                    message = 'You\'ve been moved, check your tables !'
+                    for player in table.players:
+                        Session().organiser.notify_player(notif=message, username=player.username)
+
+                    print('Table successfully desactivated')
+                else:
+                    print('Something went wrong when you tried to desactivate the table.')
+            else:
+                print('Table id unrocognised.')
 
         from view.organiser_view.menu_view import OrganiserMenuView
         return OrganiserMenuView()

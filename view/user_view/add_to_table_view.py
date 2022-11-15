@@ -6,8 +6,7 @@ from view.session import Session
 
 class AddToTableView(AbstractView):
     def __init__(self) -> None:
-        self.temp_characters = []
-        self.temp_scenarios = []
+        
         if Session().user_type == 'player':
             self.__questions = [
                 {
@@ -75,11 +74,8 @@ class AddToTableView(AbstractView):
             if player:
 
                 self.player = player                
-                self.gm = player.game_master
-                self.bp = player.basic_player
-
-                scenarios = self.gm.scenarios
-                characters = self.bp.characters
+                scenarios = player.game_master.scenarios
+                characters = player.basic_player.characters
 
             else:
                 error_message = ['Error : No player with this username, press to join the menu.']

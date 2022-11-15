@@ -49,9 +49,9 @@ class AddCharacterView(AbstractView):
                                     , username=Session().username) 
         
         if Session().player.basic_player.add_character(character_to_add):
-            print('All is ok')
+            print('Character succesfully added')
         else:
-            print('pb somewhere')
+            print('Something went wrong, probably you have to much characters.')
         
         from view.player_view.menu_view import PlayerMenuView
         return PlayerMenuView()

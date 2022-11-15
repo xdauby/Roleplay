@@ -24,9 +24,9 @@ class RmCharacterView(AbstractView):
         character_id_to_del = int(answers['character_id'])
 
         if Session().player.basic_player.rm_character(character_id_to_del):
-            print(f'Character {character_id_to_del} succesfully deleted.')
+            print(f'Character id : {character_id_to_del} succesfully deleted.')
         else:
-            print('pb somwhere')
+            print('Something went wrong, maybe it\'s not the good id.')
         
         from view.player_view.menu_view import PlayerMenuView
         return PlayerMenuView()

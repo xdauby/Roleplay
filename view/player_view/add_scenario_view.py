@@ -30,9 +30,9 @@ class AddScenarioView(AbstractView):
                                     , description=answers['scenario_description']
                                     , username=Session().username)
         if Session().player.game_master.add_scenario(scenario_to_add):
-            print('All is ok')
+            print('Scenario succesfully added')
         else:
-            print('pb somewhere')
+            print('Something went wrong, probably you have to much scenarios.')
         
         from view.player_view.menu_view import PlayerMenuView
         return PlayerMenuView()
