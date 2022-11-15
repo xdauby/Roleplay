@@ -14,9 +14,6 @@ class User(ABC):
         self.age = age
         self.password = password
 
-    @abstractmethod
-    def load_all_tables():
-        pass
 
     @staticmethod
     def load(username:str):

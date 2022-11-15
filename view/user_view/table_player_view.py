@@ -3,6 +3,8 @@ from pprint import pprint
 from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
+from business.table.table import Table
+
 
 class TablePlayerView(AbstractView):
     
@@ -25,7 +27,7 @@ class TablePlayerView(AbstractView):
 
         if Session().user_type == 'player':
             
-            tables = Session().player.load_player_tables()
+            tables = Table.load_player_tables(id_list_table = Session().player.tables)
 
             if tables:
                 for table in tables:
@@ -43,7 +45,7 @@ class TablePlayerView(AbstractView):
             player = Player.load(answers['username'])
             
             if player:
-                tables = player.load_player_tables()
+                tables = Table.load_player_tables(id_list_table = player.tables)
                 if tables:
                     for table in tables:
                         print(table)

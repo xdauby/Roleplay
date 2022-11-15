@@ -20,11 +20,6 @@ class Organiser(User):
                         , password=password
                         , age=age)
 
-    def load_all_tables(self):
-        
-        from dao.table_dao import TableDao
-        return TableDao().load_all(show_desactive=True)
-        
     def notify_player(self, notif: str, username: str) -> bool:
 
         notif_player = Notification(notification=notif, username=username)

@@ -153,7 +153,21 @@ class Table:
     def load(table_id : int):
         from dao.table_dao import TableDao
         return TableDao().load(table_id)
+
+    @staticmethod
+    def load_player_tables(id_list_table):
+        if id_list_table:
+            from dao.table_dao import TableDao
+            return TableDao().load_user_tables(id_list_table)
+
+
+    @staticmethod
+    def load_all_tables(show_desactive : bool):
+        from dao.table_dao import TableDao
+        return TableDao().load_all(show_desactive)
+
     
+
     def __str__(self) -> str:
 
         bp_str = ''

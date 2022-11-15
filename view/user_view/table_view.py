@@ -3,20 +3,21 @@ from pprint import pprint
 from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
-
+from business.table.table import Table
 
 
 class TableView(AbstractView):
     
     def display_info(self):
-        print("Yours' tables : ")
+        
+        print("All tables : ")
         if Session().user_type == 'player':
-            tables = Session().player.load_all_tables()
+            tables = Table.load_all_tables(show_desactive=False)
             for tables in tables:
                 print(tables)
 
         if Session().user_type == 'organiser':
-            tables = Session().organiser.load_all_tables()
+            tables = Table.load_all_tables(show_desactive=True)
             for tables in tables:
                 print(tables)
 
