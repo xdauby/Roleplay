@@ -27,8 +27,8 @@ class Organiser(User):
         return OrganiserDao().save_notif(notif_player)
 
     def __eq__(self, obj) -> bool:
-            if isinstance(obj,Player):
-                if self.firstname == obj.firstname and self.lastname == obj.lastname and self.username == obj.username and self.age == obj.age:
+            if isinstance(obj,Organiser):
+                if self.firstname == obj.firstname and self.lastname == obj.lastname and self.username == obj.username and self.age == obj.age and self.password == obj.password:
                     return True
             return False
 

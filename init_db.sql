@@ -54,11 +54,8 @@ username TEXT REFERENCES player(username) ON DELETE CASCADE,
 name TEXT,
 level INT,
 equipment TEXT,
-equipment_desc TEXT DEFAULT NULL,
 race TEXT,
-race_desc TEXT DEFAULT NULL,
-skill TEXT,
-skill_desc TEXT DEFAULT NULL
+skill TEXT
 );
 
 /*Création de la table char_sub_table*/

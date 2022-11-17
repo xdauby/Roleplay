@@ -13,9 +13,7 @@ class Table:
     def __init__(self, half_day:int,
                         active:bool ,
                         id:int = None, 
-                        scenario: Scenario=None, 
-                        characters=[], 
-                        players=[]) -> None:
+                        scenario: Scenario=None) -> None:
         
         self.id = id
         self.half_day = half_day
