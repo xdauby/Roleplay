@@ -6,6 +6,7 @@ from business.role.basic_player import BasicPlayer
 from business.user.player import Player
 from business.scenario.scenario import Scenario
 from business.character.character import Character
+
 class TestTable(TestCase):
 
     def test_add_gamemaster_case1(self):
@@ -29,6 +30,8 @@ class TestTable(TestCase):
         added = table.add_gamemaster(player, id_scenario)
         #THEN  
         self.assertTrue(added)
+        #clean db
+        Player.delete('ninho')
 
     def test_add_gamemaster_case2(self):
         #case2 : table has already a gamemaster
@@ -69,6 +72,10 @@ class TestTable(TestCase):
         #THEN  
         self.assertFalse(added)
 
+        #clean db
+        Player.delete('jacky1')
+        Player.delete('jacky2')
+
     def test_add_gamemaster_case3(self):
         #case3 : player is registered the same halfday
         #GIVEN
@@ -98,6 +105,8 @@ class TestTable(TestCase):
         added = table2.add_gamemaster(player, scenario1.id)
         #THEN  
         self.assertFalse(added)
+        #clean db
+        Player.delete('jacky3')
 
     def test_add_basic_player_case1(self):
         #case1 : empty table
@@ -191,13 +200,16 @@ class TestTable(TestCase):
         #THEN  
         self.assertFalse(added)
 
+        #clean db
+        Player.delete('jacky4')
+        Player.delete('jacky5')
+        Player.delete('jacky6')
+        Player.delete('jacky7')
+
     
     def test_add_basic_player_case3(self):
         #case 3: the number of basic player is 4
         #GIVEN
-
-
-
 
         player1 = Player(firstname='Jean'
                         , lastname='Hill'
@@ -294,7 +306,14 @@ class TestTable(TestCase):
 
         #THEN  
         self.assertFalse(added)
-        pass
+        
+        #clean db
+        Player.delete('jacky8')
+        Player.delete('jacky9')
+        Player.delete('jacky10')
+        Player.delete('jacky11')
+        Player.delete('jacky12')
+        Player.delete('jacky13')
 
     def test_add_basic_player_case4(self):
         #case 4: the player can be added
@@ -339,7 +358,10 @@ class TestTable(TestCase):
         added = table.add_basicplayer(player2, character1p2.id)
         #THEN  
         self.assertTrue(added)
-
+        #clean db
+        Player.delete('jacky14')
+        Player.delete('jacky15')
+    
     def test_rm_player_case1(self):
         #case1 : the user is not in the table
         #GIVEN
@@ -385,6 +407,10 @@ class TestTable(TestCase):
         removed = table.rm_player(username)
         #THEN
         self.assertFalse(removed)
+        #clean db
+        Player.delete('jacky16')
+        Player.delete('jacky17')
+       
     
     def test_rm_player_case2(self):
         #case2 : delete a basic player
@@ -431,6 +457,10 @@ class TestTable(TestCase):
         removed = table.rm_player(username)
         #THEN
         self.assertTrue(removed)
+        #clean db
+        Player.delete('jacky18')
+        Player.delete('jacky19')
+        
 
     def test_rm_player_case2(self):
         #case3 : delete a game master
@@ -476,7 +506,11 @@ class TestTable(TestCase):
         #WHEN
         removed = table.rm_player(username)
         #THEN
-        self.assertTrue(removed) 
+        self.assertTrue(removed)
+        #clean db
+        Player.delete('jacky20')
+        Player.delete('jacky21')
+        
 
     def test_activate_table(self):
         #GIVEN
@@ -486,6 +520,9 @@ class TestTable(TestCase):
         table.active_table()
         #then
         self.assertTrue(table.active)
+        #desactive it back
+        table.desactive_table()
+
 
     def test_desactive_table_case1(self):
         #case1 : table is empty
@@ -496,6 +533,8 @@ class TestTable(TestCase):
         table.desactive_table()
         #then
         self.assertFalse(table.active)
+        #active it back
+        table.active_table()
     
     def test_desactive_table_case1(self):
         #case2 : the table is not empty

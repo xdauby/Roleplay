@@ -5,13 +5,12 @@ from business.character.character import Character
 from business.table.table import Table
 from business.user.player import Player
 from business.role.game_master import GameMaster
+from business.scenario.scenario import Scenario
 
 
 
 
 class TestBasicPlayer(TestCase):
-
-    #add BasicPlayer.load(user) test
 
     def test_add_character_case1(self):
         #case1 : player has already 3 characters
@@ -171,31 +170,55 @@ class TestBasicPlayer(TestCase):
         #case3 : the player can remove his character, and leave the tables where he is registered with
         #method relative to Table are verified (test in TestTable)
         #GIVEN
-        #Artificially add a character and connect him to a table
-        player = Player.load('Jo89')
-        basic_player = player.basic_player
-        character = Character(name='bibi', 
+        table1 = Table.load(8)
+
+        player1 = Player(firstname='Jean'
+                        , lastname='Hill'
+                        , username='jacky5'
+                        , age=9
+                        , game_master=GameMaster(username='jacky5')
+                        , basic_player=BasicPlayer(username='jacky5'))
+
+        player2 = Player(firstname='Jean'
+                        , lastname='Hill'
+                        , username='jacky6'
+                        , age=9
+                        , game_master=GameMaster(username='jacky6')
+                        , basic_player=BasicPlayer(username='jacky6'))
+
+        
+        player1.save()
+        player2.save()
+
+        scenario1p1 = Scenario(name='test'
+                            , description='this is a test'
+                            , username='jacky5')
+    
+        character1p2 = Character(name='huross', 
                               level=5, race='bard', 
                               equipment='amulet', 
                               skill='battleaxes', 
-                              username='Jo89')
-        basic_player.add_character(character)
-        id_character = character.id
-        #add the basic player with the character
-        table = Table.load(22)
-        table.add_basicplayer(player, id_character)
+                              username='jacky6')
+
+        player1.game_master.add_scenario(scenario1p1)
+        player2.basic_player.add_character(character1p2)
         
+        table1.add_gamemaster(player1, scenario1p1.id)
+        table1.add_basicplayer(player2, character1p2.id)
+        
+        expected_table = Table(half_day=1, active=True, id =8)
+        expected_table.players.append(player1)
+        expected_table.scenario = scenario1p1
         #WHEN
-        removed = basic_player.rm_character(id_character)
+        removed = player2.basic_player.rm_character(character1p2.id)
         #load the table back to test
-        table = Table.load(22)
-        table_str = table.__str__()
+        table1_loaded = Table.load(8)
         #THEN  
         self.assertTrue(removed)
-        self.assertEqual(table_str, '\nTable id : 22, half day : 2, acivate : True \n' \
-                                    ' Game Master : spiderman with Scenario The scary movie\n'\
-                                    'paya6 with Character pinguin \n')
-
+        self.assertEqual(table1_loaded, expected_table)
+        #free db
+        Player.delete('jacky6')
+        Player.delete('jacky5')
 
     
 
@@ -203,7 +226,7 @@ class TestBasicPlayer(TestCase):
 
 if __name__ == '__main__':
     #please, reinitialize the database before the test
-    #unittest.TestLoader.sortTestMethodsUsing = None
+
     unittest.main()
 
     

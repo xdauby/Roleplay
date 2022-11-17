@@ -25,7 +25,13 @@ class Organiser(User):
         notif_player = Notification(notification=notif, username=username)
         from dao.organiser_dao import OrganiserDao
         return OrganiserDao().save_notif(notif_player)
-         
+
+    def __eq__(self, obj) -> bool:
+            if isinstance(obj,Player):
+                if self.firstname == obj.firstname and self.lastname == obj.lastname and self.username == obj.username and self.age == obj.age:
+                    return True
+            return False
+
     @staticmethod
     def load(username:str):
         
@@ -33,8 +39,3 @@ class Organiser(User):
         organiser = OrganiserDao().load(username)
         return organiser
 
-    def __eq__(self, obj):
-            if isinstance(obj,Player):
-                if self.firstname == obj.firstname and self.lastname == obj.lastname and self.username == obj.username and self.age == obj.age:
-                    return True
-            return False

@@ -35,7 +35,7 @@ class Player(User):
         from dao.player_dao import PlayerDao
         return PlayerDao().save(self)
 
-    def __eq__(self, obj):
+    def __eq__(self, obj) -> bool:
             if isinstance(obj,Player):
                 if self.tables == obj.tables and self.halfday == obj.halfday and self.basic_player == obj.basic_player and self.game_master == obj.game_master and self.firstname == obj.firstname and self.lastname == obj.lastname and self.username == obj.username and self.age == obj.age and self.password == obj.password and self.notification == obj.notification:
                     return True

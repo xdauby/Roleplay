@@ -9,8 +9,8 @@ class BasicPlayerDao:
     def add_character(self, character: Character) -> bool:
 
         created = False
-        request = "INSERT INTO character(username, name, level, equipment, equipment_desc, race, race_desc, skill, skill_desc) VALUES "\
-                  "(%(username)s,%(name)s, %(level)s, %(equipment)s, %(equipment_desc)s, %(race)s, %(race_desc)s, %(skill)s, %(skill_desc)s)"\
+        request = "INSERT INTO character(username, name, level, equipment, race, skill) VALUES "\
+                  "(%(username)s,%(name)s, %(level)s, %(equipment)s, %(race)s, %(skill)s)"\
                   "RETURNING id_char;"
         
         with DBConnection().connection as connection:
@@ -21,11 +21,8 @@ class BasicPlayerDao:
                   ,"name" : character.name
                   ,"level" : character.level
                   ,"equipment" : character.equipment
-                  ,"equipment_desc" : character.equipment_desc
                   ,"race" : character.race
-                  ,"race_desc": character.race_desc
-                  ,"skill" : character.skill
-                  ,"skill_desc" : character.skill_desc})
+                  ,"skill" : character.skill})
                 res = cursor.fetchone()
         if res:
             character.id = res['id_char']

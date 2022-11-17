@@ -115,4 +115,6 @@ class TestGameMasterDao(TestCase):
 
 
 if __name__ == '__main__':
+    #please, reinitialize the database before the test
+
     unittest.main()

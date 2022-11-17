@@ -117,37 +117,58 @@ class TestGameMaster(TestCase):
         self.assertTrue(removed)
         #free db
         Player.delete('ninho4')
-    """
+    
     def test_rm_scenario_case3(self):
         #case3 : the player can remove his scenario, and leave the tables where he is registered with
         #method relative to Table are verified (test in TestTable)
         #GIVEN
-        #Artificially add a scenario and connect him to a table
-        game_master = GameMaster.load('ghostminer')
-        scenario = Scenario('test', 'this is a test',username='ghostminer')
-        game_master.add_scenario(scenario)
-        id_scenario = scenario.id
-        #add the game master with the scenario
-        table = Table.load(23)
-        table.add_gamemaster(game_master, id_scenario)
-        
-        #WHEN
-        removed = game_master.rm_scenario(id_scenario)
-        #load the table back to test
-        table = Table.load(23)
-        table_str = table.__str__()
+        #GIVEN
+        table1 = Table.load(8)
 
+        player1 = Player(firstname='Jean'
+                        , lastname='Hill'
+                        , username='jacky5'
+                        , age=9
+                        , game_master=GameMaster(username='jacky5')
+                        , basic_player=BasicPlayer(username='jacky5'))
+
+        player2 = Player(firstname='Jean'
+                        , lastname='Hill'
+                        , username='jacky6'
+                        , age=9
+                        , game_master=GameMaster(username='jacky6')
+                        , basic_player=BasicPlayer(username='jacky6'))
+
+        player1.save()
+
+        scenario1p1 = Scenario(name='test'
+                            , description='this is a test'
+                            , username='jacky5')
+    
+
+
+        player1.game_master.add_scenario(scenario1p1)
+        
+        table1.add_gamemaster(player1, scenario1p1.id)
+        
+        expected_table = Table(half_day=1, active=True, id =8)
+        #WHEN
+        removed = player1.game_master.rm_scenario(scenario1p1.id)
+        #load the table back to test
+        table1_loaded = Table.load(8)
         #THEN  
         self.assertTrue(removed)
-        self.assertEqual(table_str, 'Table id : 23, half day : 2, acivate : True, table empty.')
+        self.assertEqual(table1_loaded, expected_table)
+        #free db
+        Player.delete('jacky5')
     
-    """
     
 
 
 
 if __name__ == '__main__':
     #please, reinitialize the database before the test
+
     unittest.main()
     
 

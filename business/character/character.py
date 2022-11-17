@@ -13,12 +13,12 @@ class Character:
         self.equipment = equipment
         self.skill = skill
         
-        self.skill_desc = None
-        self.equipment_desc = None
-        self.race_desc = None
-
     
-    def get_descriptions(self) -> None:
+    def check_race(self) -> bool:
+        pass
+    def check_equipment(self) -> bool:
+        pass
+    def check_skill(self) -> bool:
         pass
     
     def __str__(self):

@@ -134,4 +134,6 @@ class TestBasicPlayerDao(TestCase):
         Player.delete('jacky2')
 
 if __name__ == '__main__':
+    #please, reinitialize the database before the test
+
     unittest.main()

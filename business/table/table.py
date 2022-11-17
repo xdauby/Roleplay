@@ -171,10 +171,10 @@ class Table:
         bp_str = ''
 
         for character in self.characters:
-            bp_str += f'{character.username} with Character {character.name} \n'
+            bp_str += f'    {character.username} with Character {character.name}\n         level : {character.level}\n         equipment : {character.equipment}\n         skill : {character.skill}\n         race : {character.race} \n'
 
         if self.scenario:
-            view = f'\nTable id : {self.id}, half day : {self.half_day}, acivate : {self.active} \n Game Master : {self.scenario.username} with Scenario {self.scenario.name}\n' + bp_str
+            view = f'\nTable id : {self.id}, half day : {self.half_day}, acivate : {self.active} \n    Game Master : {self.scenario.username} with Scenario {self.scenario.name}\n         description : {self.scenario.description}\n' + bp_str
         else:
             view = f'Table id : {self.id}, half day : {self.half_day}, acivate : {self.active}, table empty.'
         
