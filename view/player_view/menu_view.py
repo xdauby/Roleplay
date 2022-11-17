@@ -24,6 +24,8 @@ class PlayerMenuView(AbstractView):
                     , 'remove scenario'
                     , 'display my tables'
                     , 'display all tables'
+                    , 'display all features for characters'
+                    , 'display description of a feature '
                     , 'Leave'
                 ]
             }
@@ -76,8 +78,18 @@ class PlayerMenuView(AbstractView):
         elif reponse['choice'] == 'display my tables':
             from view.user_view.table_player_view import TablePlayerView
             return TablePlayerView()
+
         elif reponse['choice'] == 'display all tables':
             from view.user_view.table_view import TableView
             return TableView()
+
+        elif reponse['choice'] == 'display all features for characters':
+            from view.player_view.all_features_view import AllFeaturesView
+            return AllFeaturesView()
+
+        elif reponse['choice'] == 'display description of a feature ':
+            from view.player_view.one_feature_view import OneFeatureView
+            return OneFeatureView()
+
         elif reponse['choice'] == 'Leave':
             return None

@@ -59,13 +59,3 @@ class ApiDungeonDragon:
         elif skills is not None:
             skills_desc = req.get(self.root + self.skills_path + '/' + skills).json()['desc']
             return skills_desc
-
-
-
-
-
-x = ApiDungeonDragon()
-features = x.get_features_list()
-
-desc_dragonborn = x.get_descriptions(equipment = 'camel', race= 'dragonborn')
-print(desc_dragonborn)
