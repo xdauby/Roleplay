@@ -37,18 +37,18 @@ class GameMaster:
                     return True
         return False
     
-    
+    def __eq__(self, obj) -> bool:
+        if isinstance(obj,GameMaster):
+            if self.username == obj.username and self.scenarios == obj.scenarios:
+                return True
+        return False
+
+
     @staticmethod
     def load(username:str):
         from dao.game_master_dao import GameMasterDao
         return GameMasterDao().load(username)
         
-
-    def __eq__(self, obj):
-        if isinstance(obj,GameMaster):
-            if self.username == obj.username and self.scenarios == obj.scenarios:
-                return True
-        return False
 
 
 

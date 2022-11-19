@@ -1,5 +1,4 @@
 
-
 class Notification:
     def __init__(self,notification:str,username:str, id:int = None):
         
@@ -7,10 +6,10 @@ class Notification:
         self.notification=notification
         self.username=username
     
-    def __str__(self):
+    def __str__(self) -> str:
         return self.notification
     
-    def __eq__(self, obj):
+    def __eq__(self, obj) -> bool:
         if isinstance(obj,Notification):
             if self.id == obj.id and self.username == obj.username and self.notification == obj.notification:
                 return True

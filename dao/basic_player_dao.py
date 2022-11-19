@@ -49,7 +49,7 @@ class BasicPlayerDao:
 
         return removed
 
-    def load(self, username:str):
+    def load(self, username:str) -> BasicPlayer:
         
         basic_player = None
 

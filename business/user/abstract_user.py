@@ -6,7 +6,7 @@ class User(ABC):
                 lastname: str, 
                 username:int,
                 password:str, 
-                age:int = None):
+                age:int):
         
         self.firstname = firstname
         self.lastname = lastname
