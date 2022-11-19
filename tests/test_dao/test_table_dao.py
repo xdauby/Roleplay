@@ -38,9 +38,9 @@ class TestTableDao(TestCase):
 
         char1p1 = Character(name='spider'
                             , level=10
-                            , race='rogue'
+                            , race='elf'
                             , equipment='pony'
-                            , skill='longswords'
+                            , skill='medicine'
                             , id=6
                             , username='spiderman')
 
@@ -71,17 +71,17 @@ class TestTableDao(TestCase):
 
         char1p2 = Character(name='cafe'
                             , level=3
-                            , race='rogue'
+                            , race='elf'
                             , equipment='pony'
-                            , skill='longswords'
+                            , skill='medicine'
                             , id=4
                             , username='kkj3')
 
         char2p2 = Character(name='rocketluri'
                             , level=5
-                            , race='rogue'
+                            , race='elf'
                             , equipment='pony'
-                            , skill='longswords'
+                            , skill='medicine'
                             , id=5
                             , username='kkj3')
 

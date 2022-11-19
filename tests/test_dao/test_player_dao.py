@@ -27,9 +27,9 @@ class TestPlayerDao(TestCase):
                             , id = 3)
 
         character1 = Character(name='spider', 
-                              level=10, race='rogue', 
+                              level=10, race='elf', 
                               equipment='pony', 
-                              skill='longswords', 
+                              skill='medicine', 
                               username='spiderman',
                               id=6)
                 
@@ -67,23 +67,23 @@ class TestPlayerDao(TestCase):
         game_master = GameMaster('ghostminer')
 
         character1 = Character(name='miner1', 
-                              level=12, race='rogue', 
+                              level=12, race='elf', 
                               equipment='pony', 
-                              skill='longswords', 
+                              skill='medicine', 
                               username='ghostminer',
                               id=7)
         
         character2 = Character(name='miner2', 
-                              level=13, race='rogue', 
+                              level=13, race='elf', 
                               equipment='pony', 
-                              skill='longswords', 
+                              skill='medicine', 
                               username='ghostminer',
                               id=8)
         
         character3 = Character(name='miner3', 
-                              level=14, race='rogue', 
+                              level=14, race='elf', 
                               equipment='pony', 
-                              skill='longswords', 
+                              skill='medicine', 
                               username='ghostminer',
                               id=9)
 

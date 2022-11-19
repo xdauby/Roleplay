@@ -105,18 +105,18 @@ INSERT INTO scenario(username, name, description) VALUES
 
 
 INSERT INTO character(username, name, level, equipment, race, skill) VALUES
-('coximor', 'sorix', 62, 'amulet', 'bard','battleaxes'),
-('sephix','battler',17,'backpack','wizard','breastplate'),
-('coximor','cawa',3,'pony','rogue','longswords'),
-('kkj3','cafe',3,'pony','rogue','longswords'),
-('kkj3','rocketluri',5,'pony','rogue','longswords'),
-('spiderman','spider',10,'pony','rogue','longswords'),
-('ghostminer','miner1',12,'pony','rogue','longswords'),
-('ghostminer','miner2',13,'pony','rogue','longswords'),
-('ghostminer','miner3',14,'pony','rogue','longswords'),
-('paya6','pinguin',5,'lyre','sorcerer','leather-armor'),
-('zoro','bilibili',4,'lyre','sorcerer','leather-armor'),
-('ziak','lacite',16,'lyre','sorcerer','leather-armor');
+('coximor', 'sorix', 62, 'amulet', 'gnome','nature'),
+('sephix','battler',17,'backpack','gnome','nature'),
+('coximor','cawa',3,'pony','gnome','medicine'),
+('kkj3','cafe',3,'pony','elf','medicine'),
+('kkj3','rocketluri',5,'pony','elf','medicine'),
+('spiderman','spider',10,'pony','elf','medicine'),
+('ghostminer','miner1',12,'pony','elf','medicine'),
+('ghostminer','miner2',13,'pony','elf','medicine'),
+('ghostminer','miner3',14,'pony','elf','medicine'),
+('paya6','pinguin',5,'lyre','human','survival'),
+('zoro','bilibili',4,'lyre','human','survival'),
+('ziak','lacite',16,'lyre','human','survival');
 
 INSERT INTO notification(notif, username) VALUES
 ('You have been moved, check your tables !','coximor');

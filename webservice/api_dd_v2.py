@@ -20,13 +20,13 @@ class ApiDungeonDragon:
         list_skills = []
 
         for i in range(len(list_equipment_fetch)):
-            list_equipments.append(list_equipment_fetch[i]['name'])
+            list_equipments.append(list_equipment_fetch[i]['index'])
 
         for i in range(len(list_race_fetch)):
-            list_races.append(list_race_fetch[i]['name'])
+            list_races.append(list_race_fetch[i]['index'])
 
         for i in range(len(list_skills_fetch)):
-            list_skills.append(list_skills_fetch[i]['name'])
+            list_skills.append(list_skills_fetch[i]['index'])
 
         features = {
             'equipments' : list_equipments,
@@ -38,24 +38,38 @@ class ApiDungeonDragon:
 
     def get_description(self, equipment: str = None, race: str = None, skills: str = None):
 
-        if equipment is None and race is None and skills is None :
-            return "Specify what you want a descrition of"
+        description = {
+            'equipment' : None,
+            'race' : None,
+            'skills': None 
+        }
         
         if equipment is not None:
-            equipment_desc = req.get(self.root + self.equipment_path + '/' + equipment).json()['desc']
-            return equipment_desc
+            try:
+                equipment_desc = req.get(self.root + self.equipment_path + '/' + equipment).json()['desc']
+                description['equipment'] = equipment_desc[0]
+            except:
+                pass
+
+        if race is not None:
+            try:
+                race_fetch = req.get(self.root + self.race_path + '/' + race).json()
+
+                race_speed = race_fetch['speed']
+                race_languages = race_fetch['language_desc']
+                race_age = race_fetch['age']
+                race_size = race_fetch['size']
+
+                race_desc = f'Race speed is {race_speed}, size is {race_size}. {race_age} {race_languages}'
+                description['race'] = race_desc
+            except:
+                pass
+
+        if skills is not None:
+            try:
+                skills_desc = req.get(self.root + self.skills_path + '/' + skills).json()['desc']
+                description['skills'] = skills_desc[0]
+            except:
+                pass
         
-        elif race is not None:
-            race_fetch = req.get(self.root + self.race_path + '/' + race).json()
-
-            race_speed = race_fetch['speed']
-            race_languages = race_fetch['language_desc']
-            race_age = race_fetch['age']
-            race_size = race_fetch['size']
-
-            race_desc = f'Race speed is {race_speed}, size is {race_size}. {race_age} {race_languages}'
-            return race_desc
-
-        elif skills is not None:
-            skills_desc = req.get(self.root + self.skills_path + '/' + skills).json()['desc']
-            return skills_desc
+        return description

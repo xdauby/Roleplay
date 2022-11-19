@@ -32,15 +32,27 @@ class OneFeatureView(AbstractView):
 
     def make_choice(self) :
         answers = prompt(self.__questions)
-        print(answers)
+
         if answers['choice'] == 'equipment' :
             description = ApiDungeonDragon().get_description(equipment = answers['feature'])
+            if description['equipment']:
+                print(description['equipment'])
+            else:
+                print('Unrecognised equipment')
         elif answers['choice'] == 'race' :
             description = ApiDungeonDragon().get_description(race = answers['feature'])
+            if description['race']:
+                print(description['race'])
+            else:
+                print('Unrecognised race')
         elif answers['choice'] == 'skill' :
             description = ApiDungeonDragon().get_description(skills = answers['feature'])
+            if description['skills']:
+                print(description['skills'])
+            else:
+                print('Unrecognised skill')
 
-        print(description)
+        
         
         from view.player_view.menu_view import PlayerMenuView
         return PlayerMenuView()
