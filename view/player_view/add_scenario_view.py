@@ -26,6 +26,11 @@ class AddScenarioView(AbstractView):
     def make_choice(self):
         answers = prompt(self.__questions)
 
+        if answers['scenario_description']=='' or answers['scenario_name'] =='':
+            print('Error : description or name must not be empty.')
+            from view.player_view.menu_view import PlayerMenuView
+            return PlayerMenuView()
+
         scenario_to_add = Scenario(name = answers['scenario_name']
                                     , description=answers['scenario_description']
                                     , username=Session().username)

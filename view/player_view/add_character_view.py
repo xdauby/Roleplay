@@ -38,8 +38,11 @@ class AddCharacterView(AbstractView):
     def make_choice(self):
         answers = prompt(self.__questions)
 
-        if not str.isdigit(answers['level']):
-            print('Error : enter a number for level.')
+        if not str.isdigit(answers['level']) or answers['level'] =='' or answers['name'] =='' or answers['equipment'] =='' or answers['race'] =='' or answers['skill'] =='':
+            print('Error : enter a number for level or fill all the blanks.')
+            from view.player_view.menu_view import PlayerMenuView
+            return PlayerMenuView()
+
 
         character_to_add = Character(name=answers['name']
                                     , level=answers['level']

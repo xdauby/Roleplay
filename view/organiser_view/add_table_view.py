@@ -22,7 +22,7 @@ class AddTableView(AbstractView):
         
         answers = prompt(self.__questions)
 
-        if not str.isdigit(answers['table_id']):
+        if not str.isdigit(answers['table_id']) or answers['table_id'] == '':
             print('Error : table id must be a number.')
             
         else:

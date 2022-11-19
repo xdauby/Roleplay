@@ -108,6 +108,11 @@ class AddToTableView(AbstractView):
             if answers['scenchar'][0:5] == 'Error':
                 return PlayerMenuView()
             
+            if not str.isdigit(answers['table_id']) or answers['table_id']=='':
+                print('Error : the table input must be an integer.')
+                return PlayerMenuView()
+
+
             from business.table.table import Table
             if answers['role'] == 'Game Master':
                 id_scenario = int(answers['scenchar'])
@@ -141,6 +146,10 @@ class AddToTableView(AbstractView):
             if answers['scenchar'][0:5] == 'Error':
                 return OrganiserMenuView()
             
+            if not str.isdigit(answers['table_id']) or answers['table_id']=='':
+                print('Error : the table input must be an integer.')
+                return OrganiserMenuView()
+
             from business.table.table import Table
             if answers['role'] == 'Game Master':
                 id_scenario = int(answers['scenchar'])
