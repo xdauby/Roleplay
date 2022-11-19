@@ -42,7 +42,7 @@ class LeaveFromTableView(AbstractView):
 
             from view.player_view.menu_view import PlayerMenuView
 
-            if not str.isdigit(answers['table_id']):
+            if not str.isdigit(answers['table_id']) or answers['table_id']=='':
                 print('Error : the table input must be an integer.')
                 return PlayerMenuView()
 
@@ -62,7 +62,7 @@ class LeaveFromTableView(AbstractView):
         elif Session().user_type == 'organiser':
             from view.organiser_view.menu_view import OrganiserMenuView
 
-            if not str.isdigit(answers['table_id']):
+            if not str.isdigit(answers['table_id']) or answers['table_id']=='':
                 print('Error : the table input must be an integer.')
                 return OrganiserMenuView()
 
