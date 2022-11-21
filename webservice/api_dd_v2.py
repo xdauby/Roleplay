@@ -47,7 +47,10 @@ class ApiDungeonDragon:
         if equipment is not None:
             try:
                 equipment_desc = req.get(self.root + self.equipment_path + '/' + equipment).json()['desc']
-                description['equipment'] = equipment_desc[0]
+                if equipment_desc[0]:
+                    description['equipment'] = equipment_desc[0]
+                else:
+                    description['equipment'] = 'No description available'
             except:
                 pass
 
@@ -68,7 +71,11 @@ class ApiDungeonDragon:
         if skills is not None:
             try:
                 skills_desc = req.get(self.root + self.skills_path + '/' + skills).json()['desc']
-                description['skills'] = skills_desc[0]
+
+                if skills_desc[0]:
+                    description['skills'] = skills_desc[0]
+                else:
+                    description['skills'] = 'No description available'
             except:
                 pass
         

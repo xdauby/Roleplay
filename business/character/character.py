@@ -22,6 +22,7 @@ class Character:
         return False
     def check_equipment(self) -> bool:
         desc_equipment = ApiDungeonDragon().get_description(equipment=self.equipment)
+        print(desc_equipment['equipment'])
         if desc_equipment['equipment']:
             return True
         return False
