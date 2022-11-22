@@ -1,3 +1,24 @@
+How to install :
+
+install python3.8 (not supported after 3.8)
+install required package
+
+$ sudo apt-get install python3.8
+$ pip install -r requirements.txt
+
+change connection informations in .env (you need psql)
+copy past init.db in your psql
+
+Then start
+$ python3.8 main.py
+
+Informations :
+If you want to test, for all players, the non-hashed password is : mdptest
+If you want to test, for all organisers, the non-hashed password is : admin
+
+
+
+
 Explanation of the class diagram : 
 The class diagram features the three layers of the application, the business layer where you can find the code of the classes, the Data Access Object (DAO) which stocks data in databasis and finally the controller layer which is the terminal in our case.
 The DAO class guarantees the permanent connection with the database, it stocks the players, characters, scenarios etc which have been created. 
@@ -27,6 +48,6 @@ What can be achieved with the application :
 
 
 Technology used : 
-This application is coded in python. The entire code has been written by us, we have not used frameworks. The SQL language is also used to make all the requests to communicate with the database. This base is stocked on postgresql.
+This application is coded in python. The entire code has been written by us. The SQL language is also used to make all the requests to communicate with the database. This base is stocked on postgresql.
 To obtain the list of the characters that the players can use, we use the D&D 5th API, its adress is http://www.dnd5eapi.co/ .
 To collaborate and share our codes, we have used git hub. 
