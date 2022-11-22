@@ -23,7 +23,6 @@ Explanation of the class diagram :
 The class diagram features the three layers of the application, the business layer where you can find the code of the classes, the Data Access Object (DAO) which stocks data in databasis and finally the controller layer which is the terminal in our case.
 The DAO class guarantees the permanent connection with the database, it stocks the players, characters, scenarios etc which have been created. 
 The controller layer calls the business layer which calls the DAO. 
-
 In the business layer, there is, firstly, the User class defined by the name, the first name, the age, the username and the password. The Organiser and Player classes inherit of the User class as they are specific users. 
 The Player Class displays a list of tables id, of half-days numbers and a notification attribute. This attribute is neal by default and is a string object sent to the player when the organizer has made an action on a table where he was registered (moved, deleted, banned...).
 There is also an attribute that corresponds to his profile, in fact the GameMaster and BasicPlayer classes can be seen as the profils of players. 
@@ -45,6 +44,25 @@ The DAO stocks the objects created in database, without it, every thing would di
 Each DAo is specialized, there is a DAo for each type of object. On top of that, some DAO use other DAO usch as PlayerDao using ScenarioDao and CharacterDao because loading a plyer implies loading his characters and scenarios. Everu classes of DAO type use the singleton DBConnection
 
 What can be achieved with the application :
+This application is designed to help organising a role play meeting. It deals with the registration of the players and game masters for a game giving also to organisers flexible possibilities to organise their meeting.
+This meeting takes place during a week-end, with 4 4-hour sessions of game, one during each half-day. 
+There are two types of users : the players and the organisers. These lasts can deal with the table : they can ban players, remove them from a table, add tables but has also a hand on the characters and scenarios created by players. 
+A game can welcome 5 players, among them, there must be a game player to bring his scenario and make the game happen? Then, 4 basic players can join and at least two. Thus, these are the two types of players and a player can choose between both for each half-day.
+Initially, 10 tables are available et ready to welcome players for each half-day. The organisers can add other tables if necessary but it cannot be more than 20.
+Firstly, an user has a menu offering to either sign in as a player or an organiser or to register as a player. The organiser does not need to register because he is automatically registered and has a username and a password attributed automatically. It is not possible to sign-in if the player has never registered before.
+When the player is connected, he has several options. He can, for example, create a charcater or a scenario, he must enter the name and some features of what he is creating. He must of course, enter appropriate things such as a number for the level. If it is not the case, an error message occurs. 
+The player can display his characters and scenarios with the option in the menu. Thanks to this, he can see their characteristics and their id.
+This id is useful to register at a table because this what is asked to choose the character or the scenario. To register at a table, it is necessary to choose a compatible table with what type of player chosen for the game. For example, to register on a table as a game master, the table must be empty. It is the opposite to register as basic player, there must already be a game master on the table. The table must also not be full. If there is on this problem, the application will say it to the user and not make the action asked. 
+To be sure to choose a good table, there is an option to diplay the tables and see which ones are available and hae scenarios that are interesting etc. 
+There is also the possibility to display only the tables where the user has registered. The player can also cancel his registration to a table. Finally, he can disconnect.
+The organiser has a menu with a similar but different range of possibilities. 
+When the organiser displays the table, he sees all the tables : 80, 20 per half-day. Some of them are desactivate and he can activate them when he wants. The player only sees the activated tables when he displays the tables. 
+An organiser can also add a table, it activates a table which was inactive. 
+He can delete a table : all the players are removed from the table and the table is desactivated. 
+There is also the possibility to remove a particular player from a table if his character does not correspond well to the scenario for example. Then, the organiser can add him to another table. 
+The organiser can also ban a player who will consequently be removed from all the tables.
+When a player is removed from a table or added to another one, he will receive a notification the next time he will log-in.  
+All these possibilities allow the player to participate to the meeting with the characters or scenarios they want on a table they have chosen and allow the organiser to deal with tables to optimize the repartition of the players on the tables for example. 
 
 
 Technology used : 
