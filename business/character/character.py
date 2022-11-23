@@ -1,3 +1,4 @@
+from webservice.api_dd_v2 import ApiDungeonDragon
 
 class Character:
     
@@ -15,16 +16,25 @@ class Character:
         
     
     def check_race(self) -> bool:
-        pass
+        desc_race = ApiDungeonDragon().get_description(race = self.race)
+        if desc_race['race']:
+            return True
+        return False
     def check_equipment(self) -> bool:
-        pass
+        desc_equipment = ApiDungeonDragon().get_description(equipment=self.equipment)
+        if desc_equipment['equipment']:
+            return True
+        return False
     def check_skill(self) -> bool:
-        pass
+        desc_skill = ApiDungeonDragon().get_description(skills=self.skill)
+        if desc_skill['skills']:
+            return True
+        return False
     
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Character \n Id : {self.id} \n Name : {self.name} \n  race : {self.race} \n  equipment : {self.equipment} \n  skill : {self.skill}'
     
-    def __eq__(self, obj):
+    def __eq__(self, obj) -> bool:
         if isinstance(obj,Character):
             if self.id == obj.id and self.username == obj.username and self.name == obj.name and self.level == obj.level and self.race == obj.race and self.skill == obj.skill and self.equipment == obj.equipment:
                 return True

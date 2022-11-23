@@ -5,7 +5,7 @@ from business.notification.notification import Notification
 
 class OrganiserDao:
 
-    def load(self, username:str):
+    def load(self, username:str) -> Organiser:
 
         organiser = None
         request = "SELECT * FROM organiser "\
@@ -26,7 +26,7 @@ class OrganiserDao:
                                     , password=res['password'])
         return organiser
 
-    def save_notif(self, notif: Notification):
+    def save_notif(self, notif: Notification) -> bool:
 
         request = "INSERT INTO notification(username, notif) VALUES "\
                     "(%(username)s, %(notif)s)"\

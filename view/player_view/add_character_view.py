@@ -37,9 +37,12 @@ class AddCharacterView(AbstractView):
 
     def make_choice(self):
         answers = prompt(self.__questions)
+        from view.player_view.menu_view import PlayerMenuView
 
-        if not str.isdigit(answers['level']):
-            print('Error : enter a number for level.')
+        if not str.isdigit(answers['level']) or answers['level'] =='' or answers['name'] =='' or answers['equipment'] =='' or answers['race'] =='' or answers['skill'] =='':
+            print('Error : enter a number for level or fill all the blanks.')
+            return PlayerMenuView()
+
 
         character_to_add = Character(name=answers['name']
                                     , level=answers['level']
@@ -48,10 +51,20 @@ class AddCharacterView(AbstractView):
                                     , skill=answers['skill']
                                     , username=Session().username) 
         
+        print('Checking if race, equipment and skills are ok ...')
+        if not character_to_add.check_race():
+            print('This race is not in te game, please check the available races.')
+            return PlayerMenuView()
+        if not character_to_add.check_equipment():
+            print('This equipment is not in the game, please check the available equipments.')
+            return PlayerMenuView()
+        if not character_to_add.check_skill():
+            print('This skill is not in the game, please check the available skills.')
+            return PlayerMenuView()
+
         if Session().player.basic_player.add_character(character_to_add):
             print('Character succesfully added')
         else:
             print('Something went wrong, probably you have to much characters.')
         
-        from view.player_view.menu_view import PlayerMenuView
         return PlayerMenuView()

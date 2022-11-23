@@ -108,6 +108,11 @@ class AddToTableView(AbstractView):
             if answers['scenchar'][0:5] == 'Error':
                 return PlayerMenuView()
             
+            if not str.isdigit(answers['table_id']) or answers['table_id']=='':
+                print('Error : the table input must be an integer.')
+                return PlayerMenuView()
+
+
             from business.table.table import Table
             if answers['role'] == 'Game Master':
                 id_scenario = int(answers['scenchar'])
@@ -116,7 +121,7 @@ class AddToTableView(AbstractView):
                     if table.add_gamemaster(Session().player, id_scenario):
                         print('Successfully added to the table.')
                     else:
-                        print('Something went wrong when you tried to join the table')
+                        print('Something went wrong when you tried to join the table, maybe there is already a Game Master.')
                 else:
                     print('Table not found.')
 
@@ -127,7 +132,7 @@ class AddToTableView(AbstractView):
                     if table.add_basicplayer(Session().player, id_character):
                         print('Successfully added to the table.')
                     else:
-                        print('Something went wrong when you tried to join the table.')
+                        print('Something went wrong when you tried to join the table, maybe table is full.')
                 else:
                     print('Table not found.')
             
@@ -141,6 +146,10 @@ class AddToTableView(AbstractView):
             if answers['scenchar'][0:5] == 'Error':
                 return OrganiserMenuView()
             
+            if not str.isdigit(answers['table_id']) or answers['table_id']=='':
+                print('Error : the table input must be an integer.')
+                return OrganiserMenuView()
+
             from business.table.table import Table
             if answers['role'] == 'Game Master':
                 id_scenario = int(answers['scenchar'])
@@ -152,7 +161,7 @@ class AddToTableView(AbstractView):
                         Session().organiser.notify_player(notif=message, username=self.player.username)
 
                     else:
-                        print('Something went wrong when you tried to add the player to the table')
+                        print('Something went wrong when you tried to add the player to the table, maybe there is already a Game Master.')
                 else:
                     print('Table not found.')
                     
@@ -166,7 +175,7 @@ class AddToTableView(AbstractView):
                         Session().organiser.notify_player(notif=message, username=self.player.username)
 
                     else:
-                        print('Something went wrong when you tried to add the player to the table.')
+                        print('Something went wrong when you tried to add the player to the table, maybe table is full.')
                 else:
                     print('Table not found.')
             

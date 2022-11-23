@@ -50,7 +50,7 @@ class GameMasterDao:
 
         return removed
 
-    def load(self, username:str):
+    def load(self, username:str) -> GameMaster:
 
         game_master = None
         

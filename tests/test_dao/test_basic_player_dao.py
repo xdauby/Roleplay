@@ -14,23 +14,23 @@ class TestBasicPlayerDao(TestCase):
         basic_player_expected = BasicPlayer(username='ghostminer')
         
         character1 = Character(name='miner1', 
-                              level=12, race='rogue', 
+                              level=12, race='elf', 
                               equipment='pony', 
-                              skill='longswords', 
+                              skill='medicine', 
                               username='ghostminer',
                               id=7)
         
         character2 = Character(name='miner2', 
-                              level=13, race='rogue', 
+                              level=13, race='elf', 
                               equipment='pony', 
-                              skill='longswords', 
+                              skill='medicine', 
                               username='ghostminer',
                               id=8)
         
         character3 = Character(name='miner3', 
-                              level=14, race='rogue', 
+                              level=14, race='elf', 
                               equipment='pony', 
-                              skill='longswords', 
+                              skill='medicine', 
                               username='ghostminer',
                               id=9)
                             
@@ -52,9 +52,9 @@ class TestBasicPlayerDao(TestCase):
         basic_player_expected = BasicPlayer(username='sephix')
         
         character1 = Character(name='battler', 
-                              level=17, race='wizard', 
+                              level=17, race='gnome', 
                               equipment='backpack', 
-                              skill='breastplate', 
+                              skill='nature', 
                               username='sephix',
                               id=2)
         

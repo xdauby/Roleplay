@@ -12,7 +12,7 @@ from dao.player_dao import PlayerDao
 
 class TableDao:
 
-    def load(self, id:int):
+    def load(self, id:int) -> Table:
         
         table = None
 
@@ -127,7 +127,7 @@ class TableDao:
 
         removed = False
 
-        request = 'DELETE FROM char_reg_game WHERE id_game = 41;'\
+        request = 'DELETE FROM char_reg_game WHERE id_game = %(id_game)s;'\
                   'UPDATE game SET id_scenario=NULL '\
                   'WHERE id_game = %(id_game)s;'
 

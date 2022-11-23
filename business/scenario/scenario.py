@@ -9,10 +9,10 @@ class Scenario:
         self.name = name
         self.description = description
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Scenario \n Id : {self.id} \n Name : {self.name} \n Description : {self.description}'
 
-    def __eq__(self, obj):
+    def __eq__(self, obj) -> bool:
         if isinstance(obj,Scenario):
             if self.id == obj.id and self.username == obj.username and self.name == obj.name and self.description == obj.description:
                 return True

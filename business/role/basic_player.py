@@ -28,23 +28,15 @@ class BasicPlayer:
                     return True
         return False
     
+    def __eq__(self, obj) -> bool:
+        if isinstance(obj,BasicPlayer):
+            if self.username == obj.username and self.characters == obj.characters:
+                return True
+        return False
+
     @staticmethod
     def load(username:str):
         from dao.basic_player_dao import BasicPlayerDao
         return BasicPlayerDao().load(username)
 
-    def __str__(self):
-        
-        string = ''
-        for character in self.characters:
-            string += character.__str__() + " "
-        
-        overall = f' Username associated : {self.username},\n {string}' 
-        return overall
 
-
-    def __eq__(self, obj):
-        if isinstance(obj,BasicPlayer):
-            if self.username == obj.username and self.characters == obj.characters:
-                return True
-        return False

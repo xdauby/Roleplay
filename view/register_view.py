@@ -4,6 +4,7 @@ from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
 from business.user.player import Player
+from business.notification.notification import Notification
 from utils_.hash import hash_password
 
 class RegisterView(AbstractView):
@@ -44,8 +45,8 @@ class RegisterView(AbstractView):
         answers = prompt(self.__questions)
 
 
-        if not str.isdigit(answers['age']):
-            print('Error : Your age is not a number.')
+        if not str.isdigit(answers['age']) or answers['age']=='' or answers['username']=='' or answers['firstname']=='' or answers['lastname']=='':
+            print('Error : Your age is not a number or you must fill in all the blanks.')
             from view.start_view import StartView
             return StartView()
 
@@ -63,6 +64,10 @@ class RegisterView(AbstractView):
                             , age=answers['age']
                             , password=password)
             player.save()
+            player.notification = Notification(notification='Welcome !', username=answers['username'])
+            
+            Session().player = player
+
             Session().user_type = 'player'
             Session().username = answers['username']
             from view.player_view.menu_view import PlayerMenuView

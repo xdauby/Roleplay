@@ -1,8 +1,4 @@
 from business.user.abstract_user import User
-from business.role.game_master import GameMaster
-from business.role.basic_player import BasicPlayer
-from business.user.player import Player
-from business.table.table import Table
 from business.notification.notification import Notification
 
 class Organiser(User):

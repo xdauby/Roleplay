@@ -23,16 +23,16 @@ class RmTableView(AbstractView):
         answers = prompt(self.__questions)
 
 
-        if not str.isdigit(answers['table_id']):
+        if not str.isdigit(answers['table_id']) or answers['table_id']=='':
             print('Error : table id must be a number.')
         else:
             from business.table.table import Table
             table = Table.load(answers['table_id'])
             if table:
-                if table.desactive_table():
-                    message = 'You\'ve been moved, check your tables !'
-                    for player in table.players:
+                message = 'You\'ve been moved, check your tables !'
+                for player in table.players:
                         Session().organiser.notify_player(notif=message, username=player.username)
+                if table.desactive_table():    
 
                     print('Table successfully desactivated')
                 else:

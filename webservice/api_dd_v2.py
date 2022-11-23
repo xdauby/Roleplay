@@ -20,13 +20,13 @@ class ApiDungeonDragon:
         list_skills = []
 
         for i in range(len(list_equipment_fetch)):
-            list_equipments.append(list_equipment_fetch[i]['name'])
+            list_equipments.append(list_equipment_fetch[i]['index'])
 
         for i in range(len(list_race_fetch)):
-            list_races.append(list_race_fetch[i]['name'])
+            list_races.append(list_race_fetch[i]['index'])
 
         for i in range(len(list_skills_fetch)):
-            list_skills.append(list_skills_fetch[i]['name'])
+            list_skills.append(list_skills_fetch[i]['index'])
 
         features = {
             'equipments' : list_equipments,

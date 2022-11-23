@@ -40,6 +40,12 @@ class LeaveFromTableView(AbstractView):
 
         if Session().user_type == 'player':
 
+            from view.player_view.menu_view import PlayerMenuView
+
+            if not str.isdigit(answers['table_id']) or answers['table_id']=='':
+                print('Error : the table input must be an integer.')
+                return PlayerMenuView()
+
             table_to_leave = Table.load(int(answers['table_id']))
             
             if table_to_leave:
@@ -51,10 +57,14 @@ class LeaveFromTableView(AbstractView):
             else:
                 print("Unrocognised id table")
 
-            from view.player_view.menu_view import PlayerMenuView
             return PlayerMenuView()
 
         elif Session().user_type == 'organiser':
+            from view.organiser_view.menu_view import OrganiserMenuView
+
+            if not str.isdigit(answers['table_id']) or answers['table_id']=='':
+                print('Error : the table input must be an integer.')
+                return OrganiserMenuView()
 
             table_to_leave = Table.load(int(answers['table_id']))
             
@@ -69,6 +79,5 @@ class LeaveFromTableView(AbstractView):
             else:
                 print("Unrocognised id table")
 
-            from view.organiser_view.menu_view import OrganiserMenuView
             return OrganiserMenuView()
 

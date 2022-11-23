@@ -1,14 +1,15 @@
 from typing import List, Optional
-from business.notification.notification import Notification
 
 from dao.db_connection import DBConnection
 from business.user.player import Player
 from dao.basic_player_dao import BasicPlayerDao
 from dao.game_master_dao import GameMasterDao
+from business.notification.notification import Notification
+
 
 class PlayerDao:
 
-    def load(self, username:str):
+    def load(self, username:str) -> Player:
 
         player = None
         request = "SELECT * FROM player "\
@@ -44,7 +45,7 @@ class PlayerDao:
         return player
 
 
-    def delete(self, username:str):
+    def delete(self, username:str) -> bool:
 
         deleted = False
 
@@ -68,7 +69,7 @@ class PlayerDao:
 
         return deleted
 
-    def save(self, player:Player):
+    def save(self, player:Player) -> bool:
          
         created = False
         request = "INSERT INTO player(username, firstname, lastname, age, password) VALUES "\
@@ -90,7 +91,7 @@ class PlayerDao:
 
         return created
 
-    def load_notif(self,username):
+    def load_notif(self,username) -> Notification:
         
         notif = None
         request = "SELECT * FROM notification WHERE username  = %(username)s ORDER BY id_notif DESC LIMIT 1;"

@@ -1,8 +1,3 @@
-
-from typing import List, Optional
-
-
-from business.role.game_master import GameMaster
 from business.role.basic_player import BasicPlayer
 from business.scenario.scenario import Scenario
 from business.character.character import Character
@@ -178,7 +173,7 @@ class Table:
         
         return view
 
-    def __eq__(self, obj):
+    def __eq__(self, obj) -> bool:
         if isinstance(obj,Table):
             if self.id == obj.id and self.characters == obj.characters and self.scenario == obj.scenario and self.half_day == obj.half_day and self.active == obj.active and self.players==obj.players:
                 return True
