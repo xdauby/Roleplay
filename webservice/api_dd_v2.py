@@ -36,26 +36,34 @@ class ApiDungeonDragon:
 
         return features
 
-    def get_description(self, equipment: str = None, race: str = None, skills: str = None):
+    def get_description(self, equipment: list[str] = None, race: list[str] = None, skills: list[str] = None):
 
         if equipment is None and race is None and skills is None :
-            return "Specify what you want a descrition of"
+            return "Specify what you want a description of"
         
         if equipment is not None:
-            equipment_desc = req.get(self.root + self.equipment_path + '/' + equipment).json()['desc']
-            return equipment_desc
+            equipment_desc = []
+            for eq in equipment :
+                equipment_desc.append(req.get(self.root + self.equipment_path + '/' + eq).json()['desc'])
         
-        elif race is not None:
-            race_fetch = req.get(self.root + self.race_path + '/' + race).json()
+        
+        if race is not None:
+            race_desc = []
+            for r in race :
+                race_fetch = req.get(self.root + self.race_path + '/' + r).json()
 
-            race_speed = race_fetch['speed']
-            race_languages = race_fetch['language_desc']
-            race_age = race_fetch['age']
-            race_size = race_fetch['size']
+                race_speed = race_fetch['speed']
+                race_languages = race_fetch['language_desc']
+                race_age = race_fetch['age']
+                race_size = race_fetch['size']
 
-            race_desc = f'Race speed is {race_speed}, size is {race_size}. {race_age} {race_languages}'
-            return race_desc
+                race_desc.append([f'Race speed is {race_speed}, size is {race_size}. {race_age} {race_languages}'])
+            
 
-        elif skills is not None:
-            skills_desc = req.get(self.root + self.skills_path + '/' + skills).json()['desc']
-            return skills_desc
+        if skills is not None:
+            skills_desc = []
+            for sk in skills :
+                skills_desc.append(req.get(self.root + self.skills_path + '/' + sk).json()['desc'])
+            
+        desc = equipment_desc + race_desc + skills_desc
+        return desc

@@ -12,18 +12,19 @@ class OneFeatureView(AbstractView):
         self.__questions = [
         
             {
-                'type' : 'list',
-                'name' : 'choice',
-                'message' : 'From what type is the feature?',
-                'choices' : [
-                    'equipment'
-                    , 'race'
-                    , 'skill'
-                ]
-            },{
                 'type' : 'input',
-                'name' : 'feature',
-                'message' : 'What the name of the feature you are you looking information on?'
+                'name' : 'equipment',
+                'message' : 'What equipments do you want a description of ?',
+            },
+            {
+                'type' : 'input',
+                'name' : 'race',
+                'message' : 'What races do you want a description of ?',
+            },
+            {
+                'type' : 'input',
+                'name' : 'skills',
+                'message' : 'What skills do you want a description of ?'
             }
         ]
 
@@ -33,12 +34,8 @@ class OneFeatureView(AbstractView):
     def make_choice(self) :
         answers = prompt(self.__questions)
         print(answers)
-        if answers['choice'] == 'equipment' :
-            description = ApiDungeonDragon().get_description(equipment = answers['feature'])
-        elif answers['choice'] == 'race' :
-            description = ApiDungeonDragon().get_description(race = answers['feature'])
-        elif answers['choice'] == 'skill' :
-            description = ApiDungeonDragon().get_description(skills = answers['feature'])
+        description = ApiDungeonDragon().get_description(equipment = answers['equipment'], 
+                                                            race = answers['race'], skills = answers['skills'])
 
         print(description)
         
