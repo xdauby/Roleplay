@@ -41,29 +41,52 @@ class ApiDungeonDragon:
         if equipment is None and race is None and skills is None :
             return "Specify what you want a description of"
         
+
         if equipment is not None:
             equipment_desc = []
             for eq in equipment :
-                equipment_desc.append(req.get(self.root + self.equipment_path + '/' + eq).json()['desc'])
+                try:
+                    equipment_fetch = req.get(self.root + self.equipment_path + '/' + eq).json()['desc']
+                        
+                    if equipment_desc:
+                        equipment_desc.append(eq + ': ' + equipment_fetch[0])
+                    else:
+                        equipment_desc.append(eq + ': ' + 'No description available')
+                except:
+                    pass
         
         
         if race is not None:
             race_desc = []
             for r in race :
-                race_fetch = req.get(self.root + self.race_path + '/' + r).json()
+                try:
+                    race_fetch = req.get(self.root + self.race_path + '/' + r).json()
 
-                race_speed = race_fetch['speed']
-                race_languages = race_fetch['language_desc']
-                race_age = race_fetch['age']
-                race_size = race_fetch['size']
+                    if race_fetch:
+                        race_speed = race_fetch['speed']
+                        race_languages = race_fetch['language_desc']
+                        race_age = race_fetch['age']
+                        race_size = race_fetch['size']
 
-                race_desc.append([f'Race speed is {race_speed}, size is {race_size}. {race_age} {race_languages}'])
+                        race_desc.append(r + ': ' + [f'Race speed is {race_speed}, size is {race_size}. {race_age} {race_languages}'])
+                    else:
+                        race_desc.append(r + ': ' + 'No description available')
+                except:
+                    pass
             
 
         if skills is not None:
             skills_desc = []
             for sk in skills :
-                skills_desc.append(req.get(self.root + self.skills_path + '/' + sk).json()['desc'])
+                try :
+                    skills_fetch = req.get(self.root + self.skills_path + '/' + sk).json()['desc']
+                    
+                    if skills_fetch:
+                        skills_desc.append(sk + ': ' + skills_fetch[0])
+                    else :
+                        skills_desc.append(sk + ': ' + 'No description avalaible')
+                except :
+                    pass
             
         desc = equipment_desc + race_desc + skills_desc
         return desc
