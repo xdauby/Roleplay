@@ -16,9 +16,6 @@ Informations :
 If you want to test, for all players, the non-hashed password is : mdptest
 If you want to test, for all organisers, the non-hashed password is : admin
 
-
-
-
 Explanation of the class diagram : 
 The class diagram features the three layers of the application, the business layer where you can find the code of the classes, the Data Access Object (DAO) which stocks data in databasis and finally the controller layer which is the terminal in our case.
 The DAO class guarantees the permanent connection with the database, it stocks the players, characters, scenarios etc which have been created. 
@@ -49,6 +46,7 @@ This meeting takes place during a week-end, with 4 4-hour sessions of game, one 
 There are two types of users : the players and the organisers. These lasts can deal with the table : they can ban players, remove them from a table, add tables but has also a hand on the characters and scenarios created by players. 
 A game can welcome 5 players, among them, there must be a game player to bring his scenario and make the game happen? Then, 4 basic players can join and at least two. Thus, these are the two types of players and a player can choose between both for each half-day.
 Initially, 10 tables are available et ready to welcome players for each half-day. The organisers can add other tables if necessary but it cannot be more than 20.
+
 Firstly, an user has a menu offering to either sign in as a player or an organiser or to register as a player. The organiser does not need to register because he is automatically registered and has a username and a password attributed automatically. It is not possible to sign-in if the player has never registered before.
 When the player is connected, he has several options. He can, for example, create a charcater or a scenario, he must enter the name and some features of what he is creating. He must of course, enter appropriate things such as a number for the level. If it is not the case, an error message occurs. 
 The player can display his characters and scenarios with the option in the menu. Thanks to this, he can see their characteristics and their id.
@@ -63,6 +61,11 @@ There is also the possibility to remove a particular player from a table if his 
 The organiser can also ban a player who will consequently be removed from all the tables.
 When a player is removed from a table or added to another one, he will receive a notification the next time he will log-in.  
 All these possibilities allow the player to participate to the meeting with the characters or scenarios they want on a table they have chosen and allow the organiser to deal with tables to optimize the repartition of the players on the tables for example. 
+
+Example : 
+If you want to participate to the meeting, you have to select "register as player". Then enter the information asked. The pseudo has to be unique, if someone has already taken it, the application will warn you. Once it is done, you are registered ! To reconnect you, you will have to select sign in and give your pseudo and your password.
+If you want to play a game as a basic player, you will need a character. Choose the option "add character" and answer the information asked. As the pseudo of an user, the name of the character must be unique. It is the same procedure to add a scenario.
+Finally, to be registered for a game, you have to join a table. Select the option and choose the id of the table you want to join. (you should have displayed the tables previously to know which one to choose) Then, say you want to join as a basic player with the character you just created. Remember, there must be a Game master on a table to play as a basic player. Now, you have finished you registration for a game, you can register for a game on another half-day if you like and with an other character you can create or as a game master if you add a scenario.
 
 
 Technology used : 
