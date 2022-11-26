@@ -6,6 +6,7 @@ install python3.8 (not supported after 3.8)
 install required package
 
 $ sudo apt-get install python3.8
+*
 $ pip install -r requirements.txt
 
 change connection informations in .env (you need psql)
