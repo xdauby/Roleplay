@@ -4,7 +4,7 @@
 
 install python3.8 (not supported after 3.8)
 
-install required package
+__install required package__
 
 $ sudo apt-get install python3.8
 
