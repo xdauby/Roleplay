@@ -1,4 +1,6 @@
-How to install :
+# Roleplay meeting application
+***
+# How to install :
 
 install python3.8 (not supported after 3.8)
 install required package
@@ -12,20 +14,18 @@ copy past init.db in your psql
 Then start
 $ python3.8 main.py
 
-Informations :
+# Information :
 If you want to test, for all players, the non-hashed password is : mdptest
 If you want to test, for all organisers, the non-hashed password is : admin
 
-Explanation of the class diagram : 
-The class diagram features the three layers of the application, the business layer where you can find the code of the classes, the Data Access Object (DAO) which stocks data in databasis and finally the controller layer which is the terminal in our case.
-The DAO class guarantees the permanent connection with the database, it stocks the players, characters, scenarios etc which have been created. 
-The controller layer calls the business layer which calls the DAO. 
-In the business layer, there is, firstly, the User class defined by the name, the first name, the age, the username and the password. The Organiser and Player classes inherit of the User class as they are specific users. 
+# Explanation of the class diagram : 
+The class diagram features the three layers of the application, the business layer where you can find the code of the classes, the Data Access Object (DAO) which stocks data in databasis and finally the controller layer which is the terminal in our case. The DAO class guarantees the permanent connection with the database, it stocks the players, characters, scenarios etc which have been created. 
+The controller layer calls the business layer which calls the DAO.  In the business layer, there is, firstly, the User class defined by the name, the first name, the age, the username and the password. The Organiser and Player classes inherit of the User class as they are specific users. 
 The Player Class displays a list of tables id, of half-days numbers and a notification attribute. This attribute is neal by default and is a string object sent to the player when the organizer has made an action on a table where he was registered (moved, deleted, banned...).
 There is also an attribute that corresponds to his profile, in fact the GameMaster and BasicPlayer classes can be seen as the profils of players. 
 A player has also a save method : it does not allow him to save all his attributes but only the followings : name, first name, age, username.
 The delete method deletes a player in database. The player is, therefore, deleted from all the table where he is registered. His scenarios and characters will be saved thaks to other methods. The delete method is also a way for the organiser to ban players.
-The BasicPlayer and GameMaster classes are linked with Player thanks to a composition relation : they cannot exist without the player. It the same type of link between BasicPlayer and Character because a player cannot play without a character and his characterds are deleted when the player is deleted.
+The BasicPlayer and GameMaster classes are linked with Player thanks to a composition relation : they cannot exist without the player. It is the same type of link between BasicPlayer and Character because a player cannot play without a character and his characterds are deleted when the player is deleted.
 A player can create 3 characters maximum and a character is unique, it is linked to only one player. A character has a unique id, a name and some features such as the level, the race and the class. These two last attributes have a description for each that is obtainable in a dict type by the get_description() method.
 The Character class communicates with a webservice (ServiceDG class) where are taken the character's attributes. When a player wants to create a character, he has two choices : directly write the class and the race of the character and then the Webservice will find the corresponding descriptions or choose among a list available in the Webservice.
 The GameMaster exists thanks to the scenarios he creates, thus, there is a composition link between theses two classes. At the beginning, his list of scenarios is empty but he can add and deletes scenarios with a limit of 2 scenaarios in the list. A scenario has a name, an id and a description. Scenarios are automatically uploaded in databases beacause the Game Master class calls the class GameMasterDAO.
@@ -40,7 +40,7 @@ Some views are shared by all the classes and other views specific to the organis
 The DAO stocks the objects created in database, without it, every thing would disappear after the closure of the programme. The DAO of player includes two DAO : GameMaster and BasicPlayerDao which are not on the diagram to make it easier to read. 
 Each DAo is specialized, there is a DAo for each type of object. On top of that, some DAO use other DAO usch as PlayerDao using ScenarioDao and CharacterDao because loading a plyer implies loading his characters and scenarios. Everu classes of DAO type use the singleton DBConnection
 
-What can be achieved with the application :
+# What can be achieved with the application :
 This application is designed to help organising a role play meeting. It deals with the registration of the players and game masters for a game giving also to organisers flexible possibilities to organise their meeting.
 This meeting takes place during a week-end, with 4 4-hour sessions of game, one during each half-day. 
 There are two types of users : the players and the organisers. These lasts can deal with the table : they can ban players, remove them from a table, add tables but has also a hand on the characters and scenarios created by players. 
@@ -62,13 +62,13 @@ The organiser can also ban a player who will consequently be removed from all th
 When a player is removed from a table or added to another one, he will receive a notification the next time he will log-in.  
 All these possibilities allow the player to participate to the meeting with the characters or scenarios they want on a table they have chosen and allow the organiser to deal with tables to optimize the repartition of the players on the tables for example. 
 
-Example : 
+# Example : 
 If you want to participate to the meeting, you have to select "register as player". Then enter the information asked. The pseudo has to be unique, if someone has already taken it, the application will warn you. Once it is done, you are registered ! To reconnect you, you will have to select sign in and give your pseudo and your password.
 If you want to play a game as a basic player, you will need a character. Choose the option "add character" and answer the information asked. As the pseudo of an user, the name of the character must be unique. It is the same procedure to add a scenario.
 Finally, to be registered for a game, you have to join a table. Select the option and choose the id of the table you want to join. (you should have displayed the tables previously to know which one to choose) Then, say you want to join as a basic player with the character you just created. Remember, there must be a Game master on a table to play as a basic player. Now, you have finished you registration for a game, you can register for a game on another half-day if you like and with an other character you can create or as a game master if you add a scenario.
 
 
-Technology used : 
+# Technology used : 
 This application is coded in python. The entire code has been written by us. The SQL language is also used to make all the requests to communicate with the database. This base is stocked on postgresql.
 To obtain the list of the characters that the players can use, we use the D&D 5th API, its adress is http://www.dnd5eapi.co/ .
 To collaborate and share our codes, we have used git hub. 
