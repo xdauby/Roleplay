@@ -4,12 +4,25 @@ from business.character.character import Character
 from business.user.player import Player
 
 class Table:
+    """
+    Table class
+    A Table is an aggregation of Player.
+    We can add and remove Players from Table.
+    We can active and desactive Tables.
+    """
 
     def __init__(self, half_day:int,
                         active:bool ,
                         id:int = None, 
                         scenario: Scenario=None) -> None:
-        
+        """init
+
+        Args:
+            half_day (int): half days of the Table
+            active (bool): state of the Table
+            id (int, optional): id of the Table Defaults to None.
+            scenario (Scenario, optional): Scenario of the table. Defaults to None.
+        """        
         self.id = id
         self.half_day = half_day
         self.active = active
@@ -21,7 +34,15 @@ class Table:
         
 
     def add_gamemaster(self, player: Player, id_scenario:int) -> bool:
-        
+        """add a player with a Scenario
+
+        Args:
+            player (Player): Player to add
+            id_scenario (int): id of the Scenario the player wants to join the table with
+
+        Returns:
+            bool: True if the Player has been added, else False
+        """        
         from dao.table_dao import TableDao
         #check if there is no game master and the table is ative
         if not(self.scenario) and self.active:
@@ -43,6 +64,15 @@ class Table:
         return False
 
     def add_basicplayer(self, player: Player, id_character:int)-> bool:
+        """add a player with a Character
+
+        Args:
+            player (Player): Player to add
+            id_character (int): id of the Character the player wants to join the table with
+
+        Returns:
+            bool: True if the Player has been added, else False
+        """
         from dao.table_dao import TableDao
         #check if there is a game master and the table is active
         if self.scenario and self.active:
@@ -68,6 +98,14 @@ class Table:
     
 
     def rm_player(self, username:str) -> bool:
+        """remove Player from the Table
+
+        Args:
+            username (str): username of the Player to remove
+
+        Returns:
+            bool: True if the Player has been removed, else False
+        """        
         
         removed = False
         if not self.scenario:
@@ -121,6 +159,11 @@ class Table:
         return removed
     
     def active_table(self) -> bool:
+        """active a table
+
+        Returns:
+            bool: True if the Table has been activated, else False
+        """        
 
         from dao.table_dao import TableDao
         if TableDao().active_table(self.id):
@@ -129,6 +172,11 @@ class Table:
         return False 
 
     def desactive_table(self) -> bool:
+        """desactive a Table
+
+        Returns:
+            bool: True if the Table has been desactivated, else False
+        """        
 
         from dao.table_dao import TableDao
         if self.scenario:
@@ -142,11 +190,28 @@ class Table:
 
     @staticmethod
     def load(table_id : int):
+        """Load a Table from data base
+
+        Args:
+            table_id (int): id of the Table to load
+
+        Returns:
+            Table: return the loaded Table
+        """        
         from dao.table_dao import TableDao
         return TableDao().load(table_id)
 
     @staticmethod
     def load_player_tables(id_list_table):
+        """Load a list of Table from a list of id Tables. The player in those tables are partially loaded,
+           because it's just used for display. Please do not use Table methods in thoses Tables.
+
+        Args:
+            id_list_table (list(int)): list of table id to display
+
+        Returns:
+            list(Table) : list of Tables to display
+        """        
         if id_list_table:
             from dao.table_dao import TableDao
             return TableDao().load_user_tables(id_list_table)
@@ -154,6 +219,15 @@ class Table:
 
     @staticmethod
     def load_all_tables(show_desactive : bool):
+        """Load a list of Table from a list of id Tables. The player in those tables are partially loaded,
+           because it's just used for display. Please do not use Table methods in thoses Tables.
+
+        Args:
+            show_desactive (bool): True to load all tables even desactivated ones, False for only activated Tables
+
+        Returns:
+            list(Table) : list of Tables to display
+        """ 
         from dao.table_dao import TableDao
         return TableDao().load_all(show_desactive)
 

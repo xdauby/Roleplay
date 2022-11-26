@@ -1,9 +1,18 @@
 
 
 class Scenario:
+    """Scenario class
+    """    
     
     def __init__(self, name:str, description:str, id:int = None, username:str = None) -> None:
-        
+        """init
+
+        Args:
+            name (str): name of the scenario
+            description (str): description of the scenario
+            id (int, optional): id of the scenario Defaults to None.
+            username (str, optional): username of the player who owns the scenario Defaults to None.
+        """        
         self.id = id
         self.username = username
         self.name = name

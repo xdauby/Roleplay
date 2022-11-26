@@ -1,7 +1,15 @@
 
 class Notification:
+    """ Notification class
+    """    
     def __init__(self,notification:str,username:str, id:int = None):
-        
+        """_summary_
+
+        Args:
+            notification (str): the message of the notification
+            username (str): the username player who owns the Notification 
+            id (int, optional):  Defaults to None.
+        """        
         self.id=id
         self.notification=notification
         self.username=username
