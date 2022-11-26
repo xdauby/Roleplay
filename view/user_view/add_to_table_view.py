@@ -132,7 +132,7 @@ class AddToTableView(AbstractView):
                     if table.add_basicplayer(Session().player, id_character):
                         print('Successfully added to the table.')
                     else:
-                        print('Something went wrong when you tried to join the table, maybe table is full.')
+                        print('Something went wrong when you tried to join the table, maybe table is full or there is no GameMaster at this table.')
                 else:
                     print('Table not found.')
             
@@ -175,7 +175,7 @@ class AddToTableView(AbstractView):
                         Session().organiser.notify_player(notif=message, username=self.player.username)
 
                     else:
-                        print('Something went wrong when you tried to add the player to the table, maybe table is full.')
+                        print('Something went wrong when you tried to add the player to the table, maybe table is full or there is no GameMaster at this table.')
                 else:
                     print('Table not found.')
             

@@ -1,12 +1,10 @@
 from utils_.singleton import Singleton
-
+from business.user.player import Player
+from business.user.organiser import Organiser
 
 class Session(metaclass=Singleton):
     def __init__(self):
-        """
-        Définition des variables que l'on stocke en session
-        Le syntaxe
-        ref:type = valeur
-        permet de donner le type des variables. Utile pour l'autocompletion.
-        """
+        
         self.username: str = None
+        self.player: Player = None
+        self.organiser: Organiser = None 

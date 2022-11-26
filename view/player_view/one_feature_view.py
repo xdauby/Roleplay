@@ -3,7 +3,7 @@ from pprint import pprint
 from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
-from webservice.api_dd_v2 import ApiDungeonDragon
+from webservice.service_dd import ServiceDD
 
 
 class OneFeatureView(AbstractView):
@@ -33,11 +33,24 @@ class OneFeatureView(AbstractView):
 
     def make_choice(self) :
         answers = prompt(self.__questions)
-        print(answers)
-        description = ApiDungeonDragon().get_description(equipment = answers['equipment'], 
+
+        description = ServiceDD().get_description(equipment = answers['equipment'], 
                                                             race = answers['race'], skills = answers['skills'])
 
-        print(description)
+        if description['equipment']:
+            print(f"{answers['equipment']} : {description['equipment']}")
+        else:
+            print('Unrecognised equipment')
+        
+        if description['race']:
+            print(f"{answers['race']} : {description['race']}")
+        else:
+            print('Unrecognised race')
+        
+        if description['skills']:
+            print(f"{answers['skills']} : {description['skills']}")
+        else:
+            print('Unrecognised skill')
         
         from view.player_view.menu_view import PlayerMenuView
         return PlayerMenuView()

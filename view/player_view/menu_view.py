@@ -25,7 +25,7 @@ class PlayerMenuView(AbstractView):
                     , 'display my tables'
                     , 'display all tables'
                     , 'display all features for characters'
-                    , 'display description of a feature '
+                    , 'display description of features'
                     , 'Leave'
                 ]
             }
@@ -87,7 +87,7 @@ class PlayerMenuView(AbstractView):
             from view.player_view.all_features_view import AllFeaturesView
             return AllFeaturesView()
 
-        elif reponse['choice'] == 'display description of a feature ':
+        elif reponse['choice'] == 'display description of features':
             from view.player_view.one_feature_view import OneFeatureView
             return OneFeatureView()
 

@@ -1,4 +1,4 @@
-from webservice.api_dd_v2 import ApiDungeonDragon
+from webservice.service_dd import ServiceDD
 
 class Character:
     """Class character
@@ -33,7 +33,7 @@ class Character:
         Returns:
             bool: True if the race is in the api, else false
         """        
-        desc_race = ApiDungeonDragon().get_description(race = self.race)
+        desc_race = ServiceDD().get_description(race = self.race)
         if desc_race['race']:
             return True
         return False
@@ -43,7 +43,7 @@ class Character:
         Returns:
             bool: True if the equipment is in the api, else false
         """ 
-        desc_equipment = ApiDungeonDragon().get_description(equipment=self.equipment)
+        desc_equipment = ServiceDD().get_description(equipment=self.equipment)
         if desc_equipment['equipment']:
             return True
         return False
@@ -53,7 +53,7 @@ class Character:
         Returns:
             bool: True if the skill is in the api, else false
         """ 
-        desc_skill = ApiDungeonDragon().get_description(skills=self.skill)
+        desc_skill = ServiceDD().get_description(skills=self.skill)
         if desc_skill['skills']:
             return True
         return False

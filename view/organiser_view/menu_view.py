@@ -13,8 +13,8 @@ class OrganiserMenuView(AbstractView):
                 'name': 'choice',
                 'message': '',
                 'choices': [
-                    'add player table'
-                    , 'remove player table'
+                    'add player to table'
+                    , 'remove player from table'
                     , 'ban player'
                     , 'add table'
                     , 'remove table'
@@ -31,10 +31,10 @@ class OrganiserMenuView(AbstractView):
     def make_choice(self):
         reponse = prompt(self.__questions)
         
-        if reponse['choice'] == 'add player table':
+        if reponse['choice'] == 'add player to table':
             from view.user_view.add_to_table_view import AddToTableView
             return AddToTableView()
-        elif reponse['choice'] == 'remove player table':
+        elif reponse['choice'] == 'remove player from table':
             from view.user_view.leave_from_table_view import LeaveFromTableView
             return LeaveFromTableView()
         elif reponse['choice'] == 'ban player':

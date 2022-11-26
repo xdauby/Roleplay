@@ -3,7 +3,7 @@ from pprint import pprint
 from PyInquirer import  prompt
 from view.abstract_view import AbstractView
 from view.session import Session
-from webservice.api_dd_v2 import ApiDungeonDragon
+from webservice.service_dd import ServiceDD
 
 from business.scenario.scenario import Scenario
 
@@ -11,7 +11,7 @@ class AllFeaturesView(AbstractView):
 
     def display_info(self):
         print('Waiting for feature ...')
-        features = ApiDungeonDragon().get_features_list()
+        features = ServiceDD().get_features_list()
         equipments = features['equipments']
         skills = features['skills']
         races = features['races']
