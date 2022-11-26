@@ -2,19 +2,19 @@
 ***
 # How to install :
 
-install python3.8 (not supported after 3.8)
+Install python3.8 (__not supported after 3.8__)
 
-__install required package__
+__Install required package__
 
 $ sudo apt-get install python3.8
 
 $ pip install -r requirements.txt
 
-change connection informations in .env (you need psql)
+Change connection informations in .env (you need psql)
 
-copy past init.db in your psql
+Copy past init.db in your psql
 
-Then start
+__Then start__
 
 $ python3.8 main.py
 
