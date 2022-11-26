@@ -8,9 +8,17 @@ from business.notification.notification import Notification
 
 
 class PlayerDao:
-
+    """
+    Player Dao class
+    """    
     def load(self, username:str) -> Player:
+        """load a player from database
+        Args:
+            username (str): player username
 
+        Returns:
+            Player: loaded Player
+        """        
         player = None
         request = "SELECT * FROM player "\
                   "WHERE username = %(username)s;"
@@ -46,9 +54,21 @@ class PlayerDao:
 
 
     def delete(self, username:str) -> bool:
+        """delete a Player from data base. It implies to delete all his characters and scenarios,
+            but also to delete him from the tables.
 
+        Args:
+            username (str): username of the Player to delete
+
+        Returns:
+            bool: True if the Player has been deleted, else False
+        """        
         deleted = False
 
+        #first request : delete the player
+        #second request : delete association in char_reg_game where the player happen
+        #the drop cascade allows us to avoid some requests
+        
         request = 'DELETE FROM player WHERE username=%(username)s;'\
                     'DELETE FROM char_reg_game WHERE id_game in '\
                     '(SELECT game.id_game FROM player '\
@@ -70,7 +90,14 @@ class PlayerDao:
         return deleted
 
     def save(self, player:Player) -> bool:
-         
+        """save a Player into database. It's only save User attributes.
+
+        Args:
+            player (Player): the Player to save
+
+        Returns:
+            bool: True if the Player has been saved, else False
+        """         
         created = False
         request = "INSERT INTO player(username, firstname, lastname, age, password) VALUES "\
                   "(%(username)s,%(firstname)s,%(lastname)s,%(age)s,%(password)s)"\
@@ -91,8 +118,15 @@ class PlayerDao:
 
         return created
 
-    def load_notif(self,username) -> Notification:
-        
+    def load_notif(self,username:str) -> Notification:
+        """load Player notification
+
+        Args:
+            username (str): username of notification's Player
+
+        Returns:
+            Notification: loaded notification
+        """        
         notif = None
         request = "SELECT * FROM notification WHERE username  = %(username)s ORDER BY id_notif DESC LIMIT 1;"
         
@@ -110,7 +144,14 @@ class PlayerDao:
         return notif
 
     def delete_notif(self, username:str) -> bool:
+        """delete notification in database
 
+        Args:
+            username (str): username of notification's Player
+
+        Returns:
+            bool: True if the Notification has been deleted, else False
+        """        
         deleted = False
         
         request = 'DELETE FROM notification WHERE username  = %(username)s;'\
@@ -127,8 +168,15 @@ class PlayerDao:
             deleted = True
         return deleted
 
-    def player_halfday_and_tables_id(self,username: str):
+    def player_halfday_and_tables_id(self,username: str) -> dict:
+        """load the halfdays and tables id of a given Player
 
+        Args:
+            username (str): Player username
+
+        Returns:
+            dict: dictionary with halfday and tables_id of the player
+        """        
         halfday = []
         tables_id = []
 

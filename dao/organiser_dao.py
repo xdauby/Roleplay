@@ -4,9 +4,18 @@ from business.user.organiser import Organiser
 from business.notification.notification import Notification
 
 class OrganiserDao:
+    """Organiser DAO class
+    """    
 
     def load(self, username:str) -> Organiser:
+        """load Organiser
 
+        Args:
+            username (str): username of the Organiser to load
+
+        Returns:
+            Organiser: return the loaded Organiser
+        """        
         organiser = None
         request = "SELECT * FROM organiser "\
                   "WHERE username = %(username)s;"
@@ -27,7 +36,14 @@ class OrganiserDao:
         return organiser
 
     def save_notif(self, notif: Notification) -> bool:
+        """save notification into database
 
+        Args:
+            notif (Notification): notification to save
+
+        Returns:
+            bool: True if the notification has been saved, else False
+        """        
         request = "INSERT INTO notification(username, notif) VALUES "\
                     "(%(username)s, %(notif)s)"\
                     "RETURNING id_notif;"

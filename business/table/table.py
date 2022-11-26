@@ -219,7 +219,7 @@ class Table:
 
     @staticmethod
     def load_all_tables(show_desactive : bool):
-        """Load a list of Table from a list of id Tables. The player in those tables are partially loaded,
+        """Load all Tables. The player in those tables are partially loaded,
            because it's just used for display. Please do not use Table methods in thoses Tables.
 
         Args:

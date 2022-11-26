@@ -5,9 +5,18 @@ from business.character.character import Character
 from business.role.basic_player import BasicPlayer
 
 class BasicPlayerDao:
+    """Dao of BasicPlayer
+    """    
     
     def add_character(self, character: Character) -> bool:
+        """add a Character to the data base
 
+        Args:
+            character (Character): Character to add
+
+        Returns:
+            bool: True if the Character has been added, else False
+        """        
         created = False
         request = "INSERT INTO character(username, name, level, equipment, race, skill) VALUES "\
                   "(%(username)s,%(name)s, %(level)s, %(equipment)s, %(race)s, %(skill)s)"\
@@ -32,7 +41,14 @@ class BasicPlayerDao:
         
 
     def rm_character(self, id:int) -> bool:
-        
+        """remove a Character from database
+
+        Args:
+            id (int): id of the Character to remove
+
+        Returns:
+            bool: True if the Character has been removed, else False
+        """        
         removed = False
         request = "DELETE FROM char_reg_game WHERE id_char = %(id)s;"\
                   "DELETE FROM character WHERE id_char = %(id)s;"\
@@ -50,7 +66,14 @@ class BasicPlayerDao:
         return removed
 
     def load(self, username:str) -> BasicPlayer:
-        
+        """Load BasicPlayer profile
+
+        Args:
+            username (str): username of the BasicPlayer profile to load
+
+        Returns:
+            BasicPlayer: BasicPlayer profile loaded
+        """        
         basic_player = None
 
         requests = "SELECT * FROM player  "\

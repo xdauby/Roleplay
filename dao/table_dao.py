@@ -11,9 +11,18 @@ from business.user.player import Player
 from dao.player_dao import PlayerDao
 
 class TableDao:
+    """Table Dao class
+    """    
 
     def load(self, id:int) -> Table:
-        
+        """load Table from database
+
+        Args:
+            id (int): id of the table to load
+
+        Returns:
+            Table: loaded Table
+        """        
         table = None
 
         
@@ -88,7 +97,15 @@ class TableDao:
         return table
 
     def add_gm_to_table(self, id_scenario: int, id_game: int) -> bool:
+        """add a Player with a Scenario in a table, in database
 
+        Args:
+            id_scenario (int): id Scenario of the Player
+            id_game (int): id of the table
+
+        Returns:
+            bool: True if the The player has been added to the table in database, else False
+        """        
         updated = False
 
         request = 'UPDATE game SET id_scenario=%(id_scenario)s '\
@@ -106,7 +123,15 @@ class TableDao:
         return updated        
 
     def add_bp_to_table(self, id_character:int, id_game: int) -> bool:
+        """add a Player with a Character in a table, in database
 
+        Args:
+            id_character (int): id of the Character of the Player to add
+            id_game (int): id of the table
+
+        Returns:
+            bool: True if the The player has been added to the table in database, else False
+        """        
         updated = False
 
         request = 'INSERT INTO char_reg_game(id_game, id_char) VALUES'\
@@ -124,7 +149,14 @@ class TableDao:
         return updated        
 
     def rm_gm_from_table(self, id_game:int) -> bool:
+        """remove Player with a Scenario from the table, in database
 
+        Args:
+            id_game (int): table id
+
+        Returns:
+            bool: True if the Player has been removed from the table in db, else False
+        """        
         removed = False
 
         request = 'DELETE FROM char_reg_game WHERE id_game = %(id_game)s;'\
@@ -142,7 +174,14 @@ class TableDao:
         return removed 
 
     def rm_bp_from_table(self, id_game:int, id_character:int) -> bool:
+        """remove BasicPlayer with a Character from the table, in database
 
+        Args:
+            id_game (int): table id
+
+        Returns:
+            bool: True if the Player has been removed from the table in db, else False
+        """  
         removed = False
 
         request = 'DELETE FROM char_reg_game '\
@@ -161,7 +200,14 @@ class TableDao:
         return removed 
 
     def active_table(self, id_game:int) -> bool:
+        """active a Table in database
 
+        Args:
+            id_game (int): id of the table to active
+
+        Returns:
+            bool: True if the Table has been activated, else False
+        """
         active = False
         request = 'UPDATE game SET active=TRUE '\
                   'WHERE id_game = %(id_game)s; '
@@ -177,7 +223,14 @@ class TableDao:
         return active
 
     def desactive_table(self, id_game:int) -> bool:
+        """desactive a Table in database
 
+        Args:
+            id_game (int): id of the table to desactivate
+
+        Returns:
+            bool: True if the table has been desactivated in db, else False
+        """
         desactive = False
         request = 'UPDATE game SET active=FALSE '\
                   'WHERE id_game = %(id_game)s; '
@@ -193,6 +246,15 @@ class TableDao:
         return desactive
 
     def load_user_tables(self, table_id):
+        """Load a list of Table from a list of id Tables. The player in those tables are partially loaded,
+           because it's just used for display. Please do not use Table methods in thoses Tables.
+
+        Args:
+            table_id (list(int)): list of table id to load
+
+        Returns:
+            list(Table) : list of Tables loaded
+        """ 
         tables = []
         request_gamemaster = "SELECT * FROM game "\
                             "inner JOIN scenario on scenario.id_scenario = game.id_scenario "\
@@ -271,7 +333,15 @@ class TableDao:
 
 
     def load_all(self, show_desactive:bool):
-        
+        """Load all Tables. The player in those tables are partially loaded,
+           because it's just used for display. Please do not use Table methods in thoses Tables.
+
+        Args:
+            show_desactive (bool): True to load all tables even desactivated ones, False for only activated Tables
+
+        Returns:
+            list(Table) : list of Tables to display
+        """ 
         if show_desactive:
             request_gamemaster = "SELECT * FROM game "\
                                 "LEFT JOIN scenario on scenario.id_scenario = game.id_scenario "\
