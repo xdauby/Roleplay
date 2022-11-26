@@ -6,16 +6,18 @@ install python3.8 (not supported after 3.8)
 install required package
 
 $ sudo apt-get install python3.8
-*
+
 $ pip install -r requirements.txt
 
 change connection informations in .env (you need psql)
 copy past init.db in your psql
 
 Then start
+
 $ python3.8 main.py
 
 # Information :
+
 If you want to test, for all players, the non-hashed password is : mdptest
 If you want to test, for all organisers, the non-hashed password is : admin
 
